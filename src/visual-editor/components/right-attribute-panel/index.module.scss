@@ -1,0 +1,61 @@
+/**
+* @name: index.module
+* @author: 卜启缘
+* @date: 2021/4/28 17:03
+* @description：index.module
+* @update: 2021/4/28 17:03
+*/
+$boxShadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
+
+.drawer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+  background-color: white;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
+  box-shadow: $boxShadow;
+  z-index: 20;
+  &.is-open {
+    transform: translateX(0);
+    /*.floating-action-btn {
+      transform: translateX(0);
+    }*/
+  }
+  /*&:hover {
+    .floating-action-btn {
+      transform: translateX(-20px);
+    }
+  }*/
+}
+
+.drawer.is-open {
+  transform: translateX(0);
+}
+
+.floating-action-btn {
+  position: absolute;
+  width: 20px;
+  height: 80px;
+  background: #fff;
+  box-shadow: $boxShadow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-20px);
+  transition: transform 0.5s ease-in-out;
+  left: 0;
+  top: 50%;
+  cursor: pointer;
+}
+
+.attrs {
+  position: absolute;
+  padding: 12px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  overflow: auto;
+}

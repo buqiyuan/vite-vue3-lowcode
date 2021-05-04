@@ -1,0 +1,14 @@
+body {
+  overflow: hidden;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 10px;
+}
+.placeholder {
+  color: #c8c9cc;
+}

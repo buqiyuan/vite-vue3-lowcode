@@ -1,0 +1,20 @@
+/**
+* @name: MonacoEditor
+* @author: 卜启缘
+* @date: 2021/4/30 0:04
+* @description：MonacoEditor
+* @update: 2021/4/30 0:04
+*/
+.container {
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+.title {
+  background-color: #eee;
+  padding: 10px 0 10px 20px;
+}
+.code {
+  flex-grow: 1
+}
