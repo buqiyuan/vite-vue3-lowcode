@@ -1,19 +1,13 @@
 <template>
-  <el-dialog v-model="dialogVisible" custom-class="h5-preview" :show-close="false" width="360px">
-    <iframe
-      style="width: 360px; height: 640px"
-      :src="`${BASE_URL}preview/#/`"
-      frameborder="0"
-      scrolling="auto"
-    ></iframe>
-  </el-dialog>
+  <template v-for="outItem in jsonData" :key="outItem._vid">
+    <slot-item :element="outItem" :config="visualConfig" />
+  </template>
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, watch, toRefs } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { cloneDeep } from 'lodash'
-import { BASE_URL } from '@/visual-editor/utils'
+import { defineComponent, PropType, reactive, toRefs } from 'vue'
+import { visualConfig } from '@/visual.config'
+import SlotItem from './slot-item.vue'
 /**
  * @name: preview
  * @author: 卜启缘
@@ -23,28 +17,16 @@ import { BASE_URL } from '@/visual-editor/utils'
  */
 export default defineComponent({
   name: 'Preview',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    }
+  components: {
+    SlotItem
   },
   emits: ['update:visible'],
-  setup(props, { emit }) {
+  setup(props) {
     const state = reactive({
-      dialogVisible: useVModel(props, 'visible', emit),
-      jsonDataClone: cloneDeep(props.jsonData)
+      jsonData: JSON.parse(sessionStorage.getItem('blocks') || '{}')
     })
 
-    watch(
-      () => state.dialogVisible,
-      (val) => {
-        if (val) {
-          state.jsonDataClone = cloneDeep(props.jsonData)
-        }
-      }
-    )
-
+    // 渲染组件
     const renderCom = (element) => {
       if (Array.isArray(element)) {
         return element.map((item) => renderCom(item))
@@ -62,7 +44,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      BASE_URL,
+      visualConfig,
       renderCom
     }
   }
@@ -72,9 +54,6 @@ export default defineComponent({
 <style lang="scss">
 .h5-preview {
   overflow: hidden;
-  .el-dialog__body {
-    padding: 0;
-  }
   .el-dialog__header {
     display: none;
   }

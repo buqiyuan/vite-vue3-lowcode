@@ -14,18 +14,19 @@
           icon="el-icon-video-play"
           circle
           class="flex-shrink-0"
-          @click="isShowH5Preview = true"
+          @click="runPreview"
         />
       </el-tooltip>
     </el-col>
   </el-row>
-  <preview v-model:visible="isShowH5Preview" :json-data="jsonData" :config="config" />
+  <template v-if="isShowH5Preview">
+    <preview v-model:visible="isShowH5Preview" />
+  </template>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import Preview from './preview.vue'
-import { VisualEditorConfig } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'Header',
@@ -34,16 +35,21 @@ export default defineComponent({
     jsonData: {
       type: Object,
       default: () => ({})
-    },
-    config: { type: Object as PropType<VisualEditorConfig>, required: true }
+    }
   },
-  setup() {
+  setup(props) {
     const state = reactive({
       isShowH5Preview: false
     })
 
+    const runPreview = () => {
+      sessionStorage.setItem('blocks', JSON.stringify(props.jsonData.blocks))
+      state.isShowH5Preview = true
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      runPreview
     }
   }
 })

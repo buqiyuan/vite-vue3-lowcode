@@ -21,7 +21,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  //overflow: hidden auto;
+
   @media (max-width: 1314px) {
     padding-right: 0;
   }
@@ -35,6 +35,7 @@ export default defineComponent({
   border-radius: 5px;
   box-shadow: 0 8px 12px #ebedf0;
   transform: translate(0);
+  overflow: auto;
 
   &::-webkit-scrollbar {
     width: 0;

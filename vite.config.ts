@@ -50,8 +50,24 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }
     },
     base: VITE_BASE_URL, // 设置打包路径
+    build: {
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          preview: resolve(__dirname, 'preview/index.html')
+        }
+      }
+    },
     optimizeDeps: {
-      include: ['vue', 'vue-router', '@vueuse/core'],
+      include: [
+        'vue',
+        'vue-router',
+        '@vueuse/core',
+        'element-plus',
+        'vant',
+        'lodash',
+        'vuedraggable'
+      ],
       exclude: ['vue-demi']
     },
     server: {
