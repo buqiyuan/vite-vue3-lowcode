@@ -7,16 +7,20 @@
     <el-col :span="12">
       <div></div>
     </el-col>
-    <el-col :span="6" class="flex flex-row-reverse items-center">
+    <el-col :span="6" class="right-tools flex flex-row-reverse items-center">
       <el-tooltip class="item" effect="dark" content="运行" placement="bottom">
         <el-button
           type="primary"
+          size="mini"
           icon="el-icon-video-play"
           circle
           class="flex-shrink-0"
           @click="runPreview"
         />
       </el-tooltip>
+      <a href="https://github.com/buqiyuan/vite-vue3-lowcode" target="_blank">
+        <img src="/github.svg" width="40" height="40" alt="" />
+      </a>
     </el-col>
   </el-row>
   <template v-if="isShowH5Preview">
@@ -66,6 +70,9 @@ export default defineComponent({
   }
   .el-button {
     font-size: 22px;
+  }
+  .right-tools > * {
+    margin-left: 8px;
   }
 }
 </style>
