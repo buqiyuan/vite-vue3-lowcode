@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <router-view #="{ Component }">
-      <component :is="Component" />
-    </router-view>
-  </div>
+  <router-view #="{ Component, route }">
+    <component :is="Component" :key="route.path" />
+  </router-view>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'App'
-}
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    return {}
+  }
+})
 </script>
 
 <style>

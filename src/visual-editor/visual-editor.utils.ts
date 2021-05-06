@@ -1,6 +1,6 @@
 import { VisualEditorProps } from './visual-editor.props'
 import { inject, provide } from 'vue'
-import { useDotProp } from '@/visual-editor/utils/useDotProp'
+import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 
 export interface VisualEditorBlockData {
   _vid: string // 组件id 时间戳
@@ -21,12 +21,23 @@ export interface VisualEditorBlockData {
   [prop: string]: any
 }
 
+export interface VisualEditorPage {
+  title: string // 页面标题
+  isDefault?: boolean // 404是重定向到默认页面
+  blocks: VisualEditorBlockData[] // 当前页面的所有组件
+}
+
+export interface VisualEditorPages {
+  [path: string]: VisualEditorPage
+}
+
 export interface VisualEditorModelValue {
   container: {
     width: number
     height: number
   }
-  blocks?: VisualEditorBlockData[]
+  // 页面
+  pages: VisualEditorPages
 }
 
 export interface VisualEditorComponent {

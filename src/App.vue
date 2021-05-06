@@ -1,44 +1,25 @@
 <template>
-  <!--  <router-view #="{ Component }">-->
-  <!--    <component :is="Component" />-->
-  <!--  </router-view>-->
-  <visual-editor
-    v-model="jsonData"
-    :config="visualConfig"
-    :form-data="formData"
-    :custom-props="customProps"
-  />
+  <visual-editor />
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, provide } from 'vue'
 import VisualEditor from '@/visual-editor/index.vue'
-import { visualConfig } from './visual.config'
+import { initVisualData, injectKey, localKey } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'App',
   components: { VisualEditor },
   setup() {
-    const state = reactive({
-      jsonData: {
-        container: {
-          height: 500,
-          width: 800
-        },
-        blocks: JSON.parse(sessionStorage.getItem('blocks') || '[]')
-      },
-      formData: [],
-      customProps: {}
-    })
+    const visualData = initVisualData()
+    // 注入可视化编辑器所有配置
+    provide(injectKey, visualData)
+
+    const { jsonData } = visualData
 
     window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('blocks', JSON.stringify(state.jsonData.blocks))
+      sessionStorage.setItem(localKey, JSON.stringify(jsonData))
     })
-
-    return {
-      ...toRefs(state),
-      visualConfig
-    }
   }
 })
 </script>

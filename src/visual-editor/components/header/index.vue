@@ -27,23 +27,21 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import Preview from './preview.vue'
+import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'Header',
   components: { Preview },
-  props: {
-    jsonData: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  setup(props) {
+  setup() {
     const state = reactive({
       isShowH5Preview: false
     })
 
+    const { jsonData } = useVisualData()
+
     const runPreview = () => {
-      sessionStorage.setItem('blocks', JSON.stringify(props.jsonData.blocks))
+      sessionStorage.setItem(localKey, JSON.stringify(jsonData))
+      localStorage.setItem(localKey, JSON.stringify(jsonData))
       state.isShowH5Preview = true
     }
 

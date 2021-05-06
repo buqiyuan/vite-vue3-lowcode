@@ -1,5 +1,5 @@
 <template>
-  <draggable-transition-group v-model:drag="drag" v-model="VMBlocks">
+  <draggable-transition-group v-model:drag="drag" v-model="currentPage.blocks">
     <template #item="{ element: outElement }">
       <div
         class="list-group-item"
@@ -14,7 +14,7 @@
         @mousedown="selectComp(outElement)"
       >
         <comp-render
-          :config="config"
+          :config="visualConfig"
           :element="outElement"
           :style="{
             pointerEvents: Object.keys(outElement.props?.slots || {}).length ? 'auto' : 'none'
@@ -24,7 +24,7 @@
             <slot-item
               v-model:children="value.children"
               :slot-key="slotKey"
-              :config="config"
+              :config="visualConfig"
               :on-contextmenu-block="onContextmenuBlock"
               :select-comp="selectComp"
             />
@@ -36,15 +36,15 @@
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, Ref, PropType, SetupContext } from 'vue'
-import { VisualEditorConfig, VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
-import { useVModel } from '@vueuse/core'
+import { defineComponent, reactive, toRefs, SetupContext } from 'vue'
+import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
 import CompRender from './comp-render'
 import SlotItem from './slot-item.vue'
 import { cloneDeep } from 'lodash'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'SimulatorEditor',
@@ -53,18 +53,15 @@ export default defineComponent({
     CompRender,
     SlotItem
   },
-  props: {
-    blocks: { type: Array as PropType<VisualEditorBlockData[]>, required: true },
-    config: { type: Object as PropType<VisualEditorConfig>, required: true }
-  },
-  emits: ['update:blocks', 'on-selected'],
-  setup(props, { emit }: SetupContext) {
+  emits: ['on-selected'],
+  setup(_, { emit }: SetupContext) {
     const { globalProperties } = useGlobalProperties()
+
+    const { currentPage, visualConfig } = useVisualData()
 
     const state = reactive({
       compRefs: [],
-      drag: false,
-      VMBlocks: useVModel(props, 'blocks', emit) as Ref<VisualEditorBlockData[]>
+      drag: false
     })
 
     //递归实现
@@ -104,7 +101,7 @@ export default defineComponent({
             item.focusWithChild = false
             item.focus = item._vid == _vid
             if (item.focus) {
-              const arr = findPathByLeafId(_vid, state.VMBlocks)
+              const arr = findPathByLeafId(_vid, currentPage.value.blocks)
               arr.forEach((n) => (n.focusWithChild = true))
             }
             if (Object.keys(item.props?.slots || {}).length) {
@@ -117,7 +114,7 @@ export default defineComponent({
 
     const selectComp = (element) => {
       emit('on-selected', element)
-      state.VMBlocks.forEach((block) => {
+      currentPage.value.blocks.forEach((block) => {
         block.focus = element._vid == block._vid
         block.focusWithChild = false
         handleSlotsFocus(block, element._vid)
@@ -128,7 +125,7 @@ export default defineComponent({
     const onContextmenuBlock = (
       e: MouseEvent,
       block: VisualEditorBlockData,
-      parentBlocks = state.VMBlocks
+      parentBlocks = currentPage.value.blocks
     ) => {
       $$dropdown({
         reference: e,
@@ -180,6 +177,8 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      currentPage,
+      visualConfig,
       selectComp,
       onContextmenuBlock
     }

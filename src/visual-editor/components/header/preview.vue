@@ -2,7 +2,7 @@
   <el-dialog v-model="dialogVisible" custom-class="h5-preview" :show-close="false" width="360px">
     <iframe
       style="width: 360px; height: 640px"
-      :src="`${BASE_URL}preview/#/`"
+      :src="previewUrl"
       frameborder="0"
       scrolling="auto"
     ></iframe>
@@ -10,9 +10,8 @@
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, watch, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { cloneDeep } from 'lodash'
 import { BASE_URL } from '@/visual-editor/utils'
 /**
  * @name: preview
@@ -33,37 +32,11 @@ export default defineComponent({
   setup(props, { emit }) {
     const state = reactive({
       dialogVisible: useVModel(props, 'visible', emit),
-      jsonDataClone: cloneDeep(props.jsonData)
+      previewUrl: `${BASE_URL}preview/${location.hash}`
     })
 
-    watch(
-      () => state.dialogVisible,
-      (val) => {
-        if (val) {
-          state.jsonDataClone = cloneDeep(props.jsonData)
-        }
-      }
-    )
-
-    const renderCom = (element) => {
-      if (Array.isArray(element)) {
-        return element.map((item) => renderCom(item))
-      }
-      const component = props.config.componentMap[element.componentKey]
-
-      return component.render({
-        size: {},
-        props: element.props || {},
-        block: element,
-        model: {},
-        custom: {}
-      })
-    }
-
     return {
-      ...toRefs(state),
-      BASE_URL,
-      renderCom
+      ...toRefs(state)
     }
   }
 })

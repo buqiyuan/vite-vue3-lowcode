@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from 'vue'
 import { VisualEditorProps } from '../../../../visual-editor.props'
-import { useModel } from '../../../../utils/useModel'
+import { useModel } from '../../../../hooks/useModel'
 import { ElButton, ElTag } from 'element-plus'
 import { $$tablePropEditor } from './table-prop-edit.service'
 

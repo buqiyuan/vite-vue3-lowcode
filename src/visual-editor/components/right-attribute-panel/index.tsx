@@ -23,23 +23,20 @@ import {
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
 import { TablePropEditor } from '@/visual-editor/components/right-attribute-panel/components/table-prop-editor/table-prop-editor'
-import {
-  VisualEditorBlockData,
-  VisualEditorConfig,
-  VisualEditorModelValue
-} from '@/visual-editor/visual-editor.utils'
+import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import MonacoEditor from './MonacoEditor'
 import { useVModel } from '@vueuse/core'
-import { useDotProp } from '@/visual-editor/utils/useDotProp'
+import { useDotProp } from '@/visual-editor/hooks/useDotProp'
+import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'RightAttributePanel',
   props: {
-    block: { type: Object as PropType<VisualEditorBlockData>, default: () => ({}) },
-    config: { type: Object as PropType<VisualEditorConfig>, required: true },
-    dataModel: { type: Object as PropType<{ value: VisualEditorModelValue }>, required: true }
+    block: { type: Object as PropType<VisualEditorBlockData>, default: () => ({}) }
   },
   setup(props, { emit }) {
+    const { visualConfig } = useVisualData()
+
     const state = reactive({
       activeName: 'attr',
       isOpen: true,
@@ -85,7 +82,7 @@ export default defineComponent({
         )
       } else {
         const { componentKey } = props.block
-        const component = props.config.componentMap[componentKey]
+        const component = visualConfig.componentMap[componentKey]
         console.log('props.block:', props.block)
         content.push(
           <ElFormItem label="组件ID" labelWidth={'76px'}>

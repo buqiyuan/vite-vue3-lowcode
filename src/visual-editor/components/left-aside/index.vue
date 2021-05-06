@@ -9,7 +9,7 @@
             {{ tabItem.label }}
           </div>
         </template>
-        <component :is="tabItem.componentName" />
+        <component :is="tabItem.componentName" v-bind="$attrs" />
       </el-tab-pane>
     </template>
   </el-tabs>
