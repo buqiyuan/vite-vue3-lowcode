@@ -17,6 +17,15 @@
 - 单元测试：[vue-test-utils](https://next.vue-test-utils.vuejs.org/) + [jest](https://jestjs.io/) + [vue-jest](https://github.com/vuejs/vue-jest) + [ts-jest](https://kulshekhar.github.io/ts-jest/)
 - 自动部署：[GitHub Actions](https://docs.github.com/cn/actions/learn-github-actions)
 
+### 功能清单
+- [x] 动态添加页面
+- [x] 拖拽式生成组件
+- [ ] service worker + indexeddb 实现无服务端的前端交互
+- [ ] 数据源管理
+- [ ] 提供预置函数
+- [ ] 更多组件的封装
+- [ ] 其他...
+
 ## 快速开始
 
 ### 安装依赖
