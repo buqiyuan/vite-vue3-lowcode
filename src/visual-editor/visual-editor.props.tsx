@@ -17,7 +17,22 @@ export type VisualEditorProps = {
 } & {
   table?: VisualEditorTableOption
 }
-
+// 控制台输入以下代码，快速生成组件属性
+// let propObj = {
+//   string: (config) => `createEditorInputProp(${JSON.stringify(config)})`,
+//   number: (config) => `createEditorInputNumberProp(${JSON.stringify(config)})`,
+//   boolean: (config) => `createEditorSwitchProp(${JSON.stringify(config)})`
+// }
+//
+// $$('#props + table tr').reduce((prev, curr) => {
+//   const children = curr.children
+//   const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase())
+//   const value = (propObj[children[2].textContent ?? propObj['string'])({
+//     label: children[1].textContent
+//   }).replaceAll('"', '')
+//   prev[key] = value
+//   return prev
+// }, {})
 /*---------------------------------------switch-------------------------------------------*/
 interface EditorSwitchProp {
   label: string

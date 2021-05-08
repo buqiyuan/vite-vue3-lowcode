@@ -19,6 +19,7 @@
     "@vueuse/core": "^4.9.1",
     "@vueuse/integrations": "^4.9.1",
     "axios": "^0.21.1",
+    "dayjs": "^1.10.4",
     "dexie": "^3.0.3",
     "element-plus": "^1.0.2-beta.41",
     "lodash": "^4.17.21",

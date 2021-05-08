@@ -47,7 +47,9 @@ export default defineComponent({
       const { propObj, prop } = useDotProp(state.editData.props, propName)
 
       return {
-        [VisualEditorPropsType.input]: () => <ElInput v-model={propObj[prop]} />,
+        [VisualEditorPropsType.input]: () => (
+          <ElInput v-model={propObj[prop]} placeholder={propConfig.tips || propConfig.label} />
+        ),
         [VisualEditorPropsType.inputNumber]: () => <ElInputNumber v-model={propObj[prop]} />,
         [VisualEditorPropsType.switch]: () => <ElSwitch v-model={propObj[prop]} />,
         [VisualEditorPropsType.color]: () => <ElColorPicker v-model={propObj[prop]} />,
