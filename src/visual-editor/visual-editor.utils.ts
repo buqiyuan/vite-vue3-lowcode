@@ -23,6 +23,7 @@ export interface VisualEditorBlockData {
 
 export interface VisualEditorPage {
   title: string // 页面标题
+  path: string // 页面路径
   isDefault?: boolean // 404是重定向到默认页面
   blocks: VisualEditorBlockData[] // 当前页面的所有组件
 }

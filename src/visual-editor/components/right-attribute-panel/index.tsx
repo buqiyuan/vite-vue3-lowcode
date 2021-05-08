@@ -24,7 +24,7 @@ import {
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
 import { TablePropEditor } from '@/visual-editor/components/right-attribute-panel/components/table-prop-editor/table-prop-editor'
 import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
-import MonacoEditor from './MonacoEditor'
+import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVModel } from '@vueuse/core'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
@@ -159,6 +159,7 @@ export default defineComponent({
                 <ElTabPane label="JSON" name="json" lazy>
                   <MonacoEditor
                     code={JSON.stringify(props.block)}
+                    layout={{ width: 300, height: 800 }}
                     vid={state.activeName == 'json' ? props.block._vid : -1}
                     onChange={handleSchemaChange}
                     title=""

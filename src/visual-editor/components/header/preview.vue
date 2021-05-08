@@ -9,7 +9,7 @@
   </el-dialog>
 </template>
 
-<script lang="tsx">
+<script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { BASE_URL } from '@/visual-editor/utils'

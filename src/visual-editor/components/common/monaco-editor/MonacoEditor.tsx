@@ -5,7 +5,7 @@
  * @description：MonacoEditor
  * @update: 2021/4/30 0:01
  */
-import { Monaco } from '../common/monaco'
+import { Monaco } from './monaco'
 import { defineComponent, onMounted, PropType, shallowRef, ref, onBeforeUnmount, watch } from 'vue'
 import styles from './MonacoEditor.module.scss'
 let subscription: Monaco.IDisposable | undefined
@@ -15,19 +15,29 @@ export default defineComponent({
   name: 'MonacoEditor',
   props: {
     code: {
+      // 代码
       type: String as PropType<string>,
       required: true
+    },
+    layout: {
+      // 布局
+      type: Object as PropType<Monaco.editor.IDimension>,
+      required: true,
+      default: () => ({})
+    },
+    options: {
+      type: Object as PropType<Monaco.editor.IStandaloneEditorConstructionOptions>,
+      default: () => ({})
     },
     vid: [String, Number],
     onChange: {
       type: Function as PropType<
         (value: string, event: Monaco.editor.IModelContentChangedEvent) => void
-      >,
-      required: true
+      >
     },
     title: {
       type: String as PropType<string>,
-      required: true
+      default: ''
     }
   },
   setup(props) {
@@ -41,7 +51,7 @@ export default defineComponent({
     const formatCode = () => {
       window.requestIdleCallback(
         () => {
-          editorRef.value.getAction('editor.action.formatDocument').run()
+          editorRef.value!.getAction('editor.action.formatDocument').run()
         },
         { timeout: 800 }
       )
@@ -49,7 +59,7 @@ export default defineComponent({
 
     onMounted(() => {
       // 组件初始化时创建一个MonacoEditor的实例
-      editorRef.value = Monaco.editor.create(containerDomRef.value, {
+      editorRef.value = Monaco.editor.create(containerDomRef.value!, {
         value: props.code, // 初始值
         theme: 'vs-dark', // vs, hc-black, or vs-dark
         language: 'json', // 代码生成语言
@@ -61,21 +71,19 @@ export default defineComponent({
         fontFamily: '微软雅黑', //字体
         // automaticLayout: true, //编辑器自适应布局，可能会影响性能
         overviewRulerBorder: false,
-        scrollBeyondLastLine: false //滚动配置，溢出才滚动
+        scrollBeyondLastLine: false, //滚动配置，溢出才滚动
+        ...props.options
       })
 
       // 如果代码有变化，会在这里监听到，当受到外部数据改变时，不需要触发change事件
       subscription = editorRef.value.onDidChangeModelContent((event) => {
         if (!preventTriggerChangeEvent) {
           // getValue: 获取编辑器中的所有文本
-          props.onChange(editorRef.value.getValue(), event)
+          props.onChange?.(editorRef.value!.getValue(), event)
         }
       })
       formatCode()
-      editorRef.value.layout({
-        width: 300,
-        height: 800
-      })
+      editorRef.value.layout(props.layout)
     })
 
     onBeforeUnmount(() => {

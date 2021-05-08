@@ -30,8 +30,9 @@ export interface VisualData {
   jsonData: DeepReadonly<VisualEditorModelValue> // 保护JSONData避免直接修改
   currentPage: ComputedRef<VisualEditorPage> // 当前正在操作的页面
   visualConfig: VisualEditorConfig // 组件配置
+  overrideProject: (jsonData: VisualEditorModelValue) => void // 使用JSON覆盖整个项目
   updatePage: (data: { newPath?: string; oldPath: string; page: Partial<VisualEditorPage> }) => void // 更新某个页面
-  incrementPage: (path: string, page: VisualEditorPage) => void // 新增页面
+  incrementPage: (path: string, page: Omit<VisualEditorPage, 'path'>) => void // 新增页面
   deletePage: (path: string, redirect?: string) => void // 删除页面
   updatePageBlock: (path: string, blocks: VisualEditorBlockData[]) => void // 更新某页面下的所有组件
   setCurrentPage: (path: string) => void // 设置当前正在操作的页面
@@ -48,6 +49,7 @@ export const initVisualData = (): VisualData => {
     pages: {
       '/': {
         title: '首页',
+        path: '/',
         blocks: []
       }
     }
@@ -71,7 +73,9 @@ export const initVisualData = (): VisualData => {
 
   // 更新page
   const updatePage = ({ newPath, oldPath, page }) => {
+    console.log(state.jsonData.pages[oldPath], page)
     if (newPath && newPath != oldPath) {
+      page.path = newPath
       // 如果传了新的路径，则认为是修改页面路由
       state.jsonData.pages[getPrefixPath(newPath)] = { ...state.jsonData.pages[oldPath], ...page }
       deletePage(oldPath, getPrefixPath(newPath))
@@ -80,8 +84,8 @@ export const initVisualData = (): VisualData => {
     }
   }
   // 添加page
-  const incrementPage = (path = '', page: VisualEditorPage = { title: '新页面', blocks: [] }) => {
-    state.jsonData.pages[getPrefixPath(path)] = page
+  const incrementPage = (path = '', page: VisualEditorPage) => {
+    state.jsonData.pages[getPrefixPath(path)] = page ?? { title: '新页面', path, blocks: [] }
   }
   // 删除page
   const deletePage = (path = '', redirectPath = '') => {
@@ -99,11 +103,16 @@ export const initVisualData = (): VisualData => {
   const updatePageBlock = (path = '', blocks: VisualEditorBlockData[] = []) => {
     state.jsonData.pages[path].blocks = blocks
   }
+  // 使用自定义JSON覆盖整个项目
+  const overrideProject = (jsonData) => {
+    state.jsonData = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData
+  }
 
   return {
+    visualConfig,
     jsonData: readonly(state.jsonData), // 保护JSONData避免直接修改
     currentPage: computed(() => state.currentPage),
-    visualConfig,
+    overrideProject,
     setCurrentPage,
     updatePage,
     incrementPage,

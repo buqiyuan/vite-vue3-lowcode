@@ -91,6 +91,11 @@ export default {
       ],
       defaultValue: 'button'
     }),
+    to: createEditorInputProp({ label: '路由跳转' }),
+    url: createEditorInputProp({ label: '跳转链接' }),
+    plain: createEditorSwitchProp({ label: '是否为朴素按钮' }),
+    replace: createEditorSwitchProp({ label: '是否在跳转时替换当前页面历史' }),
+    round: createEditorSwitchProp({ label: '是否为圆形按钮' }),
     square: createEditorSwitchProp({ label: '是否为方形按钮' }),
     block: createEditorSwitchProp({ label: '是否为块级元素', defaultValue: false }),
     color: createEditorInputProp({
@@ -127,11 +132,6 @@ export default {
         { label: 'spinner', val: 'spinner' }
       ],
       defaultValue: 'circular'
-    }),
-    plain: createEditorSwitchProp({ label: '是否为朴素按钮' }),
-    replace: createEditorSwitchProp({ label: '是否在跳转时替换当前页面历史' }),
-    round: createEditorSwitchProp({ label: '是否为圆形按钮' }),
-    to: createEditorInputProp({ label: '路由跳转' }),
-    url: createEditorInputProp({ label: '跳转链接' })
+    })
   }
 } as VisualEditorComponent
