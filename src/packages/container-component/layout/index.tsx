@@ -50,7 +50,7 @@ export default {
       })
     }
 
-    return (
+    const RenderLayout = () => (
       <Row
         ref={(el) => registerRef(el, block._vid)}
         {...custom}
@@ -73,6 +73,8 @@ export default {
           })}
       </Row>
     )
+
+    return <RenderLayout />
   },
   resize: {
     height: true,

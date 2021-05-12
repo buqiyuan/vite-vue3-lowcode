@@ -1,4 +1,4 @@
-import { ConfigEnv, defineConfig, loadEnv, UserConfig } from 'vite'
+import { ConfigEnv, loadEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
@@ -8,10 +8,10 @@ import WindiCSS from 'vite-plugin-windicss'
 
 const CWD = process.cwd()
 
-// https://vitejs.dev/config/
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+// https://cn.vitejs.dev/config/
+export default ({ mode }: ConfigEnv): UserConfig => {
   // 环境变量
-  const { VITE_BASE_URL, VITE_DROP_CONSOLE } = loadEnv(mode, CWD)
+  const { VITE_BASE_URL } = loadEnv(mode, CWD)
   return {
     css: {
       modules: {
@@ -23,11 +23,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       vueJsx(),
       WindiCSS(),
       ViteComponents({
+        // 自动导入组件（还不够完善，可能会有样式丢失）
         // valid file extensions for components.
         extensions: ['vue', 'tsx'],
         customComponentResolvers: [ElementPlusResolver(), VantResolver()]
       }),
       styleImport({
+        // 手动导入组件
         libs: [
           {
             libraryName: 'element-plus',

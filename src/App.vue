@@ -1,15 +1,15 @@
 <template>
-  <visual-editor />
+  <router-view #="{ Component, route }">
+    <component :is="Component" :key="route.path" />
+  </router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent, provide } from 'vue'
-import VisualEditor from '@/visual-editor/index.vue'
 import { initVisualData, injectKey, localKey } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'App',
-  components: { VisualEditor },
   setup() {
     const visualData = initVisualData()
     // 注入可视化编辑器所有配置

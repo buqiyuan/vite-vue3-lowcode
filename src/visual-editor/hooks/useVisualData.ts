@@ -5,7 +5,8 @@
  * @description：useVisualData
  * @update: 2021/5/6 11:59
  */
-import { reactive, inject, readonly, computed, ComputedRef, DeepReadonly } from 'vue'
+import { reactive, inject, readonly, computed, watch, ComputedRef, DeepReadonly } from 'vue'
+import { useRoute } from 'vue-router'
 import {
   VisualEditorModelValue,
   VisualEditorBlockData,
@@ -55,21 +56,22 @@ export const initVisualData = (): VisualData => {
     }
   }
 
+  const route = useRoute()
+
   console.log('jsonData：', jsonData)
-  // 获取当前页面哈希路径
-  const getCurrentPath = () => location.hash.slice(1)
   // 所有页面的path都必须以 / 开发
   const getPrefixPath = (path: string) => (path.startsWith('/') ? path : `/${path}`)
 
   const state: IState = reactive({
     jsonData,
-    currentPage: jsonData.pages[getCurrentPath()] ?? jsonData.pages['/']
+    currentPage: jsonData.pages[route.path] ?? jsonData.pages['/']
   })
 
   // 路由变化时更新当前操作的页面
-  window.addEventListener('hashchange', () => {
-    setCurrentPage(getCurrentPath())
-  })
+  watch(
+    () => route.path,
+    (url) => setCurrentPage(url)
+  )
 
   // 更新page
   const updatePage = ({ newPath, oldPath, page }) => {

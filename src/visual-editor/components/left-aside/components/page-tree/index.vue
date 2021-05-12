@@ -67,12 +67,13 @@
 <script lang="ts">
 import { defineComponent, reactive, computed, toRefs } from 'vue'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'PageTree',
   setup() {
     const router = useRouter()
+    const route = useRoute()
 
     const { jsonData, setCurrentPage, deletePage, updatePage, incrementPage } = useVisualData()
 
@@ -81,7 +82,7 @@ export default defineComponent({
         children: 'children',
         label: 'title'
       },
-      currentNodeKey: location.hash.slice(1),
+      currentNodeKey: route.path,
       dialogFormVisible: false, // 表单弹窗显隐
       operatePageData: null as any, // 当前要增加或修改的页面
       form: {

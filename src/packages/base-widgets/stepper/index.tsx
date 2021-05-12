@@ -2,7 +2,10 @@ import { Field, Stepper } from 'vant'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
-import { createEditorInputNumberProp, createEditorInputProp } from "@/visual-editor/visual-editor.props";
+import {
+  createEditorInputNumberProp,
+  createEditorInputProp
+} from '@/visual-editor/visual-editor.props'
 
 export default {
   key: 'stepper',

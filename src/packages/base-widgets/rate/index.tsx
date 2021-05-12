@@ -6,7 +6,7 @@ import {
   createEditorInputNumberProp,
   createEditorInputProp,
   createEditorSwitchProp
-} from "@/visual-editor/visual-editor.props";
+} from '@/visual-editor/visual-editor.props'
 
 export default {
   key: 'rate',
