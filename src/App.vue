@@ -5,14 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide } from 'vue'
+import { defineComponent, provide, nextTick } from 'vue'
 import { initVisualData, injectKey, localKey } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'App',
-  setup() {
+  async setup() {
     const visualData = initVisualData()
     // 注入可视化编辑器所有配置
+    await nextTick()
     provide(injectKey, visualData)
 
     const { jsonData } = visualData
