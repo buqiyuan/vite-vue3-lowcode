@@ -14,12 +14,12 @@ export default {
   preview: () => <Divider style="width:190px">文本</Divider>,
   render: ({ props }) => {
     const style = `color:${props['text-color']};borderColor:${props['divider-color']}`
-    return props.text ? (
+    return (
       <Divider {...props} style={style}>
-        {props.text}
+        {{
+          default: () => props.text
+        }}
       </Divider>
-    ) : (
-      <Divider {...props} style={style}></Divider>
     )
   },
   props: {

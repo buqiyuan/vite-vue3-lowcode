@@ -1,5 +1,4 @@
 import { createVisualEditorConfig } from './visual-editor/visual-editor.utils'
-// import './visual.config.scss'
 import baseWidgets from '@/packages/base-widgets'
 import containerComponent from '@/packages/container-component'
 

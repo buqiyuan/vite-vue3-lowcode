@@ -1,6 +1,7 @@
 import { ConfigEnv, loadEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import legacy from '@vitejs/plugin-legacy'
 import { resolve } from 'path'
 import ViteComponents, { ElementPlusResolver, VantResolver } from 'vite-plugin-components'
 import styleImport from 'vite-plugin-style-import'
@@ -22,6 +23,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       WindiCSS(),
+      legacy({
+        targets: ['defaults', 'not IE 11']
+      }),
       ViteComponents({
         // 自动导入组件（还不够完善，可能会有样式丢失）
         // valid file extensions for components.
@@ -68,7 +72,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         'element-plus',
         'vant',
         'lodash',
-        'vuedraggable'
+        'vuedraggable/src/vuedraggable'
       ],
       exclude: ['vue-demi']
     },

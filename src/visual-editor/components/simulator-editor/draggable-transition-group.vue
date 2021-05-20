@@ -33,7 +33,8 @@
  * @update: 2021/5/1 23:15
  */
 import { computed, defineComponent, reactive, toRefs, SetupContext } from 'vue'
-import draggable from 'vuedraggable'
+// @ts-ignore 暂时方案 待官方修复
+import draggable from 'vuedraggable/src/vuedraggable'
 import { useVModel } from '@vueuse/core'
 
 export default defineComponent({
@@ -55,6 +56,7 @@ export default defineComponent({
       list: useVModel(props, 'moduleValue', emit),
       isDrag: useVModel(props, 'drag', emit)
     })
+
     const dragOptions = computed(() => ({
       animation: 200,
       group: 'components',

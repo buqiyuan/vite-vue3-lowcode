@@ -1,7 +1,8 @@
 import { defineComponent } from 'vue'
 import { cloneDeep } from 'lodash'
 import { visualConfig } from '@/visual.config'
-import Draggable from 'vuedraggable'
+// @ts-ignore 暂时方案 待官方修复
+import Draggable from 'vuedraggable/src/vuedraggable'
 import styles from './index.module.scss'
 import { createNewBlock } from '@/visual-editor/visual-editor.utils'
 
