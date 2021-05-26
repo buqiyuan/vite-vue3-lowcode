@@ -11,6 +11,7 @@ export type VisualEditorProps = {
   type: VisualEditorPropsType
   label: string
   tips?: string
+  multiple?: boolean
   defaultValue?: any
 } & {
   options?: VisualEditorSelectOptions
@@ -115,6 +116,7 @@ interface EditorSelectProp {
   label: string
   options: VisualEditorSelectOptions
   defaultValue?: any
+  multiple?: boolean
   tips?: string
 }
 
@@ -122,14 +124,16 @@ export function createEditorSelectProp({
   label,
   options,
   defaultValue,
-  tips
+  tips,
+  multiple
 }: EditorSelectProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.select,
     label,
     defaultValue,
     tips,
-    options
+    options,
+    multiple
   }
 }
 

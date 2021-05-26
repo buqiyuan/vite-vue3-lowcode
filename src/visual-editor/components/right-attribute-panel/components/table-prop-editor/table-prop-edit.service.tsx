@@ -66,7 +66,7 @@ const ServiceComponent = defineComponent({
 
     return () => (
       <>
-        <ElDialog modelValue={state.showFlag}>
+        <ElDialog v-model={state.showFlag}>
           {{
             default: () => (
               <div>

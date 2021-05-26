@@ -54,7 +54,7 @@ export default defineComponent({
         [VisualEditorPropsType.switch]: () => <ElSwitch v-model={propObj[prop]} />,
         [VisualEditorPropsType.color]: () => <ElColorPicker v-model={propObj[prop]} />,
         [VisualEditorPropsType.select]: () => (
-          <ElSelect v-model={propObj[prop]} valueKey={'value'}>
+          <ElSelect v-model={propObj[prop]} valueKey={'value'} multiple={propConfig.multiple}>
             {(() => {
               return propConfig.options!.map((opt) => (
                 <ElOption label={opt.label} value={opt.val} />

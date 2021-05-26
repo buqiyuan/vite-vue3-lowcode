@@ -44,7 +44,9 @@ const ServiceComponent = defineComponent({
       show: () => {
         state.showFlag = true
       },
-      hide: () => (state.showFlag = false)
+      hide: () => {
+        state.showFlag = false
+      }
     }
 
     const handler = {
@@ -61,7 +63,7 @@ const ServiceComponent = defineComponent({
 
     return () => (
       <>
-        <ElDialog modelValue={state.showFlag} title={state.option.title} key={state.key}>
+        <ElDialog v-model={state.showFlag} title={state.option.title} key={state.key}>
           {{
             default: () => (
               <div>

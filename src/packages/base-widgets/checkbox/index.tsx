@@ -51,7 +51,15 @@ export default {
     )
   },
   props: {
-    modelValue: createEditorInputProp({ label: '默认值', defaultValue: [] }),
+    modelValue: createEditorSelectProp({
+      label: '默认值',
+      options: [
+        { label: '萝卜', val: 'radish' },
+        { label: '青菜', val: 'greens' }
+      ],
+      multiple: true,
+      defaultValue: []
+    }),
     name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'checkbox' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '复选框' }),
     options: createEditorTableProp({

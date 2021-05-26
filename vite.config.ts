@@ -9,6 +9,8 @@ import WindiCSS from 'vite-plugin-windicss'
 
 const CWD = process.cwd()
 
+const prefix = `monaco-editor/esm/vs`
+
 // https://cn.vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
   // 环境变量
@@ -61,6 +63,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         input: {
           main: resolve(__dirname, 'index.html'),
           preview: resolve(__dirname, 'preview/index.html')
+        },
+        output: {
+          manualChunks: {
+            jsonWorker: [`${prefix}/language/json/json.worker`],
+            cssWorker: [`${prefix}/language/css/css.worker`],
+            htmlWorker: [`${prefix}/language/html/html.worker`],
+            tsWorker: [`${prefix}/language/typescript/ts.worker`],
+            editorWorker: [`${prefix}/editor/editor.worker`]
+          }
         }
       }
     },
@@ -77,7 +88,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       exclude: ['vue-demi']
     },
     server: {
-      port: 8080, // 设置服务启动端口号
+      port: 10086, // 设置服务启动端口号
       open: false, // 设置服务启动时是否自动打开浏览器
       cors: true // 允许跨域
 

@@ -1,4 +1,4 @@
-# Vite2.x + Vue3.x + TypeScript H5低代码平台
+# Vite2.x + Vue3.x + TypeScript H5 低代码平台
 
 ## 技术栈
 
@@ -7,8 +7,8 @@
 - 前端框架：[Vue 3.x](https://v3.cn.vuejs.org/)
 - 路由工具：[Vue Router 4.x](https://next.router.vuejs.org/zh/index.html)
 - 状态管理：[Vuex 4.x](https://next.vuex.vuejs.org/)
-- PC端UI 框架：[Element Plus](https://element-plus.org/#/zh-CN)
-- H5端UI 框架：[vant](https://vant-contrib.gitee.io/vant/v3/#/zh-CN/)
+- PC 端 UI 框架：[Element Plus](https://element-plus.org/#/zh-CN)
+- H5 端 UI 框架：[vant](https://vant-contrib.gitee.io/vant/v3/#/zh-CN/)
 - CSS 预编译：[Stylus](https://stylus-lang.com/) / [Sass](https://sass.bootcss.com/documentation) / [Less](http://lesscss.cn/)
 - HTTP 工具：[Axios](https://axios-http.com/)
 - Git Hook 工具：[husky](https://typicode.github.io/husky/#/) + [lint-staged](https://github.com/okonet/lint-staged)
@@ -18,6 +18,7 @@
 - 自动部署：[GitHub Actions](https://docs.github.com/cn/actions/learn-github-actions)
 
 ### 功能清单
+
 - [x] 动态添加页面
 - [x] 拖拽式生成组件
 - [ ] service worker + indexeddb 实现无服务端的前端交互
@@ -27,8 +28,26 @@
 - [ ] 其他...
 
 ### 简易说明
+
 目前在使用表单时，需要把相关的`表单控件`放到`表单容器`内部，并且需要将`按钮`放到`表单容器`内，
 然后再讲`按钮的type`设置为`表单提交按钮`这时候点击提交按钮才会自动收集表单容器内部的所有字段和值
+
+### 提交规范
+
+- `feat` 增加新功能
+- `fix` 修复问题/BUG
+- `style` 代码风格相关无影响运行结果的
+- `perf` 优化/性能提升
+- `refactor` 重构
+- `revert` 撤销修改
+- `test` 测试相关
+- `docs` 文档/注释
+- `build` 对构建系统或者外部依赖项进行了修改
+- `chore` 依赖更新/脚手架配置修改等
+- `workflow` 工作流改进
+- `ci` 持续集成
+- `types` 类型定义文件更改
+- `wip` 开发中
 
 ## 快速开始
 
@@ -51,4 +70,3 @@ npm run dev
 ```sh
 npm run build
 ```
-

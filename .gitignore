@@ -12,6 +12,12 @@
 # yarn.lock
 # package-lock.json
 
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
 # IDEs and editors
 /.idea
 .project
