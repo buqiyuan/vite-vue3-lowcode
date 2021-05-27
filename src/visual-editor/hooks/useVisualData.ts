@@ -15,9 +15,10 @@ import {
 } from '@/visual-editor/visual-editor.utils'
 
 import { visualConfig } from '@/visual.config'
+import { CacheEnum } from '@/enums'
 
 // 保存到本地JSON数据的key
-export const localKey = 'jsonData'
+export const localKey = CacheEnum.PAGE_DATA_KEY
 
 // 注入jsonData的key
 export const injectKey = Symbol('injectKey')
@@ -41,7 +42,7 @@ export interface VisualData {
 
 export const initVisualData = (): VisualData => {
   const jsonData: VisualEditorModelValue = JSON.parse(
-    sessionStorage.getItem('jsonData') as string
+    sessionStorage.getItem(localKey) as string
   ) || {
     container: {
       width: 360,

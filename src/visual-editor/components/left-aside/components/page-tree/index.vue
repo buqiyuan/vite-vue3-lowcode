@@ -68,6 +68,7 @@
 import { defineComponent, reactive, computed, toRefs } from 'vue'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import { useRouter, useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   name: 'PageTree',
@@ -137,6 +138,9 @@ export default defineComponent({
     // 新增或编辑页面
     const onSubmit = async () => {
       const { title, path } = state.form
+      if (title.trim() == '' || path.trim() == '') {
+        return ElMessage.error('标题或路径不能为空！')
+      }
       if (state.operatePageData) {
         updatePage({ newPath: path, oldPath: state.operatePageData.path || path, page: { title } })
         await router.replace(path)
@@ -164,11 +168,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .custom-tree-node {
-  flex: 1;
   display: flex;
+  padding-right: 8px;
+  font-size: 14px;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
-  padding-right: 8px;
 }
 </style>

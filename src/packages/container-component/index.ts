@@ -7,5 +7,5 @@ Object.keys(modules).forEach((key: string) => {
   components[name] = modules[key]?.default || modules[key]
 })
 
-console.log(components, 'base-widgets')
+console.log(components, 'container-component')
 export default components

@@ -8,6 +8,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { Toast } from 'vant'
 import { visualConfig } from '@/visual.config'
+import { CacheEnum } from '@/enums'
 import { VisualEditorModelValue } from '@/visual-editor/visual-editor.utils'
 import SlotItem from './slot-item.vue'
 import router from '../router'
@@ -25,7 +26,10 @@ export default defineComponent({
     SlotItem
   },
   setup() {
-    const jsonData: VisualEditorModelValue = JSON.parse(localStorage.getItem('jsonData') as string)
+    const jsonData: VisualEditorModelValue = JSON.parse(
+      localStorage.getItem(CacheEnum.PAGE_DATA_KEY) as string
+    )
+
     if (!jsonData || !Object.keys(jsonData.pages)) {
       Toast.fail('当前没有可以预览的页面！')
     }
