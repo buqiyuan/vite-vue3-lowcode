@@ -39,7 +39,8 @@ export default {
           style={{
             width: size.width ? `${size.width}px` : null
           }}
-          v-slots={{
+        >
+          {{
             input: () =>
               state.text?.trim() == '' ? (
                 <span class={'placeholder'}>{props.placeholder}</span>
@@ -47,7 +48,7 @@ export default {
                 state.text
               )
           }}
-        />
+        </Field>
         <Popup v-model={[state.showPicker, 'show', ['modifier']]} position={'bottom'}>
           <Picker
             ref={(el) => registerRef(el, block._vid)}
@@ -60,15 +61,11 @@ export default {
       </>
     )
 
-    return (
-      <>
-        <PopupPicker />
-      </>
-    )
+    return <PopupPicker />
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),
-    name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'picker' }),
+    name: createEditorInputProp({ label: '字段名', defaultValue: 'picker' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '选择器' }),
     columns: createEditorTableProp({
       label: '数据项',

@@ -44,26 +44,9 @@ export default defineComponent({
       router.replace('/')
     }
 
-    // 渲染组件
-    const renderCom = (element) => {
-      if (Array.isArray(element)) {
-        return element.map((item) => renderCom(item))
-      }
-      const component = visualConfig.componentMap[element.componentKey]
-
-      return component.render({
-        size: {},
-        props: element.props || {},
-        block: element,
-        model: {},
-        custom: {}
-      })
-    }
-
     return {
       ...toRefs(state),
-      visualConfig,
-      renderCom
+      visualConfig
     }
   }
 })

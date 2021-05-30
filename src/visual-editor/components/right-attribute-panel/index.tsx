@@ -22,7 +22,7 @@ import {
   ElPopover
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
-import { TablePropEditor } from '@/visual-editor/components/right-attribute-panel/components/table-prop-editor/table-prop-editor'
+import { TablePropEditor } from './components/'
 import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVModel } from '@vueuse/core'
@@ -57,7 +57,7 @@ export default defineComponent({
           <ElSelect v-model={propObj[prop]} valueKey={'value'} multiple={propConfig.multiple}>
             {(() => {
               return propConfig.options!.map((opt) => (
-                <ElOption label={opt.label} value={opt.val} />
+                <ElOption label={opt.label} value={opt.value} />
               ))
             })()}
           </ElSelect>
@@ -93,44 +93,40 @@ export default defineComponent({
               width={200}
               trigger="hover"
               content={`你可以利用该组件ID。对该组件进行获取和设置其属性，组件可用属性可在控制台输入：$$refs.${props.block._vid} 进行查看`}
-              v-slots={{
+            >
+              {{
                 reference: () => (
                   <i style={{ marginLeft: '6px' }} class={'el-icon-warning-outline'}></i>
                 )
               }}
-            ></ElPopover>
+            </ElPopover>
           </ElFormItem>
         )
         if (!!component) {
           if (!!component.props) {
             content.push(
-              <>
-                {Object.entries(component.props || {}).map(([propName, propConfig]) => (
-                  <ElFormItem
-                    key={propName}
-                    v-slots={{
-                      label: () =>
-                        propConfig.tips ? (
-                          <>
-                            <ElPopover
-                              width={200}
-                              trigger={'hover'}
-                              content={propConfig.tips}
-                              v-slots={{
-                                reference: () => <i class={'el-icon-warning-outline'}></i>
-                              }}
-                            ></ElPopover>
-                            {propConfig.label}
-                          </>
-                        ) : (
-                          propConfig.label
-                        )
-                    }}
-                  >
-                    {renderEditor(propName, propConfig)}
-                  </ElFormItem>
-                ))}
-              </>
+              Object.entries(component.props || {}).map(([propName, propConfig]) => (
+                <ElFormItem
+                  key={props.block._vid + propName}
+                  v-slots={{
+                    label: () =>
+                      propConfig.tips ? (
+                        <>
+                          <ElPopover width={200} trigger={'hover'} content={propConfig.tips}>
+                            {{
+                              reference: () => <i class={'el-icon-warning-outline'}></i>
+                            }}
+                          </ElPopover>
+                          {propConfig.label}
+                        </>
+                      ) : (
+                        propConfig.label
+                      )
+                  }}
+                >
+                  {renderEditor(propName, propConfig)}
+                </ElFormItem>
+              ))
             )
           }
         }

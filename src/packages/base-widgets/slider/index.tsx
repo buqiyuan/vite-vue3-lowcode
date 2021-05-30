@@ -44,7 +44,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputNumberProp({ label: '默认值', defaultValue: 0 }),
-    name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'slider' }),
+    name: createEditorInputProp({ label: '字段名', defaultValue: 'slider' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '滑块' }),
     min: createEditorInputNumberProp({ label: '最小值' }),
     max: createEditorInputNumberProp({ label: '最大值' }),

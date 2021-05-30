@@ -37,23 +37,23 @@ export default {
       options: [
         {
           label: '主要按钮',
-          val: 'primary'
+          value: 'primary'
         },
         {
           label: '成功按钮',
-          val: 'success'
+          value: 'success'
         },
         {
           label: '默认按钮',
-          val: 'default'
+          value: 'default'
         },
         {
           label: '警告按钮',
-          val: 'warning'
+          value: 'warning'
         },
         {
           label: '危险按钮',
-          val: 'danger'
+          value: 'danger'
         }
       ],
       defaultValue: 'default'
@@ -63,19 +63,19 @@ export default {
       options: [
         {
           label: '大型',
-          val: 'large'
+          value: 'large'
         },
         {
           label: '普通',
-          val: 'normal'
+          value: 'normal'
         },
         {
           label: '小型',
-          val: 'small'
+          value: 'small'
         },
         {
           label: '迷你',
-          val: 'mini'
+          value: 'mini'
         }
       ],
       defaultValue: 'normal'
@@ -83,10 +83,10 @@ export default {
     'native-type': createEditorSelectProp({
       label: '原生button的type属性',
       options: [
-        { label: '普通button', val: 'button' },
+        { label: '普通button', value: 'button' },
         {
           label: '表单提交按钮',
-          val: 'submit'
+          value: 'submit'
         }
       ],
       defaultValue: 'button'
@@ -110,11 +110,11 @@ export default {
       options: [
         {
           label: '左侧',
-          val: 'left'
+          value: 'left'
         },
         {
           label: '右侧',
-          val: 'right'
+          value: 'right'
         }
       ]
     }),
@@ -128,8 +128,8 @@ export default {
     'loading-type': createEditorSelectProp({
       label: '加载图标类型',
       options: [
-        { label: 'circular', val: 'circular' },
-        { label: 'spinner', val: 'spinner' }
+        { label: 'circular', value: 'circular' },
+        { label: 'spinner', value: 'spinner' }
       ],
       defaultValue: 'circular'
     })

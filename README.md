@@ -32,6 +32,27 @@
 目前在使用表单时，需要把相关的`表单控件`放到`表单容器`内部，并且需要将`按钮`放到`表单容器`内，
 然后再讲`按钮的type`设置为`表单提交按钮`这时候点击提交按钮才会自动收集表单容器内部的所有字段和值
 
+### 快速生成组件属性
+
+```javascript
+// 在vant文档中 chrome控制台输入以下代码，快速生成组件属性
+let propObj = {
+  string: (config) => `createEditorInputProp(${JSON.stringify(config)})`,
+  number: (config) => `createEditorInputNumberProp(${JSON.stringify(config)})`,
+  boolean: (config) => `createEditorSwitchProp(${JSON.stringify(config)})`
+}
+
+$$('#props + table tr').reduce((prev, curr) => {
+  const children = curr.children
+  const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase())
+  const value = (propObj[children[2].textContent] ?? propObj['string'])({
+    label: `'${children[1].textContent}'`
+  }).replaceAll('"', '')
+  prev[key] = value
+  return prev
+}, {})
+```
+
 ## 浏览器支持
 
 本地开发推荐使用`Chrome 80+` 浏览器

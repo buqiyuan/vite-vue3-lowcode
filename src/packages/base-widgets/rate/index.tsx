@@ -44,7 +44,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputNumberProp({ label: '默认值', defaultValue: 0 }),
-    name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'rate' }),
+    name: createEditorInputProp({ label: '字段名', defaultValue: 'rate' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '评分' }),
     count: createEditorInputNumberProp({ label: '图标总数' }),
     size: createEditorInputProp({ label: '图标大小' }),

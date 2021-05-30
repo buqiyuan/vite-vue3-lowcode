@@ -19,15 +19,15 @@ export const createFieldProps = () => ({
     options: [
       {
         label: '左对齐',
-        val: 'left'
+        value: 'left'
       },
       {
         label: '居中',
-        val: 'center'
+        value: 'center'
       },
       {
         label: '右对齐',
-        val: 'right'
+        value: 'right'
       }
     ],
     defaultValue: 'left'

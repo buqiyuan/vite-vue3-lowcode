@@ -16,17 +16,17 @@ export const createFieldProps = () => ({
     label: '默认值',
     defaultValue: ''
   }),
-  name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'input' }),
+  name: createEditorInputProp({ label: '字段名', defaultValue: 'input' }),
   label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '输入框' }),
   type: createEditorSelectProp({
     label: '输入框类型',
     options: [
-      { label: '文本', val: 'text' },
-      { label: '数字', val: 'number' },
-      { label: '文本域', val: 'textarea' },
-      { label: '密码', val: 'password' },
-      { label: '电话', val: 'tel' },
-      { label: '小数点', val: 'digit' }
+      { label: '文本', value: 'text' },
+      { label: '数字', value: 'number' },
+      { label: '文本域', value: 'textarea' },
+      { label: '密码', value: 'password' },
+      { label: '电话', value: 'tel' },
+      { label: '小数点', value: 'digit' }
     ],
     defaultValue: 'text'
   }),
@@ -40,15 +40,15 @@ export const createFieldProps = () => ({
     options: [
       {
         label: '左对齐',
-        val: 'left'
+        value: 'left'
       },
       {
         label: '居中',
-        val: 'center'
+        value: 'center'
       },
       {
         label: '右对齐',
-        val: 'right'
+        value: 'right'
       }
     ],
     defaultValue: 'left'
@@ -66,8 +66,7 @@ export const createFieldProps = () => ({
   autosize: createEditorSwitchProp({
     label: '自适应内容高度',
     defaultValue: false,
-    tips:
-      '是否自适应内容高度，只对 textarea 有效，可传入对象,如 { maxHeight: 100, minHeight: 50 }，单位为px'
+    tips: '是否自适应内容高度，只对 textarea 有效，可传入对象,如 { maxHeight: 100, minHeight: 50 }，单位为px'
   }),
   border: createEditorSwitchProp({ label: '是否显示内边框', defaultValue: true }),
   center: createEditorSwitchProp({ label: '内容垂直居中' }),
@@ -78,8 +77,8 @@ export const createFieldProps = () => ({
   'clear-trigger': createEditorSelectProp({
     label: '清除图标显示时机',
     options: [
-      { label: '输入框不为空时展示', val: 'always' },
-      { label: '输入框聚焦且不为空时展示', val: 'focus' }
+      { label: '输入框不为空时展示', value: 'always' },
+      { label: '输入框聚焦且不为空时展示', value: 'focus' }
     ],
     defaultValue: 'always',
     tips: '显示清除图标的时机，always 表示输入框不为空时展示，focus 表示输入框聚焦且不为空时展示'
@@ -101,15 +100,15 @@ export const createFieldProps = () => ({
     options: [
       {
         label: '左对齐',
-        val: 'left'
+        value: 'left'
       },
       {
         label: '居中',
-        val: 'center'
+        value: 'center'
       },
       {
         label: '右对齐',
-        val: 'right'
+        value: 'right'
       }
     ],
     defaultValue: 'left'
@@ -119,15 +118,15 @@ export const createFieldProps = () => ({
     options: [
       {
         label: '左对齐',
-        val: 'left'
+        value: 'left'
       },
       {
         label: '居中',
-        val: 'center'
+        value: 'center'
       },
       {
         label: '右对齐',
-        val: 'right'
+        value: 'right'
       }
     ],
     defaultValue: 'left'

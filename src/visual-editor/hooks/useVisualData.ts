@@ -6,7 +6,7 @@
  * @update: 2021/5/6 11:59
  */
 import { reactive, inject, readonly, computed, watch, ComputedRef, DeepReadonly } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   VisualEditorModelValue,
   VisualEditorBlockData,
@@ -40,24 +40,28 @@ export interface VisualData {
   setCurrentPage: (path: string) => void // 设置当前正在操作的页面
 }
 
-export const initVisualData = (): VisualData => {
-  const jsonData: VisualEditorModelValue = JSON.parse(
-    sessionStorage.getItem(localKey) as string
-  ) || {
-    container: {
-      width: 360,
-      height: 960
-    },
-    pages: {
-      '/': {
-        title: '首页',
-        path: '/',
-        blocks: []
-      }
+const defaultValue: VisualEditorModelValue = {
+  container: {
+    width: 360,
+    height: 960
+  },
+  pages: {
+    '/': {
+      title: '首页',
+      path: '/',
+      blocks: []
     }
   }
+}
+
+export const initVisualData = (): VisualData => {
+  const localData = JSON.parse(sessionStorage.getItem(localKey) as string)
+  const jsonData: VisualEditorModelValue = Object.keys(localData?.pages || {}).length
+    ? localData
+    : defaultValue
 
   const route = useRoute()
+  const router = useRouter()
 
   console.log('jsonData：', jsonData)
   // 所有页面的path都必须以 / 开发
@@ -65,8 +69,20 @@ export const initVisualData = (): VisualData => {
 
   const state: IState = reactive({
     jsonData,
-    currentPage: jsonData.pages[route.path] ?? jsonData.pages['/']
+    currentPage: jsonData.pages[route.path]
   })
+  const paths = Object.keys(jsonData.pages)
+
+  const isExistPath = paths.some((path) => route.path == path)
+  // 当前页面是否存在
+  if (!isExistPath) {
+    router.replace(paths[0] || '/')
+    state.currentPage = jsonData.pages[paths[0]] ?? defaultValue.pages['/']
+  }
+
+  console.log(jsonData.pages, 'jsonData.pages')
+  console.log(route.path, 'route.path')
+  console.log(state.currentPage, '哈哈哈')
 
   // 路由变化时更新当前操作的页面
   watch(
@@ -88,7 +104,7 @@ export const initVisualData = (): VisualData => {
   }
   // 添加page
   const incrementPage = (path = '', page: VisualEditorPage) => {
-    state.jsonData.pages[getPrefixPath(path)] = page ?? { title: '新页面', path, blocks: [] }
+    state.jsonData.pages[getPrefixPath(path)] ??= page ?? { title: '新页面', path, blocks: [] }
   }
   // 删除page
   const deletePage = (path = '', redirectPath = '') => {
@@ -100,6 +116,10 @@ export const initVisualData = (): VisualData => {
   // 设置当前页面
   const setCurrentPage = (path = '/') => {
     state.currentPage = jsonData.pages[path]
+    if (!state.currentPage) {
+      state.currentPage = jsonData.pages['/']
+      router.replace('/')
+    }
   }
 
   // 更新pages下面的blocks

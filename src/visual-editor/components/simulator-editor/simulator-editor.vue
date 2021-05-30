@@ -60,7 +60,6 @@ export default defineComponent({
     const { currentPage, visualConfig } = useVisualData()
 
     const state = reactive({
-      compRefs: [],
       drag: false
     })
 
@@ -188,37 +187,41 @@ export default defineComponent({
 <style lang="scss" scoped>
 .list-group-item {
   position: relative;
+  padding: 3px;
   cursor: move;
   transform: translate(0);
-  padding: 3px;
 
   &.focus {
     content: '';
     outline: 2px solid #006eff;
     outline-offset: -2px;
   }
+
   &.drag::after {
     display: none;
   }
+
   &.no-child {
     content: '';
   }
+
   &.focusWithChild {
     outline: 2px dashed #b0c1d7;
     outline-offset: -2px;
   }
+
   &.focusWithChild::before {
-    content: attr(data-label);
     position: absolute;
-    left: -3px;
     top: 0;
-    transform: translate(-100%, 0);
-    background-color: #006eff;
-    color: white;
+    left: -3px;
     padding: 3px;
     font-size: 12px;
     font-weight: 700;
+    color: white;
+    background-color: #006eff;
     border-radius: 3px;
+    content: attr(data-label);
+    transform: translate(-100%, 0);
   }
 
   i {

@@ -27,9 +27,9 @@ export default {
     'content-position': createEditorSelectProp({
       label: '文本位置',
       options: [
-        { label: '左边', val: 'left' },
-        { label: '中间', val: 'center' },
-        { label: '右边', val: 'right' }
+        { label: '左边', value: 'left' },
+        { label: '中间', value: 'center' },
+        { label: '右边', value: 'right' }
       ],
       defaultValue: 'center'
     }),

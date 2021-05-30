@@ -19,9 +19,9 @@ export default {
     size: createEditorSelectProp({
       label: '字体大小',
       options: [
-        { label: '14px', val: '14px' },
-        { label: '18px', val: '18px' },
-        { label: '24px', val: '24px' }
+        { label: '14px', value: '14px' },
+        { label: '18px', value: '18px' },
+        { label: '24px', value: '24px' }
       ]
     })
   }

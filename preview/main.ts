@@ -3,9 +3,12 @@ import App from './App.vue'
 
 import router from './router'
 
-import '@/plugins/vant'
+import { setupVant } from '@/plugins/vant'
 
 const app = createApp(App)
+
+// 安装vant插件
+setupVant(app)
 
 app.config.globalProperties.$$refs = {}
 

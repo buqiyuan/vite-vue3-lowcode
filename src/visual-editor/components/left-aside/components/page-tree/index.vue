@@ -33,7 +33,7 @@
                   >删除</el-dropdown-item
                 >
                 <el-dropdown-item icon="el-icon-link" @click="setDefaultPage(data)"
-                  >设为默认</el-dropdown-item
+                  >设为首页</el-dropdown-item
                 >
               </el-dropdown-menu>
             </template>

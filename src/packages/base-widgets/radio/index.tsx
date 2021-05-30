@@ -48,7 +48,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: '' }),
-    name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'radio' }),
+    name: createEditorInputProp({ label: '字段名', defaultValue: 'radio' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '单选框' }),
     options: createEditorTableProp({
       label: '默认选项',
@@ -70,11 +70,11 @@ export default {
       options: [
         {
           label: '水平',
-          val: 'horizontal'
+          value: 'horizontal'
         },
         {
           label: '垂直',
-          val: 'vertical'
+          value: 'vertical'
         }
       ],
       defaultValue: 'horizontal'

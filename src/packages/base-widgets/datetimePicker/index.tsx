@@ -12,6 +12,14 @@ import { reactive } from 'vue'
 import { isDate } from '@/visual-editor/utils/is'
 import dayjs from 'dayjs'
 
+const dateType = {
+  'month-day': 'MM-DD',
+  'year-month': 'YYYY-MM',
+  date: 'YYYY-MM-DD',
+  datehour: 'YYYY-MM-DD HH',
+  datetime: 'YYYY-MM-DD HH:mm:ss'
+}
+
 export default {
   key: 'datetimePicker',
   moduleName: 'baseWidgets',
@@ -21,11 +29,12 @@ export default {
     const { registerRef } = useGlobalProperties()
     const state = reactive({
       showPicker: false,
-      text: ''
+      text: '',
+      currentDate: new Date()
     })
 
     const onConfirm = (value) => {
-      const date = isDate(value) ? dayjs(value).format(props.format) : value
+      const date = isDate(value) ? dayjs(value).format(props.format || dateType[props.type]) : value
       props.modelValue = date
       state.text = date
       state.showPicker = false
@@ -56,6 +65,7 @@ export default {
           <DatetimePicker
             ref={(el) => registerRef(el, block._vid)}
             {...props}
+            v-model={state.currentDate}
             onConfirm={onConfirm}
             onCancel={() => (state.showPicker = false)}
           />
@@ -63,16 +73,12 @@ export default {
       </>
     )
 
-    return (
-      <>
-        <PopupPicker />
-      </>
-    )
+    return <PopupPicker />
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),
     name: createEditorInputProp({
-      label: '名称，提交表单的标识符',
+      label: '字段名',
       defaultValue: 'datetimePicker'
     }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '时间选择器' }),
@@ -82,31 +88,31 @@ export default {
       options: [
         {
           label: 'date',
-          val: 'date'
+          value: 'date'
         },
         {
-          label: 'time',
-          val: 'time'
+          label: 'datetime',
+          value: 'datetime'
         },
         {
           label: 'year-month',
-          val: 'year-month'
+          value: 'year-month'
         },
         {
           label: 'month-day',
-          val: 'month-day'
+          value: 'month-day'
         },
         {
           label: 'datehour',
-          val: 'datehour'
+          value: 'datehour'
         }
       ],
-      defaultValue: 'time'
+      defaultValue: 'datetime'
     }),
     format: createEditorInputProp({
-      label: '选择时间后格式化值',
+      label: '自定义日期格式化值',
       tips: 'YYYY-MM-DD HH:mm:ss',
-      defaultValue: 'YYYY-MM-DD HH:mm:ss'
+      defaultValue: ''
     }),
     cancelButtonText: createEditorInputProp({ label: '取消按钮文字' }),
     columnsOrder: createEditorInputProp({

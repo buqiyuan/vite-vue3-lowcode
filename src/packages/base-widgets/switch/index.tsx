@@ -35,7 +35,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: 'false' }),
-    name: createEditorInputProp({ label: '名称，提交表单的标识符', defaultValue: 'switch' }),
+    name: createEditorInputProp({ label: '字段名', defaultValue: 'switch' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '开关' }),
     'active-color': createEditorInputProp({ label: '打开时的背景色' }),
     'active-value': createEditorInputProp({ label: '打开时对应的值' }),

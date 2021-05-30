@@ -1,8 +1,8 @@
 import { Form, Field, Button } from 'vant'
 import { renderSlot, getCurrentInstance } from 'vue'
-import { createEditorTableProp } from '@/visual-editor/visual-editor.props'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { compProps } from './compProps'
 
 export default {
   key: 'form',
@@ -37,18 +37,5 @@ export default {
     height: true,
     width: true
   },
-  props: {
-    'slots.default.children': createEditorTableProp({
-      label: '表单项',
-      option: {
-        options: [
-          { label: '显示值', field: 'label' },
-          { label: '绑定值', field: 'value' },
-          { label: '备注', field: 'comments' }
-        ],
-        showKey: 'label'
-      },
-      defaultValue: []
-    })
-  }
+  props: compProps
 } as VisualEditorComponent

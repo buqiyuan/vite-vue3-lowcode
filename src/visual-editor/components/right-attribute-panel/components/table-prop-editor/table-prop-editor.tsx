@@ -1,8 +1,8 @@
-import { defineComponent, PropType } from 'vue'
-import { VisualEditorProps } from '../../../../visual-editor.props'
-import { useModel } from '../../../../hooks/useModel'
+import { defineComponent, PropType, SetupContext } from 'vue'
+import { VisualEditorProps } from '@/visual-editor/visual-editor.props'
 import { ElButton, ElTag } from 'element-plus'
 import { $$tablePropEditor } from './table-prop-edit.service'
+import { useVModel } from '@vueuse/core'
 
 export const TablePropEditor = defineComponent({
   props: {
@@ -10,11 +10,8 @@ export const TablePropEditor = defineComponent({
     propConfig: { type: Object as PropType<VisualEditorProps>, required: true }
   },
   emits: ['update:modelValue'],
-  setup(props, ctx) {
-    const model = useModel(
-      () => props.modelValue,
-      (val) => ctx.emit('update:modelValue', val)
-    )
+  setup(props, { emit }: SetupContext) {
+    const model = useVModel(props, 'modelValue', emit)
 
     const onClick = async () => {
       const data = await $$tablePropEditor({
