@@ -94,7 +94,7 @@ export function createEditorColorProp(label: string, defaultValue?: string): Vis
 
 export type VisualEditorSelectOptions = {
   label: string
-  val: string | number | boolean | object
+  value: string | number | boolean | object
 }[]
 
 interface EditorSelectProp {
