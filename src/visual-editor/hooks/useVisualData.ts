@@ -80,10 +80,6 @@ export const initVisualData = (): VisualData => {
     state.currentPage = jsonData.pages[paths[0]] ?? defaultValue.pages['/']
   }
 
-  console.log(jsonData.pages, 'jsonData.pages')
-  console.log(route.path, 'route.path')
-  console.log(state.currentPage, '哈哈哈')
-
   // 路由变化时更新当前操作的页面
   watch(
     () => route.path,

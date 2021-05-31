@@ -50,7 +50,7 @@ export default {
       })
     }
 
-    const RenderLayout = () => (
+    const Layout = () => (
       <Row
         ref={(el) => registerRef(el, block._vid)}
         {...custom}
@@ -66,15 +66,15 @@ export default {
           .map((spanItem: SlotItem, spanIndex) => {
             slotsTemp[block._vid][`slot${spanIndex}`] = spanItem
             return (
-              <>
-                <Col span={spanItem.span}>{renderSlot(slots, `slot${spanIndex}`)}</Col>
-              </>
+              <Col key={`slot${spanIndex}`} span={spanItem.span}>
+                {renderSlot(slots, `slot${spanIndex}`, {}, () => [`slot${spanIndex}`])}
+              </Col>
             )
           })}
       </Row>
     )
 
-    return <RenderLayout />
+    return <Layout />
   },
   resize: {
     height: true,

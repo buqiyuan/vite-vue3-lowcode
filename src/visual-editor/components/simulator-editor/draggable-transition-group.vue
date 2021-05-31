@@ -4,7 +4,6 @@
     class="dragArea list-group"
     :class="{ isDrag }"
     tag="transition-group"
-    :group="{ name: 'nested-draggable' }"
     :component-data="{
       tag: 'div',
       type: 'transition-group',
@@ -80,16 +79,20 @@ export default defineComponent({
 .flip-list-move {
   transition: transform 0.5s;
 }
+
 .no-move {
   transition: transform 0s;
 }
+
 .ghost {
-  opacity: 0.5;
   background: #c8ebfb;
+  opacity: 0.5;
 }
+
 .list-group {
   height: 100%;
   min-height: 40px;
+
   &.isDrag div[data-draggable='true'] {
     padding: 8px 0;
   }

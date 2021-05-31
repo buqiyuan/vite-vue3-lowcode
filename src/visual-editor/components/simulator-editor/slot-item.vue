@@ -64,10 +64,12 @@ export default defineComponent({
       default: () => []
     },
     selectComp: {
-      type: Function
+      type: Function,
+      required: true
     },
     onContextmenuBlock: {
-      type: Function
+      type: Function,
+      required: true
     }
   },
   emits: ['update:children', 'on-selected'],
@@ -86,47 +88,50 @@ export default defineComponent({
 .inner-draggable {
   position: relative;
 }
+
 .inner-draggable.slot::after {
-  content: attr(data-slot);
   position: absolute;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+  display: flex;
   height: auto;
   min-height: 40px;
-  background: rgba(246, 247, 249, 0.5);
-  color: #8591a2;
   font-size: 12px;
-  display: flex;
+  color: #8591a2;
   text-align: center;
-  flex-direction: column;
-  justify-content: center;
+  background: rgba(246, 247, 249, 0.5);
+  content: attr(data-slot);
   outline: 1px dashed #dedede;
   outline-offset: -1px;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .list-group-item {
   position: relative;
+  padding: 3px;
   cursor: move;
   transform: translate(0);
-  padding: 3px;
 
   &.focusWithChild {
     outline: 2px dashed #b0c1d7;
     outline-offset: -2px;
   }
+
   &.focusWithChild::before {
-    content: attr(data-label);
     position: absolute;
-    left: -3px;
     top: 0;
-    transform: translate(-100%, 0);
-    background-color: #006eff;
-    color: white;
+    left: -3px;
     padding: 3px;
     font-size: 12px;
     font-weight: 700;
+    color: white;
+    background-color: #006eff;
     border-radius: 3px;
+    content: attr(data-label);
+    transform: translate(-100%, 0);
   }
 
   &.focus {

@@ -20,19 +20,12 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types/", "./types"],
-    "types": ["vite/client", "webpack-env"],
+    "types": ["vite/client"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-//  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["dist", "node_modules"]
 }
