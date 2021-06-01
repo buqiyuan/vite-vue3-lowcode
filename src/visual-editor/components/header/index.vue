@@ -33,11 +33,32 @@
           @click="runPreview"
         />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="github" placement="bottom">
-        <a href="https://github.com/buqiyuan/vite-vue3-lowcode" target="_blank">
+      <!--      <el-tooltip class="item" effect="dark" content="github" placement="bottom">-->
+      <!--        <a href="https://github.com/buqiyuan/vite-vue3-lowcode" target="_blank">-->
+      <!--          <img :src="`${BASE_URL}github.svg`" width="40" height="40" alt="" />-->
+      <!--        </a>-->
+      <!--      </el-tooltip>-->
+      <el-popover placement="bottom" :width="140" trigger="hover">
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col :span="6">
+            <el-tooltip class="item" effect="dark" content="github" placement="bottom">
+              <a href="https://github.com/buqiyuan/vite-vue3-lowcode" target="_blank">
+                <img :src="`${BASE_URL}github.svg`" width="40" height="40" alt="" />
+              </a>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="6">
+            <el-tooltip class="item" effect="dark" content="gitee" placement="bottom">
+              <a href="https://gitee.com/buqiyuan/vite-vue3-lowcode" target="_blank">
+                <img :src="`${BASE_URL}gitee.svg`" width="40" height="40" alt="" />
+              </a>
+            </el-tooltip>
+          </el-col>
+        </el-row>
+        <template #reference>
           <img :src="`${BASE_URL}github.svg`" width="40" height="40" alt="" />
-        </a>
-      </el-tooltip>
+        </template>
+      </el-popover>
     </el-col>
     <!--    右侧工具栏 end-->
   </el-row>
@@ -92,15 +113,18 @@ export default defineComponent({
     background-repeat: no-repeat;
     background-size: contain;
   }
+
   .tool-item {
     .title {
       margin-top: 4px;
       font-size: 12px;
     }
   }
+
   .el-button {
     font-size: 22px;
   }
+
   .right-tools > * {
     margin-left: 8px;
   }

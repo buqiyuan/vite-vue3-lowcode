@@ -1,4 +1,12 @@
-# Vite2.x + Vue3.x + TypeScript H5 低代码平台
+# 基于 Vite2.x + Vue3.x + TypeScript H5 低代码平台
+
+## 克隆主分支，忽略 git-pages 等无关分支
+
+```shell
+git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode.git
+# or
+git clone --single-branch https://gitee.com/buqiyuan/vite-vue3-lowcode.git
+```
 
 ## 技术栈
 
@@ -81,12 +89,6 @@ $$('#props + table tr').reduce((prev, curr) => {
 - `wip` 开发中
 
 ## 快速开始
-
-### 克隆主分支，克隆主要代码，忽略 git-pages 等无关分支
-
-```shell
-git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode
-```
 
 ### 安装依赖
 
