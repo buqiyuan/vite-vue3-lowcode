@@ -82,6 +82,12 @@ $$('#props + table tr').reduce((prev, curr) => {
 
 ## 快速开始
 
+### 克隆主分支，克隆主要代码，忽略 git-pages 等无关分支
+
+```shell
+git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode
+```
+
 ### 安装依赖
 
 ```sh
