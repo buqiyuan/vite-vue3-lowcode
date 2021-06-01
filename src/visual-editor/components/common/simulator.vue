@@ -15,10 +15,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .simulator-container {
+  display: flex;
   width: 100%;
   height: 100%;
   padding-right: 240px;
-  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -26,16 +26,16 @@ export default defineComponent({
     padding-right: 0;
   }
 }
+
 .simulator-editor {
-  box-sizing: border-box;
   width: 360px;
   height: 640px;
   min-width: 360px;
   background: #fafafa;
   border-radius: 5px;
-  box-shadow: 0 8px 12px #ebedf0;
   transform: translate(0);
-  overflow: auto;
+  box-shadow: 0 8px 12px #ebedf0;
+  box-sizing: border-box;
 
   &::-webkit-scrollbar {
     width: 0;
