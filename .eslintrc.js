@@ -22,26 +22,14 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+    'no-unused-vars': 'off',
     'vue/require-default-prop': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_'
-      }
-    ],
-    'no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_'
-      }
-    ],
     'vue/html-self-closing': [
       'error',
       {

@@ -5,7 +5,7 @@
  * @description：属性编辑器
  * @update: 2021/4/28 16:59
  */
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import styles from './index.module.scss'
 import './index.common.scss'
 import {
@@ -23,28 +23,22 @@ import {
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
 import { TablePropEditor } from './components/'
-import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import MonacoEditor from '../common/monaco-editor/MonacoEditor'
-import { useVModel } from '@vueuse/core'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 
 export default defineComponent({
   name: 'RightAttributePanel',
-  props: {
-    block: { type: Object as PropType<VisualEditorBlockData>, default: () => ({}) }
-  },
-  setup(props, { emit }) {
-    const { visualConfig } = useVisualData()
+  setup() {
+    const { visualConfig, currentBlock } = useVisualData()
 
     const state = reactive({
       activeName: 'attr',
-      isOpen: true,
-      editData: useVModel(props, 'block', emit)
+      isOpen: true
     })
 
     const renderEditor = (propName: string, propConfig: VisualEditorProps) => {
-      const { propObj, prop } = useDotProp(state.editData.props, propName)
+      const { propObj, prop } = useDotProp(currentBlock.value.props, propName)
 
       return {
         [VisualEditorPropsType.input]: () => (
@@ -71,28 +65,28 @@ export default defineComponent({
     return () => {
       const content: JSX.Element[] = []
 
-      if (!props.block) {
+      if (!currentBlock.value) {
         content.push(
           <>
             <ElFormItem label="容器宽度">
-              <ElInputNumber v-model={state.editData.width} {...({ step: 100 } as any)} />
+              <ElInputNumber v-model={currentBlock.value.width} {...({ step: 100 } as any)} />
             </ElFormItem>
             <ElFormItem label="容器高度">
-              <ElInputNumber v-model={state.editData.height} {...({ step: 100 } as any)} />
+              <ElInputNumber v-model={currentBlock.value.height} {...({ step: 100 } as any)} />
             </ElFormItem>
           </>
         )
       } else {
-        const { componentKey } = props.block
+        const { componentKey } = currentBlock.value
         const component = visualConfig.componentMap[componentKey]
-        console.log('props.block:', props.block)
+        console.log('props.block:', currentBlock.value)
         content.push(
           <ElFormItem label="组件ID" labelWidth={'76px'}>
-            {props.block._vid}
+            {currentBlock.value._vid}
             <ElPopover
               width={200}
               trigger="hover"
-              content={`你可以利用该组件ID。对该组件进行获取和设置其属性，组件可用属性可在控制台输入：$$refs.${props.block._vid} 进行查看`}
+              content={`你可以利用该组件ID。对该组件进行获取和设置其属性，组件可用属性可在控制台输入：$$refs.${currentBlock.value._vid} 进行查看`}
             >
               {{
                 reference: () => (
@@ -105,9 +99,9 @@ export default defineComponent({
         if (!!component) {
           if (!!component.props) {
             content.push(
-              Object.entries(component.props || {}).map(([propName, propConfig]) => (
+              ...Object.entries(component.props || {}).map(([propName, propConfig]) => (
                 <ElFormItem
-                  key={props.block._vid + propName}
+                  key={currentBlock.value._vid + propName}
                   v-slots={{
                     label: () =>
                       propConfig.tips ? (
@@ -135,7 +129,7 @@ export default defineComponent({
       const handleSchemaChange = (val) => {
         try {
           const newObj = JSON.parse(val)
-          Object.assign(state.editData, newObj)
+          Object.assign(currentBlock.value, newObj)
         } catch (e) {
           console.log('JSON格式有误：', e)
         }
@@ -156,9 +150,9 @@ export default defineComponent({
                 </ElTabPane>
                 <ElTabPane label="JSON" name="json" lazy>
                   <MonacoEditor
-                    code={JSON.stringify(props.block)}
+                    code={JSON.stringify(currentBlock.value)}
                     layout={{ width: 300, height: 800 }}
-                    vid={state.activeName == 'json' ? props.block._vid : -1}
+                    vid={state.activeName == 'json' ? currentBlock.value._vid : -1}
                     onChange={handleSchemaChange}
                     title=""
                   />

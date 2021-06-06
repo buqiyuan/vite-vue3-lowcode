@@ -36,7 +36,7 @@
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, SetupContext } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
@@ -54,10 +54,10 @@ export default defineComponent({
     SlotItem
   },
   emits: ['on-selected'],
-  setup(_, { emit }: SetupContext) {
+  setup() {
     const { globalProperties } = useGlobalProperties()
 
-    const { currentPage, visualConfig } = useVisualData()
+    const { currentPage, visualConfig, setCurrentBlock } = useVisualData()
 
     const state = reactive({
       drag: false
@@ -112,7 +112,7 @@ export default defineComponent({
     }
 
     const selectComp = (element) => {
-      emit('on-selected', element)
+      setCurrentBlock(element)
       currentPage.value.blocks.forEach((block) => {
         block.focus = element._vid == block._vid
         block.focusWithChild = false

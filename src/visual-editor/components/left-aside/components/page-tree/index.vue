@@ -153,8 +153,8 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      setCurrentPage,
       pages,
+      setCurrentPage,
       onSubmit,
       setDefaultPage,
       handleNodeClick,

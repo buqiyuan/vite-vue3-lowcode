@@ -24,6 +24,7 @@ export const localKey = CacheEnum.PAGE_DATA_KEY
 export const injectKey = Symbol('injectKey')
 
 interface IState {
+  currentBlock: VisualEditorBlockData // 当前正在操作的组件
   currentPage: VisualEditorPage // 当前正在操作的页面
   jsonData: VisualEditorModelValue // 整颗JSON树
 }
@@ -31,6 +32,7 @@ interface IState {
 export interface VisualData {
   jsonData: DeepReadonly<VisualEditorModelValue> // 保护JSONData避免直接修改
   currentPage: ComputedRef<VisualEditorPage> // 当前正在操作的页面
+  currentBlock: ComputedRef<VisualEditorBlockData> // 当前正在操作的组件
   visualConfig: VisualEditorConfig // 组件配置
   overrideProject: (jsonData: VisualEditorModelValue) => void // 使用JSON覆盖整个项目
   updatePage: (data: { newPath?: string; oldPath: string; page: Partial<VisualEditorPage> }) => void // 更新某个页面
@@ -38,6 +40,7 @@ export interface VisualData {
   deletePage: (path: string, redirect?: string) => void // 删除页面
   updatePageBlock: (path: string, blocks: VisualEditorBlockData[]) => void // 更新某页面下的所有组件
   setCurrentPage: (path: string) => void // 设置当前正在操作的页面
+  setCurrentBlock: (block: VisualEditorBlockData) => void // 设置当前正在操作的组件
 }
 
 const defaultValue: VisualEditorModelValue = {
@@ -67,9 +70,12 @@ export const initVisualData = (): VisualData => {
   // 所有页面的path都必须以 / 开发
   const getPrefixPath = (path: string) => (path.startsWith('/') ? path : `/${path}`)
 
+  const currentPage = jsonData.pages[route.path]
+
   const state: IState = reactive({
     jsonData,
-    currentPage: jsonData.pages[route.path]
+    currentPage,
+    currentBlock: currentPage?.blocks?.find((item) => item.focus) ?? ({} as VisualEditorBlockData)
   })
   const paths = Object.keys(jsonData.pages)
 
@@ -118,6 +124,11 @@ export const initVisualData = (): VisualData => {
     }
   }
 
+  // 设置当前被操作的组件
+  const setCurrentBlock = (block: VisualEditorBlockData) => {
+    state.currentBlock = block
+  }
+
   // 更新pages下面的blocks
   const updatePageBlock = (path = '', blocks: VisualEditorBlockData[] = []) => {
     state.jsonData.pages[path].blocks = blocks
@@ -131,8 +142,10 @@ export const initVisualData = (): VisualData => {
     visualConfig,
     jsonData: readonly(state.jsonData), // 保护JSONData避免直接修改
     currentPage: computed(() => state.currentPage),
+    currentBlock: computed(() => state.currentBlock),
     overrideProject,
     setCurrentPage,
+    setCurrentBlock,
     updatePage,
     incrementPage,
     deletePage,
