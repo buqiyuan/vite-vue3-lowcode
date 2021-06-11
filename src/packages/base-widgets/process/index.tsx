@@ -8,7 +8,7 @@ import {
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 
 export default {
-  key: 'divider',
+  key: 'process',
   moduleName: 'baseWidgets',
   label: '进度条',
   preview: () => <Progress style="width:190px" percentage={0} />,
