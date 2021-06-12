@@ -128,7 +128,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.vid, refreshEditor)
+    watch(() => props.vid, refreshEditor, { immediate: true })
 
     return () => {
       return (

@@ -1,10 +1,11 @@
 <template>
   <draggable-transition-group
+    :key="slotKey"
     v-model="slotChildren"
-    v-model:drag="drag"
+    v-model:drag="isDrag"
     class="inner-draggable"
     :class="{ slot: !slotChildren?.length }"
-    :data-slot="`插槽（${slotKey}）\n 拖拽组件到此处`"
+    :data-slot="`插槽（${slotKey}）\n 拖拽组件到此处${drag}`"
   >
     <template #item="{ element: innerElement }">
       <div
@@ -21,10 +22,11 @@
             pointerEvents: Object.keys(innerElement.props?.slots || {}).length ? 'auto' : 'none'
           }"
         >
-          <template v-for="(value, slotKey) in innerElement.props?.slots" :key="slotKey" #[slotKey]>
+          <template v-for="(value, key) in innerElement.props?.slots" :key="key" #[key]>
             <SlotItem
               v-model:children="value.children"
-              :slot-key="slotKey"
+              v-model:drag="isDrag"
+              :slot-key="key"
               :config="config"
               :on-contextmenu-block="onContextmenuBlock"
               :select-comp="selectComp"
@@ -45,7 +47,7 @@
  * @update: 2021/5/2 22:36
  */
 
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useVModel } from '@vueuse/core'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import CompRender from './comp-render'
@@ -58,6 +60,10 @@ export default defineComponent({
     config: {
       type: Object,
       default: () => ({})
+    },
+    drag: {
+      type: Boolean,
+      default: false
     },
     children: {
       type: Array,
@@ -72,12 +78,10 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['update:children', 'on-selected'],
+  emits: ['update:children', 'on-selected', 'update:drag'],
   setup(props, { emit }) {
-    const drag = ref(false)
-
     return {
-      drag,
+      isDrag: useVModel(props, 'drag', emit),
       slotChildren: useVModel(props, 'children', emit)
     }
   }

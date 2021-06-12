@@ -1,0 +1,22 @@
+/**
+* 显示容器边界
+*/
+
+@mixin showContainerBorder {
+  outline: 2px dashed #b0c1d7;
+  outline-offset: -2px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: -3px;
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    background-color: #006eff;
+    border-radius: 3px;
+    content: attr(data-label);
+    transform: translate(-100%, 0);
+  }
+}

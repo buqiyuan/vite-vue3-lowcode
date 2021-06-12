@@ -1,3 +1,11 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-06-12 09:55:10
+ * @LastEditors: 卜启缘
+ * @Description: 图片组件
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\image\index.tsx
+ */
 import { Image } from 'vant'
 import {
   createEditorInputProp,
@@ -5,6 +13,7 @@ import {
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 
 export default {
   key: 'image',
@@ -21,8 +30,10 @@ export default {
       </div>
     </div>
   ),
-  render: ({ props }) => {
-    return <Image {...props} />
+  render: ({ props, block }) => {
+    const { registerRef } = useGlobalProperties()
+    const ImageComp = () => <Image ref={(el) => registerRef(el, block._vid)} {...props} />
+    return <ImageComp></ImageComp>
   },
   props: {
     src: createEditorInputProp({

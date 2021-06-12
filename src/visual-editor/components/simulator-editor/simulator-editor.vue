@@ -1,5 +1,5 @@
 <template>
-  <draggable-transition-group v-model:drag="drag" v-model="currentPage.blocks">
+  <DraggableTransitionGroup v-model:drag="drag" v-model="currentPage.blocks">
     <template #item="{ element: outElement }">
       <div
         class="list-group-item"
@@ -8,7 +8,7 @@
           focus: outElement.focus,
           focusWithChild: outElement.focusWithChild,
           drag,
-          ['no-child']: !Object.keys(outElement.props.slots || {}).length
+          ['has-slot']: !!Object.keys(outElement.props.slots || {}).length
         }"
         @contextmenu.stop.prevent="onContextmenuBlock($event, outElement)"
         @mousedown="selectComp(outElement)"
@@ -21,8 +21,9 @@
           }"
         >
           <template v-for="(value, slotKey) in outElement.props?.slots" :key="slotKey" #[slotKey]>
-            <slot-item
+            <SlotItem
               v-model:children="value.children"
+              v-model:drag="drag"
               :slot-key="slotKey"
               :config="visualConfig"
               :on-contextmenu-block="onContextmenuBlock"
@@ -32,7 +33,7 @@
         </comp-render>
       </div>
     </template>
-  </draggable-transition-group>
+  </DraggableTransitionGroup>
 </template>
 
 <script lang="tsx">
@@ -185,6 +186,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+@import './func.scss';
+
 .list-group-item {
   position: relative;
   padding: 3px;
@@ -201,27 +204,12 @@ export default defineComponent({
     display: none;
   }
 
-  &.no-child {
+  &:not(.has-slot) {
     content: '';
   }
 
   &.focusWithChild {
-    outline: 2px dashed #b0c1d7;
-    outline-offset: -2px;
-  }
-
-  &.focusWithChild::before {
-    position: absolute;
-    top: 0;
-    left: -3px;
-    padding: 3px;
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-    background-color: #006eff;
-    border-radius: 3px;
-    content: attr(data-label);
-    transform: translate(-100%, 0);
+    @include showContainerBorder;
   }
 
   i {

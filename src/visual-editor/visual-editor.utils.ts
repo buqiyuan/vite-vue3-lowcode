@@ -18,6 +18,7 @@ export interface VisualEditorBlockData {
   props: Record<string, any> // 组件的设计属性
   model: Record<string, string> // 绑定的字段
   slotName?: string // 组件唯一标识
+  animations?: Animation[] // 动画集
   [prop: string]: any
 }
 
@@ -41,6 +42,14 @@ export interface VisualEditorModelValue {
   pages: VisualEditorPages
 }
 
+export interface Animation {
+  label: string // 动画名称
+  value: string // 动画类名
+  duration: number // 动画持续时间
+  delay: number // 动画延迟多久执行
+  count: number // 动画执行次数
+  infinite: boolean // 是否无限循环动画
+}
 export interface VisualEditorComponent {
   key: string // 组件名称
   moduleName: keyof ComponentModules // 模块名称
@@ -55,7 +64,7 @@ export interface VisualEditorComponent {
     custom: Record<string, any>
   }) => JSX.Element
   props?: Record<string, VisualEditorProps>
-  model?: Record<string, string>
+  animations?: Animation[] // 动画集
   resize?: { width?: boolean; height?: boolean }
 }
 
@@ -95,6 +104,7 @@ export function createNewBlock({
       }
       return prev
     }, {}),
+    animations: [], // 动画集
     model: {}
   }
 }

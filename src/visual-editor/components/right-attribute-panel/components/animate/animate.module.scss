@@ -1,0 +1,67 @@
+.animate {
+  :global {
+    .el-col {
+      margin: 10px 0;
+    }
+
+    .animate-item {
+      @apply flex items-center justify-center;
+
+      height: 50px;
+      padding: 6px;
+      font-size: 12px;
+      background-color: #eee;
+      border-radius: 3px;
+      transition: background-color 0.2s, color 0.2s;
+
+      &:hover {
+        color: white;
+        cursor: pointer;
+        background-color: #1593ff;
+      }
+    }
+
+    .el-alert {
+      padding: 10px 8px;
+      font-size: 14px;
+
+      .title {
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .label {
+        padding: 4px 10px;
+        cursor: pointer;
+        background-color: #e6e9ec;
+        border-radius: 12px;
+      }
+
+      .play {
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      span {
+        margin-right: 10px;
+      }
+
+      .el-alert__description {
+        font-size: inherit;
+
+        input[type='number'] {
+          display: inline-block;
+          height: 36px;
+          max-width: 48px;
+          padding: 6px;
+          color: #333;
+          background: #fff;
+          border: 1px solid #ccd5db;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+}

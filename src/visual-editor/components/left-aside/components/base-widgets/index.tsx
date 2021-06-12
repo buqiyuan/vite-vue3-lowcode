@@ -1,8 +1,15 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 13:22:14
+ * @LastEditTime: 2021-06-12 14:39:38
+ * @LastEditors: 卜启缘
+ * @Description:
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\base-widgets\index.tsx
+ */
 import { defineComponent } from 'vue'
 import { cloneDeep } from 'lodash'
 import { visualConfig } from '@/visual.config'
-// @ts-ignore 暂时方案 待官方修复
-import Draggable from 'vuedraggable/src/vuedraggable'
+import Draggable from 'vuedraggable'
 import styles from './index.module.scss'
 import { createNewBlock } from '@/visual-editor/visual-editor.utils'
 
@@ -29,7 +36,7 @@ export default defineComponent({
           list={visualConfig.componentModules.baseWidgets}
           group={{ name: 'components', pull: 'clone', put: false }}
           clone={cloneDog}
-          item-key="key"
+          item-key="_vid"
           onChange={log}
         >
           {{

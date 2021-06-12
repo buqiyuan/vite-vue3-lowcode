@@ -9,53 +9,64 @@ $boxShadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
 
 .drawer {
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
-  width: 320px;
+  z-index: 20;
+  width: 350px;
   background-color: white;
   transform: translateX(100%);
-  transition: transform 0.5s ease-in-out;
   box-shadow: $boxShadow;
-  z-index: 20;
+  transition: transform 0.5s ease-in-out;
+  contain: layout;
+
   &.is-open {
     transform: translateX(0);
-    /*.floating-action-btn {
+
+    /* .floating-action-btn {
       transform: translateX(0);
-    }*/
+    } */
   }
-  /*&:hover {
+
+  /* &:hover {
     .floating-action-btn {
       transform: translateX(-20px);
     }
-  }*/
-}
-
-.drawer.is-open {
-  transform: translateX(0);
+  } */
 }
 
 .floating-action-btn {
   position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
   width: 20px;
   height: 80px;
+  cursor: pointer;
   background: #fff;
+  transform: translateX(-20px);
   box-shadow: $boxShadow;
-  display: flex;
+  transition: transform 0.5s ease-in-out;
   justify-content: center;
   align-items: center;
-  transform: translateX(-20px);
-  transition: transform 0.5s ease-in-out;
-  left: 0;
-  top: 50%;
-  cursor: pointer;
 }
 
 .attrs {
   position: absolute;
-  padding: 12px;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
   background-color: white;
-  overflow: auto;
+
+  .tabs {
+    height: 100%;
+
+    :global {
+      .el-tabs__content {
+        height: 100%;
+        padding-bottom: 50px;
+        overflow-y: auto;
+      }
+    }
+  }
 }

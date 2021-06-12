@@ -19,7 +19,7 @@ import {
   ElPopover
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
-import { TablePropEditor } from './'
+import { TablePropEditor } from '../'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 

@@ -1,7 +1,17 @@
+<!--
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 13:30:22
+ * @LastEditTime: 2021-06-12 18:29:28
+ * @LastEditors: 卜启缘
+ * @Description: 手机模拟器
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\common\simulator.vue
+-->
 <template>
   <div class="simulator-container">
     <div class="simulator-editor">
-      <slot></slot>
+      <div class="simulator-editor-content">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -28,17 +38,25 @@ export default defineComponent({
 }
 
 .simulator-editor {
-  width: 360px;
+  width: 560px;
   height: 640px;
-  min-width: 360px;
+  min-width: 560px;
+  padding: 10px 100px;
+  overflow: hidden auto;
   background: #fafafa;
   border-radius: 5px;
   transform: translate(0);
-  box-shadow: 0 8px 12px #ebedf0;
   box-sizing: border-box;
+  background-clip: content-box;
+  contain: layout;
 
   &::-webkit-scrollbar {
     width: 0;
+  }
+
+  &-content {
+    min-height: 100%;
+    box-shadow: 0 8px 12px #ebedf0;
   }
 }
 </style>

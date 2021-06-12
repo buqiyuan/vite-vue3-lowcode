@@ -5,6 +5,8 @@ import router from './router'
 
 import { setupVant } from '@/plugins/vant'
 
+import 'animate.css'
+
 const app = createApp(App)
 
 // 安装vant插件

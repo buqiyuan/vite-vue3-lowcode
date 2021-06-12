@@ -32,8 +32,7 @@
  * @update: 2021/5/1 23:15
  */
 import { computed, defineComponent, reactive, toRefs, SetupContext } from 'vue'
-// @ts-ignore 暂时方案 待官方修复
-import draggable from 'vuedraggable/src/vuedraggable'
+import draggable from 'vuedraggable'
 import { useVModel } from '@vueuse/core'
 
 export default defineComponent({
@@ -76,6 +75,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import './func.scss';
+
 .flip-list-move {
   transition: transform 0.5s;
 }
@@ -95,6 +96,10 @@ export default defineComponent({
 
   &.isDrag div[data-draggable='true'] {
     padding: 8px 0;
+  }
+
+  &.isDrag:not(.no-child) :deep(.list-group-item.has-slot) {
+    @include showContainerBorder;
   }
 }
 </style>
