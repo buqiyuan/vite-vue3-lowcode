@@ -5,7 +5,7 @@
     v-model:drag="isDrag"
     class="inner-draggable"
     :class="{ slot: !slotChildren?.length }"
-    :data-slot="`插槽（${slotKey}）\n 拖拽组件到此处${drag}`"
+    :data-slot="`插槽（${slotKey}）\n 拖拽组件到此处`"
   >
     <template #item="{ element: innerElement }">
       <div

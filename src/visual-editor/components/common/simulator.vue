@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:30:22
- * @LastEditTime: 2021-06-12 18:29:28
+ * @LastEditTime: 2021-06-14 00:21:31
  * @LastEditors: 卜启缘
  * @Description: 手机模拟器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\common\simulator.vue

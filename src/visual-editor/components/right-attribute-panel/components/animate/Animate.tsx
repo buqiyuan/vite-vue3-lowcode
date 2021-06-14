@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-11 18:08:01
- * @LastEditTime: 2021-06-12 22:07:05
+ * @LastEditTime: 2021-06-13 18:32:53
  * @LastEditors: 卜启缘
  * @Description: 动画组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\animate\Animate.tsx
@@ -92,10 +92,10 @@ export const Animate = defineComponent({
       <>
         {currentBlock.value.animations?.map((item, index) => (
           <ElAlert
-            onClose={() => delAnimate(index)}
+            key={item.value}
             type={'info'}
             style={{ marginTop: '12px' }}
-            key={item.value}
+            onClose={() => delAnimate(index)}
           >
             {{
               title: () => (
@@ -164,9 +164,10 @@ export const Animate = defineComponent({
         <div v-show={!state.isAddAnimates}>
           <ElButton
             type={'primary'}
-            onClick={() => (state.isAddAnimates = true)}
+            disabled={!currentBlock.value.animations}
             plain
             icon={'el-icon-plus'}
+            onClick={() => (state.isAddAnimates = true)}
           >
             添加动画
           </ElButton>

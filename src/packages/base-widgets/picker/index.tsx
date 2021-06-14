@@ -49,7 +49,7 @@ export default {
               )
           }}
         </Field>
-        <Popup v-model={[state.showPicker, 'show', ['modifier']]} position={'bottom'}>
+        <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
           <Picker
             ref={(el) => registerRef(el, block._vid)}
             {...props}

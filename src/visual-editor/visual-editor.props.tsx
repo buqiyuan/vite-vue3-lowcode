@@ -4,13 +4,15 @@ export enum VisualEditorPropsType {
   color = 'color',
   select = 'select',
   table = 'table',
-  switch = 'switch'
+  switch = 'switch',
+  crossSortable = 'crossSortable'
 }
 
 export type VisualEditorProps = {
   type: VisualEditorPropsType
   label: string
-  tips?: string
+  tips?: string // 表单项提示
+  labelPosition?: string // 表单域标签的位置
   multiple?: boolean
   defaultValue?: any
 } & {
@@ -147,6 +149,27 @@ export function createEditorTableProp({
     type: VisualEditorPropsType.table,
     label,
     table: option,
+    defaultValue
+  }
+}
+
+/*---------------------------------------CrossSortableOptions-------------------------------------------*/
+
+interface EditorCrossSortableProp {
+  label: string
+  labelPosition: string
+  defaultValue?: string[]
+}
+
+export function createEditorCrossSortableProp({
+  label,
+  labelPosition,
+  defaultValue
+}: EditorCrossSortableProp): VisualEditorProps {
+  return {
+    type: VisualEditorPropsType.crossSortable,
+    label,
+    labelPosition,
     defaultValue
   }
 }

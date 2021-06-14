@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-12 09:55:10
+ * @LastEditTime: 2021-06-14 10:31:27
  * @LastEditors: 卜启缘
  * @Description: 图片组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\image\index.tsx
@@ -32,8 +32,8 @@ export default {
   ),
   render: ({ props, block }) => {
     const { registerRef } = useGlobalProperties()
-    const ImageComp = () => <Image ref={(el) => registerRef(el, block._vid)} {...props} />
-    return <ImageComp></ImageComp>
+
+    return <Image ref={(el) => registerRef(el, block._vid)} {...props} />
   },
   props: {
     src: createEditorInputProp({

@@ -1,10 +1,10 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-10 16:23:06
- * @LastEditTime: 2021-06-10 16:46:36
+ * @LastEditTime: 2021-06-14 17:22:11
  * @LastEditors: 卜启缘
  * @Description: 组件属性编辑器
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\AttrEditor.tsx
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\AttrEditor.tsx
  */
 import { defineComponent } from 'vue'
 import {
@@ -19,7 +19,7 @@ import {
   ElPopover
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
-import { TablePropEditor } from '../'
+import { TablePropEditor, CrossSortableOptionsEditor } from '../'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 
@@ -37,6 +37,9 @@ export const AttrEditor = defineComponent({
         [VisualEditorPropsType.inputNumber]: () => <ElInputNumber v-model={propObj[prop]} />,
         [VisualEditorPropsType.switch]: () => <ElSwitch v-model={propObj[prop]} />,
         [VisualEditorPropsType.color]: () => <ElColorPicker v-model={propObj[prop]} />,
+        [VisualEditorPropsType.crossSortable]: () => (
+          <CrossSortableOptionsEditor v-model={propObj[prop]} />
+        ),
         [VisualEditorPropsType.select]: () => (
           <ElSelect v-model={propObj[prop]} valueKey={'value'} multiple={propConfig.multiple}>
             {propConfig.options?.map((opt) => (
@@ -91,21 +94,31 @@ export const AttrEditor = defineComponent({
             content.push(
               ...Object.entries(component.props || {}).map(([propName, propConfig]) => (
                 <>
-                  <ElFormItem key={currentBlock.value._vid + propName}>
+                  <ElFormItem
+                    key={currentBlock.value._vid + propName}
+                    style={
+                      propConfig.labelPosition == 'top'
+                        ? {
+                            display: 'flex',
+                            'flex-direction': 'column',
+                            'align-items': 'flex-start'
+                          }
+                        : {}
+                    }
+                  >
                     {{
-                      label: () =>
-                        propConfig.tips ? (
-                          <>
+                      label: () => (
+                        <>
+                          {propConfig.tips && (
                             <ElPopover width={200} trigger={'hover'} content={propConfig.tips}>
                               {{
                                 reference: () => <i class={'el-icon-warning-outline'}></i>
                               }}
                             </ElPopover>
-                            {propConfig.label}
-                          </>
-                        ) : (
-                          propConfig.label
-                        ),
+                          )}
+                          {propConfig.label}
+                        </>
+                      ),
                       default: () => renderEditor(propName, propConfig)
                     }}
                   </ElFormItem>
@@ -117,7 +130,7 @@ export const AttrEditor = defineComponent({
       }
       return (
         <>
-          <ElForm size="mini" label-position="left">
+          <ElForm size="mini" labelPosition={'left'}>
             {content}
           </ElForm>
         </>

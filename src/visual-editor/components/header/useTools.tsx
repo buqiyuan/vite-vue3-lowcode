@@ -151,7 +151,7 @@ export const useTools = () => {
       icon: 'el-icon-position',
       onClick: () => {
         localStorage.setItem(localKey, JSON.stringify(jsonData))
-        window.open(location.href.replace('/#/', '/preview/'))
+        window.open(location.href.replace('/#/', '/preview/#/'))
       }
     },
     {

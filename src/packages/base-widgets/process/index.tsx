@@ -11,9 +11,11 @@ export default {
   key: 'process',
   moduleName: 'baseWidgets',
   label: '进度条',
-  preview: () => <Progress style="width:190px" percentage={0} />,
+  preview: () => <Progress style="width:190px" percentage={50} />,
   render: ({ props }) => {
-    return <Progress {...props} pivotText={props.pivotText || undefined} />
+    const RenderProgress = () => <Progress {...props} pivotText={props.pivotText || undefined} />
+
+    return <RenderProgress />
   },
   props: {
     percentage: createEditorInputNumberProp({ label: '进度百分比', defaultValue: 50 }),

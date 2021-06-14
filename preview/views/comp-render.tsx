@@ -1,14 +1,23 @@
-import { defineComponent } from 'vue'
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-05-04 05:36:58
+ * @LastEditTime: 2021-06-14 10:03:06
+ * @LastEditors: 卜启缘
+ * @Description:
+ * @FilePath: \vite-vue3-lowcode\preview\views\comp-render.tsx
+ */
+import { defineComponent, PropType } from 'vue'
+import { VisualEditorBlockData, VisualEditorConfig } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'CompRender',
   props: {
     element: {
-      type: Object,
+      type: Object as PropType<VisualEditorBlockData>,
       default: () => ({})
     },
     config: {
-      type: Object,
+      type: Object as PropType<VisualEditorConfig>,
       default: () => ({})
     }
   },

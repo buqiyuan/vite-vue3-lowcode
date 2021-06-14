@@ -94,9 +94,9 @@ export default defineComponent({
   height: 100%;
   min-height: 40px;
 
-  &.isDrag div[data-draggable='true'] {
-    padding: 8px 0;
-  }
+  // &.isDrag div[data-draggable='true'] {
+  //   padding: 2px 0;
+  // }
 
   &.isDrag:not(.no-child) :deep(.list-group-item.has-slot) {
     @include showContainerBorder;

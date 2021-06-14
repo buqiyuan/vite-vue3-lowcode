@@ -11,7 +11,7 @@ import {
 export default {
   key: 'rate',
   moduleName: 'baseWidgets',
-  label: '表单项类型 - 单选框',
+  label: '表单项类型 - 评分',
   preview: () => (
     <Field
       name="rate"

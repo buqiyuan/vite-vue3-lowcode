@@ -1,5 +1,9 @@
 <template>
-  <DraggableTransitionGroup v-model:drag="drag" v-model="currentPage.blocks">
+  <DraggableTransitionGroup
+    v-model:drag="drag"
+    v-model="currentPage.blocks"
+    style="min-height: 500px"
+  >
     <template #item="{ element: outElement }">
       <div
         class="list-group-item"
@@ -14,6 +18,7 @@
         @mousedown="selectComp(outElement)"
       >
         <comp-render
+          :key="outElement._vid"
           :config="visualConfig"
           :element="outElement"
           :style="{
@@ -93,6 +98,7 @@ export default defineComponent({
       }
     }
 
+    // 给当前点击的组件设置聚焦
     const handleSlotsFocus = (block, _vid) => {
       const slots = block.props?.slots || {}
       if (Object.keys(slots).length > 0) {
@@ -112,6 +118,7 @@ export default defineComponent({
       }
     }
 
+    // 选择要操作的组件
     const selectComp = (element) => {
       setCurrentBlock(element)
       currentPage.value.blocks.forEach((block) => {
@@ -165,7 +172,10 @@ export default defineComponent({
                   const index = parentBlocks.findIndex((item) => item._vid == block._vid)
                   if (index != -1) {
                     delete globalProperties.$$refs[parentBlocks[index]._vid]
-                    parentBlocks.splice(index, 1)
+                    const delTarget = parentBlocks.splice(index, 1)[0]
+                    if (delTarget.focus) {
+                      setCurrentBlock({} as VisualEditorBlockData)
+                    }
                   }
                 }
               }}

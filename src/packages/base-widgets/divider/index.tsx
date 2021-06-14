@@ -6,16 +6,23 @@ import {
   createEditorSelectProp
 } from '@/visual-editor/visual-editor.props'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 
 export default {
   key: 'divider',
   moduleName: 'baseWidgets',
   label: '分割线',
   preview: () => <Divider style="width:190px">文本</Divider>,
-  render: ({ props }) => {
-    const style = `color:${props['text-color']};borderColor:${props['divider-color']}`
+  render: ({ props, block }) => {
+    const { registerRef } = useGlobalProperties()
+
+    const style = {
+      color: props['text-color'],
+      borderColor: props['divider-color']
+    }
+
     return (
-      <Divider {...props} style={style}>
+      <Divider ref={(el) => registerRef(el, block._vid)} {...props} style={style}>
         {{
           default: () => props.text
         }}

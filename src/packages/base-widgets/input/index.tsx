@@ -13,6 +13,11 @@ export default {
   render: ({ model, size, block, props, custom }) => {
     const { registerRef } = useGlobalProperties()
 
+    let rules = []
+    try {
+      rules = JSON.parse(props.rules)
+    } catch (e) {}
+
     return (
       <Field
         ref={(el) => registerRef(el, block._vid)}
@@ -20,6 +25,7 @@ export default {
         {...props}
         {...model.default}
         v-model={props.modelValue}
+        rules={rules}
         style={{
           width: size.width ? `${size.width}px` : null
         }}

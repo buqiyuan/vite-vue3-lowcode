@@ -10,7 +10,7 @@ import {
 export default {
   key: 'stepper',
   moduleName: 'baseWidgets',
-  label: '表单项类型 - 单选框',
+  label: '表单项类型 - 步进器',
   preview: () => (
     <Field
       name="stepper"

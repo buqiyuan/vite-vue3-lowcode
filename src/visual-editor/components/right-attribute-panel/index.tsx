@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-12 19:25:26
+ * @LastEditTime: 2021-06-13 21:26:49
  * @LastEditors: 卜启缘
  * @Description: 属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\index.tsx
@@ -10,11 +10,7 @@
 
 import { defineComponent, reactive } from 'vue'
 import styles from './index.module.scss'
-import './index.common.scss'
 import { ElTabPane, ElTabs } from 'element-plus'
-
-console.log(styles, 'styles')
-
 import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import { AttrEditor, Animate } from './components'

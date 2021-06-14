@@ -67,6 +67,16 @@ $boxShadow: -2px 0 4px 0 rgb(0 0 0 / 10%);
         padding-bottom: 50px;
         overflow-y: auto;
       }
+
+      .el-form-item__label {
+        font-size: 12px;
+      }
+
+      .el-form-item--mini .el-form-item__content {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
     }
   }
 }

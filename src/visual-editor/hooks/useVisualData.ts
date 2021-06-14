@@ -122,6 +122,8 @@ export const initVisualData = (): VisualData => {
       state.currentPage = jsonData.pages['/']
       router.replace('/')
     }
+    const currentFocusBlock = state.currentPage.blocks.find((item) => item.focus)
+    setCurrentBlock(currentFocusBlock ?? ({} as VisualEditorBlockData))
   }
 
   // 设置当前被操作的组件
