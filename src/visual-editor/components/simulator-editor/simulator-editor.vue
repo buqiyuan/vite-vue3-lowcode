@@ -33,6 +33,7 @@
               :config="visualConfig"
               :on-contextmenu-block="onContextmenuBlock"
               :select-comp="selectComp"
+              :delete-comp="deleteComp"
             />
           </template>
         </comp-render>
@@ -129,6 +130,21 @@ export default defineComponent({
       })
     }
 
+    /**
+     * 删除组件
+     */
+    const deleteComp = (block: VisualEditorBlockData, parentBlocks = currentPage.value.blocks) => {
+      console.log(block, 'block')
+      const index = parentBlocks.findIndex((item) => item._vid == block._vid)
+      if (index != -1) {
+        delete globalProperties.$$refs[parentBlocks[index]._vid]
+        const delTarget = parentBlocks.splice(index, 1)[0]
+        if (delTarget.focus) {
+          setCurrentBlock({} as VisualEditorBlockData)
+        }
+      }
+    }
+
     const onContextmenuBlock = (
       e: MouseEvent,
       block: VisualEditorBlockData,
@@ -168,16 +184,7 @@ export default defineComponent({
               label="删除节点"
               icon="el-icon-delete"
               {...{
-                onClick: () => {
-                  const index = parentBlocks.findIndex((item) => item._vid == block._vid)
-                  if (index != -1) {
-                    delete globalProperties.$$refs[parentBlocks[index]._vid]
-                    const delTarget = parentBlocks.splice(index, 1)[0]
-                    if (delTarget.focus) {
-                      setCurrentBlock({} as VisualEditorBlockData)
-                    }
-                  }
-                }
+                onClick: () => deleteComp(block, parentBlocks)
               }}
             />
           </>
@@ -189,6 +196,7 @@ export default defineComponent({
       ...toRefs(state),
       currentPage,
       visualConfig,
+      deleteComp,
       selectComp,
       onContextmenuBlock
     }

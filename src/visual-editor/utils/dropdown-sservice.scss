@@ -1,11 +1,11 @@
 .dropdown-service {
   position: fixed;
-  padding: 8px 0;
   z-index: 99;
-  box-shadow: 0 2px 5px 1px #ddd;
+  padding: 8px 0;
+  pointer-events: none;
   background-color: white;
   opacity: 0;
-  pointer-events: none;
+  box-shadow: 0 2px 5px 1px #ddd;
   transition: opacity 200ms linear;
 
   .dropdown-option {
@@ -17,13 +17,13 @@
     }
 
     &:hover {
-      background-color: #efefef;
       cursor: pointer;
+      background-color: #efefef;
     }
   }
 
   &.dropdown-service-show {
-    opacity: 1;
     pointer-events: auto;
+    opacity: 1;
   }
 }

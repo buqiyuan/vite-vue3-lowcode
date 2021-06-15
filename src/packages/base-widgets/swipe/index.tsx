@@ -1,9 +1,9 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-14 18:48:44
+ * @LastEditTime: 2021-06-14 21:19:28
  * @LastEditors: 卜启缘
- * @Description:
+ * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
  */
 import { Swipe, SwipeItem } from 'vant'
@@ -33,7 +33,11 @@ export default {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Swipe ref={(el) => registerRef(el, block._vid)} {...props}>
+      <Swipe
+        ref={(el) => registerRef(el, block._vid)}
+        {...props}
+        style={{ height: `${props.height}px` }}
+      >
         {props.images?.map((item) => (
           <>
             <SwipeItem key={item}>

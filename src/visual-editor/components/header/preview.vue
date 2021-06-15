@@ -1,7 +1,8 @@
 <template>
   <el-dialog v-model="dialogVisible" custom-class="h5-preview" :show-close="false" width="360px">
     <iframe
-      style="width: 360px; height: 640px"
+      v-if="dialogVisible"
+      :style="{ width: '360px', height: '640px' }"
       :src="previewUrl"
       frameborder="0"
       scrolling="auto"
@@ -45,14 +46,18 @@ export default defineComponent({
 <style lang="scss">
 .h5-preview {
   overflow: hidden;
+
   .el-dialog__body {
     padding: 0;
   }
+
   .el-dialog__header {
     display: none;
   }
+
   .simulator {
     padding-right: 0;
+
     &::-webkit-scrollbar {
       width: 0;
     }

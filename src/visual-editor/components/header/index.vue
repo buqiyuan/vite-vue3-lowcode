@@ -62,9 +62,7 @@
     </el-col>
     <!--    右侧工具栏 end-->
   </el-row>
-  <template v-if="isShowH5Preview">
-    <preview v-model:visible="isShowH5Preview" />
-  </template>
+  <preview v-model:visible="isShowH5Preview" />
 </template>
 
 <script lang="ts">

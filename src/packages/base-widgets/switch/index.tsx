@@ -17,6 +17,7 @@ export default {
     return (
       <Field
         {...props}
+        modelValue={''}
         style={{
           width: size.width ? `${size.width}px` : null
         }}

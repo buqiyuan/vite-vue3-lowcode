@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js v14.x
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Install
         run: npm install
@@ -27,3 +27,4 @@ jobs:
           publish_dir: ./dist
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           commit_message: Update ghPages
+          force_orphan: true
