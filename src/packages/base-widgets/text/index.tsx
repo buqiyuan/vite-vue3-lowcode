@@ -1,16 +1,17 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-14 10:17:54
+ * @LastEditTime: 2021-06-22 23:14:46
  * @LastEditors: 卜启缘
- * @Description:
+ * @Description: 文本
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\text\index.tsx
  */
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
   createEditorColorProp,
   createEditorInputProp,
-  createEditorSelectProp
+  createEditorSelectProp,
+  createEditorInputNumberProp
 } from '@/visual-editor/visual-editor.props'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { fontArr } from './fontArr'
@@ -26,7 +27,11 @@ export default {
     return (
       <div
         ref={(el) => registerRef(el, block._vid)}
-        style={{ color: props.color, fontSize: props.size, fontFamily: props.font }}
+        style={{
+          color: props.color,
+          fontSize: `${parseFloat(props.size)}px`,
+          fontFamily: props.font
+        }}
       >
         {props.text || '默认文本'}
       </div>
@@ -35,14 +40,10 @@ export default {
   props: {
     text: createEditorInputProp({ label: '显示文本' }),
     font: createEditorSelectProp({ label: '字体设置', options: fontArr }),
-    color: createEditorColorProp('字体颜色'),
-    size: createEditorSelectProp({
+    color: createEditorColorProp({ label: '字体颜色' }),
+    size: createEditorInputNumberProp({
       label: '字体大小',
-      options: [
-        { label: '14px', value: '14px' },
-        { label: '18px', value: '18px' },
-        { label: '24px', value: '24px' }
-      ]
+      defaultValue: 16
     })
   }
 } as VisualEditorComponent

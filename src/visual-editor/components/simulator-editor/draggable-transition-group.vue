@@ -9,11 +9,11 @@
       type: 'transition-group',
       name: !isDrag ? 'flip-list' : null
     }"
-    item-key="_vid"
-    v-bind="dragOptions"
+    :group="group"
+    v-bind="{ ...dragOptions, $attrs }"
+    :item-key="itemKey"
     @start="isDrag = true"
     @end="isDrag = false"
-    @change="log"
   >
     <template #item="item">
       <div>
@@ -46,7 +46,16 @@ export default defineComponent({
     drag: {
       type: Boolean,
       default: false
-    }
+    },
+    itemKey: {
+      type: String,
+      default: '_vid'
+    },
+    group: {
+      type: Object,
+      default: () => ({ name: 'components' })
+    },
+    fallbackClass: String
   },
   emits: ['update:moduleValue', 'update:drag'],
   setup(props, { emit }: SetupContext) {
@@ -57,17 +66,12 @@ export default defineComponent({
 
     const dragOptions = computed(() => ({
       animation: 200,
-      group: 'components',
       disabled: false,
       ghostClass: 'ghost'
     }))
-    const log = () => {
-      // console.log('接收的组件：', evt)
-      // console.log('全部组件：', state.VMBlocks)
-    }
+
     return {
       ...toRefs(state),
-      log,
       dragOptions
     }
   }

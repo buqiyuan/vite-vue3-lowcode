@@ -29,9 +29,10 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         targets: ['defaults', 'not IE 11']
       }),
       ViteComponents({
+        globalComponentsDeclaration: true,
         // 自动导入组件（还不够完善，可能会有样式丢失）
         // valid file extensions for components.
-        extensions: ['vue', 'tsx'],
+        extensions: ['vue', 'tsx', 'js'],
         customComponentResolvers: [ElementPlusResolver(), VantResolver()]
       }),
       styleImport({

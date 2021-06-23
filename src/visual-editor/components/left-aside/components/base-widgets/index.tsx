@@ -1,23 +1,25 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-12 14:39:38
+ * @LastEditTime: 2021-06-23 11:40:10
  * @LastEditors: 卜启缘
- * @Description:
+ * @Description: 基础组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\base-widgets\index.tsx
  */
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { cloneDeep } from 'lodash'
 import { visualConfig } from '@/visual.config'
-import Draggable from 'vuedraggable'
 import styles from './index.module.scss'
 import { createNewBlock } from '@/visual-editor/visual-editor.utils'
+import DraggableTransitionGroup from '@/visual-editor/components/simulator-editor/draggable-transition-group.vue'
 
 export default defineComponent({
   name: 'BaseWidgets',
   setup() {
+    const baseWidgets = ref(visualConfig.componentModules.baseWidgets)
+
     const log = (evt) => {
-      window.console.log(evt)
+      window.console.log('onChange:', evt)
     }
     // 克隆组件
     const cloneDog = (comp) => {
@@ -29,15 +31,13 @@ export default defineComponent({
 
     return () => (
       <>
-        <Draggable
+        <DraggableTransitionGroup
           class={styles.listGroup}
-          sort={false}
-          forceFallback={false}
-          list={visualConfig.componentModules.baseWidgets}
+          v-model={baseWidgets.value}
           group={{ name: 'components', pull: 'clone', put: false }}
           clone={cloneDog}
-          item-key="_vid"
           onChange={log}
+          itemKey={'key'}
         >
           {{
             item: ({ element }) => (
@@ -46,7 +46,7 @@ export default defineComponent({
               </div>
             )
           }}
-        </Draggable>
+        </DraggableTransitionGroup>
       </>
     )
   }

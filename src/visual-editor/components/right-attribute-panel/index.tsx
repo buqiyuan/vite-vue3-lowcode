@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-13 21:26:49
+ * @LastEditTime: 2021-06-23 22:18:34
  * @LastEditors: 卜启缘
  * @Description: 属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\index.tsx
@@ -13,7 +13,7 @@ import styles from './index.module.scss'
 import { ElTabPane, ElTabs } from 'element-plus'
 import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { AttrEditor, Animate } from './components'
+import { AttrEditor, Animate, PageSetting } from './components'
 
 export default defineComponent({
   name: 'RightAttributePanel',
@@ -56,6 +56,9 @@ export default defineComponent({
                   onChange={handleSchemaChange}
                   title=""
                 />
+              </ElTabPane>
+              <ElTabPane label="页面设置" name="page-setting">
+                <PageSetting />
               </ElTabPane>
             </ElTabs>
           </div>

@@ -66,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, computed, toRefs } from 'vue'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
+import { useVisualData, createNewPage } from '@/visual-editor/hooks/useVisualData'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
@@ -146,7 +146,7 @@ export default defineComponent({
         await router.replace(path)
         state.currentNodeKey = path
       } else {
-        incrementPage(path, { title, blocks: [] })
+        incrementPage(path, createNewPage({ title }))
       }
       state.dialogFormVisible = false
     }

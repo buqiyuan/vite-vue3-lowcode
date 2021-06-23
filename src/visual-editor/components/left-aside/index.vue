@@ -51,10 +51,12 @@ export default defineComponent({
   ::v-deep(.el-tabs__item) {
     height: 80px;
     padding: 20px 16px;
+
     [class^='el-icon-'] {
       font-size: 20px;
     }
   }
+
   ::v-deep(.el-tabs__content) {
     height: 100%;
     overflow-y: auto;

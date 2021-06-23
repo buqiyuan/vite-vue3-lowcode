@@ -5,7 +5,16 @@
  * @description：useVisualData
  * @update: 2021/5/6 11:59
  */
-import { reactive, inject, readonly, computed, watch, ComputedRef, DeepReadonly } from 'vue'
+import {
+  reactive,
+  inject,
+  readonly,
+  computed,
+  watch,
+  ComputedRef,
+  InjectionKey,
+  DeepReadonly
+} from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   VisualEditorModelValue,
@@ -21,7 +30,7 @@ import { CacheEnum } from '@/enums'
 export const localKey = CacheEnum.PAGE_DATA_KEY
 
 // 注入jsonData的key
-export const injectKey = Symbol('injectKey')
+export const injectKey: InjectionKey<string> = Symbol()
 
 interface IState {
   currentBlock: VisualEditorBlockData // 当前正在操作的组件
@@ -43,17 +52,26 @@ export interface VisualData {
   setCurrentBlock: (block: VisualEditorBlockData) => void // 设置当前正在操作的组件
 }
 
+/**
+ * @description 创建空的新页面
+ */
+export const createNewPage = ({ title = '新页面', path = '/' }) => ({
+  title,
+  path,
+  config: {
+    bgColor: '',
+    bgImage: ''
+  },
+  blocks: []
+})
+
 const defaultValue: VisualEditorModelValue = {
   container: {
     width: 360,
     height: 960
   },
   pages: {
-    '/': {
-      title: '首页',
-      path: '/',
-      blocks: []
-    }
+    '/': createNewPage({ title: '首页' })
   }
 }
 
@@ -106,7 +124,7 @@ export const initVisualData = (): VisualData => {
   }
   // 添加page
   const incrementPage = (path = '', page: VisualEditorPage) => {
-    state.jsonData.pages[getPrefixPath(path)] ??= page ?? { title: '新页面', path, blocks: [] }
+    state.jsonData.pages[getPrefixPath(path)] ??= page ?? createNewPage({ path })
   }
   // 删除page
   const deletePage = (path = '', redirectPath = '') => {

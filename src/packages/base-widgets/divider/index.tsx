@@ -1,3 +1,11 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-06-22 23:13:09
+ * @LastEditors: 卜启缘
+ * @Description: 分割线
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\divider\index.tsx
+ */
 import { Divider } from 'vant'
 import {
   createEditorColorProp,
@@ -41,7 +49,7 @@ export default {
       defaultValue: 'center'
     }),
     dashed: createEditorSwitchProp({ label: '是否为虚线' }),
-    'text-color': createEditorColorProp('文本颜色'),
-    'divider-color': createEditorColorProp('分割线颜色')
+    'text-color': createEditorColorProp({ label: '文本颜色' }),
+    'divider-color': createEditorColorProp({ label: '分割线颜色' })
   }
 } as VisualEditorComponent

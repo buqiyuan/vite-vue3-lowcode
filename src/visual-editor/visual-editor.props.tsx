@@ -84,7 +84,12 @@ export function createEditorInputNumberProp({
 
 /*---------------------------------------color-------------------------------------------*/
 
-export function createEditorColorProp(label: string, defaultValue?: string): VisualEditorProps {
+interface EditorColorProp {
+  label: string
+  defaultValue?: string
+}
+
+export function createEditorColorProp({ label, defaultValue }: EditorColorProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.color,
     label,

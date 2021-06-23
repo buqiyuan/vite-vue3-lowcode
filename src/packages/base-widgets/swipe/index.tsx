@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-14 21:19:28
+ * @LastEditTime: 2021-06-21 23:06:36
  * @LastEditors: 卜启缘
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
@@ -41,7 +41,7 @@ export default {
         {props.images?.map((item) => (
           <>
             <SwipeItem key={item}>
-              <img src={item} />
+              <img style={{ width: '100%' }} src={item} />
             </SwipeItem>
           </>
         ))}

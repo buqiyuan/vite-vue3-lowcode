@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-10 16:23:06
- * @LastEditTime: 2021-06-14 17:22:11
+ * @LastEditTime: 2021-06-21 10:00:54
  * @LastEditors: 卜启缘
  * @Description: 组件属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\AttrEditor.tsx
@@ -30,6 +30,8 @@ export const AttrEditor = defineComponent({
     const renderEditor = (propName: string, propConfig: VisualEditorProps) => {
       const { propObj, prop } = useDotProp(currentBlock.value.props, propName)
 
+      propObj[prop] ??= propConfig.defaultValue
+
       return {
         [VisualEditorPropsType.input]: () => (
           <ElInput v-model={propObj[prop]} placeholder={propConfig.tips || propConfig.label} />
@@ -43,7 +45,7 @@ export const AttrEditor = defineComponent({
         [VisualEditorPropsType.select]: () => (
           <ElSelect v-model={propObj[prop]} valueKey={'value'} multiple={propConfig.multiple}>
             {propConfig.options?.map((opt) => (
-              <ElOption label={opt.label} value={opt.value} />
+              <ElOption label={opt.label} style={{ fontFamily: opt.value }} value={opt.value} />
             ))}
           </ElSelect>
         ),

@@ -1,5 +1,10 @@
 name: deploy
 
+env:
+  # 7 GiB by default on GitHub, setting to 6 GiB
+  # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+  NODE_OPTIONS: --max-old-space-size=6144
+
 on:
   push:
     branches: [main]
@@ -16,10 +21,10 @@ jobs:
           node-version: '14.x'
 
       - name: Install
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

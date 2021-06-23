@@ -1,3 +1,11 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-05-04 05:36:58
+ * @LastEditTime: 2021-06-22 22:51:42
+ * @LastEditors: 卜启缘
+ * @Description: 导航栏
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\nav-bar\index.tsx
+ */
 import { NavBar } from 'vant'
 import 'vant/lib/nav-bar/index.css'
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'

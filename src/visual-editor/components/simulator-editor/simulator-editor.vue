@@ -1,49 +1,59 @@
 <template>
-  <DraggableTransitionGroup
-    v-model:drag="drag"
-    v-model="currentPage.blocks"
-    style="min-height: 500px"
-  >
-    <template #item="{ element: outElement }">
-      <div
-        class="list-group-item"
-        :data-label="outElement.label"
-        :class="{
-          focus: outElement.focus,
-          focusWithChild: outElement.focusWithChild,
-          drag,
-          ['has-slot']: !!Object.keys(outElement.props.slots || {}).length
-        }"
-        @contextmenu.stop.prevent="onContextmenuBlock($event, outElement)"
-        @mousedown="selectComp(outElement)"
-      >
-        <comp-render
-          :key="outElement._vid"
-          :config="visualConfig"
-          :element="outElement"
-          :style="{
-            pointerEvents: Object.keys(outElement.props?.slots || {}).length ? 'auto' : 'none'
-          }"
+  <div class="simulator-container">
+    <div class="simulator-editor">
+      <div class="simulator-editor-content" :style="pageStyle">
+        <DraggableTransitionGroup
+          v-model:drag="drag"
+          v-model="currentPage.blocks"
+          style="min-height: 500px"
         >
-          <template v-for="(value, slotKey) in outElement.props?.slots" :key="slotKey" #[slotKey]>
-            <SlotItem
-              v-model:children="value.children"
-              v-model:drag="drag"
-              :slot-key="slotKey"
-              :config="visualConfig"
-              :on-contextmenu-block="onContextmenuBlock"
-              :select-comp="selectComp"
-              :delete-comp="deleteComp"
-            />
+          <template #item="{ element: outElement }">
+            <div
+              class="list-group-item"
+              :data-label="outElement.label"
+              :class="{
+                focus: outElement.focus,
+                focusWithChild: outElement.focusWithChild,
+                drag,
+                ['has-slot']: !!Object.keys(outElement.props.slots || {}).length
+              }"
+              @contextmenu.stop.prevent="onContextmenuBlock($event, outElement)"
+              @mousedown="selectComp(outElement)"
+            >
+              <comp-render
+                :key="outElement._vid"
+                :config="visualConfig"
+                :element="outElement"
+                :style="{
+                  pointerEvents: Object.keys(outElement.props?.slots || {}).length ? 'auto' : 'none'
+                }"
+              >
+                <template
+                  v-for="(value, slotKey) in outElement.props?.slots"
+                  :key="slotKey"
+                  #[slotKey]
+                >
+                  <SlotItem
+                    v-model:children="value.children"
+                    v-model:drag="drag"
+                    :slot-key="slotKey"
+                    :config="visualConfig"
+                    :on-contextmenu-block="onContextmenuBlock"
+                    :select-comp="selectComp"
+                    :delete-comp="deleteComp"
+                  />
+                </template>
+              </comp-render>
+            </div>
           </template>
-        </comp-render>
+        </DraggableTransitionGroup>
       </div>
-    </template>
-  </DraggableTransitionGroup>
+    </div>
+  </div>
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, computed, toRefs } from 'vue'
 import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
@@ -62,12 +72,20 @@ export default defineComponent({
   },
   emits: ['on-selected'],
   setup() {
-    const { globalProperties } = useGlobalProperties()
-
     const { currentPage, visualConfig, setCurrentBlock } = useVisualData()
+
+    const { globalProperties } = useGlobalProperties()
 
     const state = reactive({
       drag: false
+    })
+
+    const pageStyle = computed(() => {
+      const { bgImage, bgColor } = currentPage.value.config
+      return {
+        backgroundImage: `url(${bgImage})`,
+        backgroundColor: bgColor
+      }
     })
 
     //递归实现
@@ -196,6 +214,7 @@ export default defineComponent({
       ...toRefs(state),
       currentPage,
       visualConfig,
+      pageStyle,
       deleteComp,
       selectComp,
       onContextmenuBlock
@@ -206,11 +225,51 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import './func.scss';
 
+.simulator-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-right: 240px;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1314px) {
+    padding-right: 0;
+  }
+}
+
+.simulator-editor {
+  width: 560px;
+  height: 640px;
+  min-width: 560px;
+  padding: 10px 100px;
+  overflow: hidden auto;
+  background: #fafafa;
+  border-radius: 5px;
+  transform: translate(0);
+  box-sizing: border-box;
+  background-clip: content-box;
+  contain: layout;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  &-content {
+    min-height: 100%;
+    box-shadow: 0 8px 12px #ebedf0;
+  }
+}
+
 .list-group-item {
   position: relative;
   padding: 3px;
   cursor: move;
   transform: translate(0);
+
+  > div {
+    position: relative;
+  }
 
   &.focus {
     content: '';

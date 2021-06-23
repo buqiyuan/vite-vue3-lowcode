@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-14 18:43:21
+ * @LastEditTime: 2021-06-21 23:04:42
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\createFieldProps.ts
@@ -18,9 +18,9 @@ export const createFieldProps = () => ({
     labelPosition: 'top',
     defaultValue: ['https://img.yzcdn.cn/vant/apple-1.jpg', 'https://img.yzcdn.cn/vant/apple-2.jpg']
   }),
-  width: createEditorInputProp({ label: '滑块宽度，单位为 px', defaultValue: 'auto' }),
+  // width: createEditorInputProp({ label: '滑块宽度，单位为 px', defaultValue: 'auto' }),
   height: createEditorInputProp({ label: '滑块高度，单位为 px', defaultValue: '200' }),
-  autoplay: createEditorInputProp({ label: '自动轮播间隔，单位为 ms', defaultValue: '' }),
+  autoplay: createEditorInputProp({ label: '自动轮播间隔，单位为 ms', defaultValue: '3000' }),
   duration: createEditorInputProp({ label: '动画时长，单位为 ms', defaultValue: '500' }),
   indicatorColor: createEditorInputProp({ label: '指示器颜色', defaultValue: '#1989fa' }),
   initialSwipe: createEditorInputProp({ label: '初始位置索引值', defaultValue: '0' }),

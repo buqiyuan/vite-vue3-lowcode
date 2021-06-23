@@ -2,6 +2,9 @@ import { VisualEditorProps } from './visual-editor.props'
 import { inject, provide } from 'vue'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 
+/**
+ * @description 组件属性
+ */
 export interface VisualEditorBlockData {
   _vid: string // 组件id 时间戳
   moduleName: keyof ComponentModules // 组件所属的模块（基础组件、容器组件）
@@ -21,14 +24,26 @@ export interface VisualEditorBlockData {
   animations?: Animation[] // 动画集
   [prop: string]: any
 }
-
+/**
+ * @description 页面配置
+ */
+export interface PageConfig {
+  bgImage: string // 背景图片
+  bgColor: string // 背景颜色
+}
+/**
+ * @description 页面对象
+ */
 export interface VisualEditorPage {
   title: string // 页面标题
   path: string // 页面路径
   isDefault?: boolean // 404是重定向到默认页面
+  config: PageConfig // 页面配置
   blocks: VisualEditorBlockData[] // 当前页面的所有组件
 }
-
+/**
+ * @description 可以认为是 路由=>页面
+ */
 export interface VisualEditorPages {
   [path: string]: VisualEditorPage
 }

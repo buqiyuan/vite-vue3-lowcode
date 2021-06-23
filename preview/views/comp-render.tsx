@@ -1,10 +1,10 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-06-14 10:03:06
+ * @LastEditTime: 2021-06-24 00:36:24
  * @LastEditors: 卜启缘
  * @Description:
- * @FilePath: \vite-vue3-lowcode\preview\views\comp-render.tsx
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\simulator-editor\comp-render.tsx
  */
 import { defineComponent, PropType } from 'vue'
 import { VisualEditorBlockData, VisualEditorConfig } from '@/visual-editor/visual-editor.utils'
@@ -22,15 +22,13 @@ export default defineComponent({
     }
   },
   setup(props) {
-    return () => {
-      const component = props.config.componentMap[props.element.componentKey]
-      return component.render({
+    return () =>
+      props.config.componentMap[props.element.componentKey].render({
         size: {},
         props: props.element.props || {},
         model: {},
         block: props.element,
         custom: {}
       })
-    }
   }
 })

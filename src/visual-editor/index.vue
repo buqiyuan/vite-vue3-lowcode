@@ -13,9 +13,7 @@
       </el-aside>
       <el-main>
         <!-- 中间编辑区域start -->
-        <Simulator>
-          <simulator-editor />
-        </Simulator>
+        <simulator-editor />
         <!-- 中间编辑区域end -->
 
         <!-- 右侧属性面板start -->
@@ -31,7 +29,6 @@ import Header from './components/header/index.vue'
 import LeftAside from './components/left-aside/index.vue'
 import RightAttributePanel from './components/right-attribute-panel'
 import SimulatorEditor from './components/simulator-editor/simulator-editor.vue'
-import Simulator from './components/common/simulator.vue'
 </script>
 
 <style lang="scss">
