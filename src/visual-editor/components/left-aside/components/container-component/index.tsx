@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-12 14:38:09
+ * @LastEditTime: 2021-06-25 09:10:19
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\container-component\index.tsx
@@ -12,6 +12,7 @@ import { visualConfig } from '@/visual.config'
 import Draggable from 'vuedraggable'
 import styles from './index.module.scss'
 import { createNewBlock } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'ContainerComponent',
@@ -40,7 +41,7 @@ export default defineComponent({
           onChange={log}
         >
           {{
-            item: ({ element }) => (
+            item: ({ element }: { element: VisualEditorComponent }) => (
               <div class={styles.listGroupItem} data-label={element.label}>
                 {element.preview()}
               </div>

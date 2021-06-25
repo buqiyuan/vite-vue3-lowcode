@@ -1,6 +1,6 @@
 import { Form, Field, Button } from 'vant'
 import { renderSlot, getCurrentInstance } from 'vue'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import { compProps } from './compProps'
 

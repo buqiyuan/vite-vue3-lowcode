@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-14 10:31:27
+ * @LastEditTime: 2021-06-25 08:53:12
  * @LastEditors: 卜启缘
  * @Description: 图片组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\image\index.tsx
@@ -12,7 +12,7 @@ import {
   createEditorSelectProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 
 export default {

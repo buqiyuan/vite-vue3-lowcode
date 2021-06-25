@@ -1,7 +1,7 @@
 import { Col, Row } from 'vant'
 import { renderSlot, getCurrentInstance } from 'vue'
 import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/visual-editor.props'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import styles from './index.module.scss'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 

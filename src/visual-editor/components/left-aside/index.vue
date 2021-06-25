@@ -1,8 +1,15 @@
-<!--左侧边栏-->
+<!--
+ * @Author: 卜启缘
+ * @Date: 2021-06-24 00:35:17
+ * @LastEditTime: 2021-06-25 21:05:57
+ * @LastEditors: 卜启缘
+ * @Description: 左侧边栏
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\index.vue
+-->
 <template>
   <el-tabs v-model="activeName" tab-position="left" @tab-click="handleClick">
-    <template v-for="tabItem in tabs" :key="tabItem.name">
-      <el-tab-pane :name="tabItem.name">
+    <template v-for="tabItem in tabs" :key="tabItem.componentName">
+      <el-tab-pane :name="tabItem.componentName">
         <template #label>
           <div class="flex flex-col items-center justify-center">
             <i :class="tabItem.icon"></i>
@@ -28,7 +35,7 @@ export default defineComponent({
   components,
   setup() {
     const state = reactive({
-      activeName: tabs[0].name
+      activeName: tabs[0].componentName
     })
 
     const handleClick = (tab, event) => {

@@ -1,13 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-23 10:16:32
+ * @LastEditTime: 2021-06-25 08:51:21
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 开关
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\switch\index.tsx
  */
 import { Field, Switch } from 'vant'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {

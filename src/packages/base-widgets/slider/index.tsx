@@ -1,5 +1,13 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-06-25 08:50:47
+ * @LastEditors: 卜启缘
+ * @Description: 表单项类型 - 滑块
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\slider\index.tsx
+ */
 import { Field, Slider } from 'vant'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {

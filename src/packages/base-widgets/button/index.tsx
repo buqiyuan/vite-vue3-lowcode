@@ -4,7 +4,7 @@ import {
   createEditorSelectProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 
 export default {

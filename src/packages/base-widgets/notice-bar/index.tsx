@@ -1,13 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-14 12:56:23
+ * @LastEditTime: 2021-06-25 08:53:22
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\notice-bar\index.tsx
  */
 import { NoticeBar } from 'vant'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 

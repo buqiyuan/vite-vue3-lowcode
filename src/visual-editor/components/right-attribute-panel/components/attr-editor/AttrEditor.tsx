@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-10 16:23:06
- * @LastEditTime: 2021-06-21 10:00:54
+ * @LastEditTime: 2021-06-24 18:32:04
  * @LastEditors: 卜启缘
  * @Description: 组件属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\AttrEditor.tsx
@@ -19,7 +19,7 @@ import {
   ElPopover
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
-import { TablePropEditor, CrossSortableOptionsEditor } from '../'
+import { TablePropEditor, CrossSortableOptionsEditor } from './components'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 

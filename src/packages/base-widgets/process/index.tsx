@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-06-22 23:14:22
+ * @LastEditTime: 2021-06-25 08:50:11
  * @LastEditors: 卜启缘
  * @Description: 进度条
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\process\index.tsx
@@ -13,7 +13,7 @@ import {
   createEditorInputProp,
   createEditorInputNumberProp
 } from '@/visual-editor/visual-editor.props'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 
 export default {
   key: 'process',

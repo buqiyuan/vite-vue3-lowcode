@@ -1,4 +1,4 @@
-import { Animation } from '@/visual-editor/visual-editor.utils'
+import type { Animation } from '@/visual-editor/visual-editor.utils'
 
 export interface animationBoxTs {
   label: string

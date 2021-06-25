@@ -1,5 +1,5 @@
 import { Field, Radio, RadioGroup } from 'vant'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {

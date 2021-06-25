@@ -47,16 +47,65 @@ export interface VisualEditorPage {
 export interface VisualEditorPages {
   [path: string]: VisualEditorPage
 }
-
-export interface VisualEditorModelValue {
-  container: {
-    width: number
-    height: number
-  }
-  // 页面
-  pages: VisualEditorPages
+/**
+ * @description 实体类型
+ */
+export type EntityType = {
+  field: string // 绑定的字段 输入
+  name: string // 实体名称 输入
+  type: string // 数据类型 选择
+  value: string // 默认值 输入
 }
 
+/**
+ * @description 数据模型
+ */
+export interface VisualEditorModel {
+  name: string // 数据源名称
+  key: string // 绑定的字段 该字段创建的时候生成
+  entitys: EntityType[] // 实体集合
+}
+/**
+ * @description 接口请求对象
+ */
+export interface FetchApiItem {
+  key: string // 随机生成的key
+  name: string // 当前api名字
+  options: {
+    url: string // 请求的url
+    method: string // 请求的方法
+    contentType: string // 请求的内容类型
+  }
+  data: {
+    bind: string // 请求绑定对应的某个实体
+    recv: string // 响应的结果绑定到某个实体上
+  }
+}
+
+/**
+ * @description 动作集合
+ */
+export interface VisualEditorActions {
+  fetch: {
+    name: '接口请求'
+    apis: FetchApiItem[]
+  }
+  dialog: {
+    name: '对话框'
+    handles: []
+  }
+}
+/**
+ * @description 总的数据集
+ */
+export interface VisualEditorModelValue {
+  pages: VisualEditorPages // 页面
+  models: VisualEditorModel[] // 实体
+  actions: VisualEditorActions // 动作
+}
+/**
+ * @description 动画项
+ */
 export interface Animation {
   label: string // 动画名称
   value: string // 动画类名
@@ -65,6 +114,9 @@ export interface Animation {
   count: number // 动画执行次数
   infinite: boolean // 是否无限循环动画
 }
+/**
+ * @description 单个组件注册规则
+ */
 export interface VisualEditorComponent {
   key: string // 组件名称
   moduleName: keyof ComponentModules // 模块名称
@@ -154,7 +206,10 @@ export interface ComponentModules {
   baseWidgets: VisualEditorComponent[] // 基础组件
   containerComponents: VisualEditorComponent[] // 容器组件
 }
-
+/**
+ * @description 创建编辑器配置
+ * @returns {} 返回编辑器注册组件的方法等
+ */
 export function createVisualEditorConfig() {
   const componentModules: ComponentModules = {
     baseWidgets: [],

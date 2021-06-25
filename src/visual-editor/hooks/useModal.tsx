@@ -53,9 +53,9 @@ const Modal = defineComponent({
     }
 
     const handler = {
-      onConfirm: () => {
+      onConfirm: async () => {
+        await state.options.onConfirm?.()
         methods.hide()
-        state.options.onConfirm?.()
       },
       onCancel: () => {
         methods.hide()
@@ -83,7 +83,9 @@ const Modal = defineComponent({
             state.options.footer === null ? null : (
               <div>
                 <ElButton {...({ onClick: handler.onCancel } as any)}>取消</ElButton>
-                <ElButton {...({ onClick: handler.onConfirm } as any)}>确定</ElButton>
+                <ElButton type={'primary'} {...({ onClick: handler.onConfirm } as any)}>
+                  确定
+                </ElButton>
               </div>
             )
         }}

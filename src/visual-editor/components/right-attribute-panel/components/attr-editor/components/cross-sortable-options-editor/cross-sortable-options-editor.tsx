@@ -1,10 +1,10 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 15:00:45
- * @LastEditTime: 2021-06-14 17:41:14
+ * @LastEditTime: 2021-06-24 18:28:07
  * @LastEditors: 卜启缘
  * @Description: 可以拖拽排序的选项列表
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\cross-sortable-options\cross-sortable-options.tsx
+ * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\cross-sortable-options-editor\cross-sortable-options-editor.tsx
  */
 
 import { defineComponent, reactive, computed, PropType } from 'vue'
@@ -53,7 +53,7 @@ export const CrossSortableOptionsEditor = defineComponent({
         {{
           item: ({ element, index }) => (
             <div class={'flex items-center justify-between'}>
-              <i class={'el-icon-s-grid handle'}></i>
+              <i class={'el-icon-rank handle'}></i>
               <ElInput
                 v-model={state.list[index]}
                 class={'m-12px'}

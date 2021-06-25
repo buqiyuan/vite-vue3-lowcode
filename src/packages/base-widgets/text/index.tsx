@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-22 23:14:46
+ * @LastEditTime: 2021-06-25 08:51:29
  * @LastEditors: 卜启缘
  * @Description: 文本
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\text\index.tsx
@@ -13,7 +13,7 @@ import {
   createEditorSelectProp,
   createEditorInputNumberProp
 } from '@/visual-editor/visual-editor.props'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { fontArr } from './fontArr'
 
 export default {

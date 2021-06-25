@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-24 00:19:14
+ * @LastEditTime: 2021-06-25 08:47:36
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\preview.vue
@@ -17,7 +17,7 @@ import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import { Toast } from 'vant'
 import { visualConfig } from '@/visual.config'
 import { CacheEnum } from '@/enums'
-import { VisualEditorModelValue } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorModelValue } from '@/visual-editor/visual-editor.utils'
 import SlotItem from './slot-item.vue'
 import router from '../router'
 
@@ -58,8 +58,13 @@ export default defineComponent({
 
     onMounted(() => {
       const { bgImage, bgColor } = currentPage.config
-      document.body.style.setProperty('--image', `url(${bgImage})`)
-      document.body.style.setProperty('--bg-color', bgColor)
+      const bodyStyleStr = `
+            body {
+                  background-color: ${bgColor};
+                  background-image: url(${bgImage});
+                }
+             `
+      document.styleSheets[0].insertRule(bodyStyleStr)
     })
 
     return {
@@ -69,10 +74,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-body {
-  background-color: var(--bg-color);
-  background-image: var(--image);
-}
-</style>

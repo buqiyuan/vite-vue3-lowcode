@@ -1,6 +1,6 @@
-import { VisualEditorProps } from '../../../../visual-editor.props'
+import { VisualEditorProps } from '@/visual-editor/visual-editor.props'
 import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, createApp } from 'vue'
-import { defer } from '../../../../utils/defer'
+import { defer } from '@/visual-editor/utils/defer'
 import { ElButton, ElDialog, ElTable, ElTableColumn, ElInput } from 'element-plus'
 import { cloneDeep } from 'lodash'
 

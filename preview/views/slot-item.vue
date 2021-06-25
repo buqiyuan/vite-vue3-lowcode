@@ -1,3 +1,11 @@
+<!--
+ * @Author: 卜启缘
+ * @Date: 2021-06-12 22:18:48
+ * @LastEditTime: 2021-06-25 08:48:07
+ * @LastEditors: 卜启缘
+ * @Description:
+ * @FilePath: \vite-vue3-lowcode\preview\views\slot-item.vue
+-->
 <template>
   <div class="__slot-item">
     <comp-render :element="element" :config="config">
@@ -11,17 +19,10 @@
 </template>
 
 <script lang="ts">
-/**
- * @name: slot-item
- * @author:卜启缘
- * @date: 2021/5/3 13:18
- * @description：slot-item
- * @update: 2021/5/3 14:18
- */
 import { defineComponent, onMounted, PropType } from 'vue'
 import CompRender from './comp-render'
 import { useAnimate } from '@/hooks/useAnimate'
-import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'SlotItem',

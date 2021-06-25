@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-13 22:07:29
- * @LastEditTime: 2021-06-24 00:23:39
+ * @LastEditTime: 2021-06-24 17:42:31
  * @LastEditors: 卜启缘
  * @Description: 当前页面配置
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\page-setting\pageSetting.tsx
@@ -33,7 +33,7 @@ export const PageSetting = defineComponent({
             <ElColorPicker v-model={pageConfig.bgColor} />
           </ElFormItem>
           <ElFormItem label="背景图片">
-            <ElInput v-model={pageConfig.bgImage} placeholder={'图片地址'} />
+            <ElInput v-model={pageConfig.bgImage} placeholder={'图片地址'} clearable />
           </ElFormItem>
           <ElUpload action={''} beforeUpload={beforeUpload} class={styles.upload}>
             {pageConfig.bgImage ? (

@@ -1,14 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-06-23 22:17:38
+ * @LastEditTime: 2021-06-24 18:30:44
  * @LastEditors: 卜启缘
- * @Description:
+ * @Description: 统一导出组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\index.ts
  */
 
-export { TablePropEditor } from './table-prop-editor/table-prop-editor'
 export { AttrEditor } from './attr-editor/AttrEditor'
 export { Animate } from './animate/Animate'
-export { CrossSortableOptionsEditor } from './cross-sortable-options-editor/cross-sortable-options-editor'
 export { PageSetting } from './page-setting/pageSetting'
+export { EventAction } from './event-action/'

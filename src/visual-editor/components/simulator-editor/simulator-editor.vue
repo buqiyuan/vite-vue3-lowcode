@@ -54,7 +54,7 @@
 
 <script lang="tsx">
 import { defineComponent, reactive, computed, toRefs } from 'vue'
-import { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
 import CompRender from './comp-render'

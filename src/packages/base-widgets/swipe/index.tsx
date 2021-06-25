@@ -7,7 +7,7 @@
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
  */
 import { Swipe, SwipeItem } from 'vant'
-import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 

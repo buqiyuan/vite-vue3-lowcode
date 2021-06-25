@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-23 22:18:34
+ * @LastEditTime: 2021-06-24 11:21:35
  * @LastEditors: 卜启缘
  * @Description: 属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\index.tsx
@@ -13,7 +13,7 @@ import styles from './index.module.scss'
 import { ElTabPane, ElTabs } from 'element-plus'
 import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { AttrEditor, Animate, PageSetting } from './components'
+import { AttrEditor, Animate, PageSetting, EventAction } from './components'
 
 export default defineComponent({
   name: 'RightAttributePanel',
@@ -41,17 +41,25 @@ export default defineComponent({
             <i class={`el-icon-d-arrow-${state.isOpen ? 'right' : 'left'}`}></i>
           </div>
           <div class={styles.attrs}>
-            <ElTabs v-model={state.activeName} type="border-card" class={styles.tabs}>
-              <ElTabPane label="属性面板" name="attr">
+            <ElTabs
+              v-model={state.activeName}
+              type="border-card"
+              stretch={true}
+              class={styles.tabs}
+            >
+              <ElTabPane label="属性" name="attr">
                 <AttrEditor />
               </ElTabPane>
               <ElTabPane label="动画" name="animate" lazy>
                 <Animate />
               </ElTabPane>
+              <ElTabPane label="事件" name="events">
+                <EventAction />
+              </ElTabPane>
               <ElTabPane label="JSON" name="json" lazy>
                 <MonacoEditor
                   code={JSON.stringify(currentBlock.value)}
-                  layout={{ width: 320, height: 800 }}
+                  layout={{ width: 360, height: 800 }}
                   vid={state.activeName == 'json' ? currentBlock.value._vid : -1}
                   onChange={handleSchemaChange}
                   title=""

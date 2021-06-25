@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-11 18:08:01
- * @LastEditTime: 2021-06-13 18:32:53
+ * @LastEditTime: 2021-06-25 08:52:10
  * @LastEditors: 卜启缘
  * @Description: 动画组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\animate\Animate.tsx
@@ -12,7 +12,7 @@ import { animationTabs } from './animateConfig'
 import styles from './animate.module.scss'
 import { onClickOutside } from '@vueuse/core'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { Animation } from '@/visual-editor/visual-editor.utils'
+import type { Animation } from '@/visual-editor/visual-editor.utils'
 import { useAnimate } from '@/hooks/useAnimate'
 
 export const Animate = defineComponent({
