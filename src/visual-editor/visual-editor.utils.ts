@@ -1,6 +1,7 @@
-import { VisualEditorProps } from './visual-editor.props'
+import type { VisualEditorProps } from './visual-editor.props'
 import { inject, provide } from 'vue'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
+import type { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
 
 /**
  * @description 组件属性
@@ -51,7 +52,7 @@ export interface VisualEditorPages {
  * @description 实体类型
  */
 export type EntityType = {
-  field: string // 绑定的字段 输入
+  key: string // 绑定的字段 输入
   name: string // 实体名称 输入
   type: string // 数据类型 选择
   value: string // 默认值 输入
@@ -73,8 +74,8 @@ export interface FetchApiItem {
   name: string // 当前api名字
   options: {
     url: string // 请求的url
-    method: string // 请求的方法
-    contentType: string // 请求的内容类型
+    method: keyof typeof RequestEnum // 请求的方法
+    contentType: keyof typeof ContentTypeEnum // 请求的内容类型
   }
   data: {
     bind: string // 请求绑定对应的某个实体

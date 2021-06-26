@@ -58,8 +58,8 @@ const Modal = defineComponent({
         methods.hide()
       },
       onCancel: () => {
-        methods.hide()
         state.options.onCancel?.()
+        methods.hide()
       }
     }
 
@@ -69,8 +69,9 @@ const Modal = defineComponent({
       <ElDialog
         modelValue={state.visible}
         title={state.options.title}
+        destroyOnClose={true}
         {...state.options.props}
-        onClose={methods.hide}
+        onClose={handler.onCancel}
       >
         {{
           default: () =>

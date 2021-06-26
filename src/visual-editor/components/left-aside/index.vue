@@ -1,17 +1,17 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 00:35:17
- * @LastEditTime: 2021-06-25 21:05:57
+ * @LastEditTime: 2021-06-26 00:24:40
  * @LastEditors: 卜启缘
  * @Description: 左侧边栏
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\index.vue
 -->
 <template>
-  <el-tabs v-model="activeName" tab-position="left" @tab-click="handleClick">
+  <el-tabs v-model="activeName" tab-position="left" class="left-aside">
     <template v-for="tabItem in tabs" :key="tabItem.componentName">
       <el-tab-pane :name="tabItem.componentName">
         <template #label>
-          <div class="flex flex-col items-center justify-center">
+          <div :ref="(el) => el && (tabItemRef[tabItem.componentName] = el)" class="tab-item">
             <i :class="tabItem.icon"></i>
             {{ tabItem.label }}
           </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted, ComponentInternalInstance } from 'vue'
 import { tabs } from './tabs'
 import components from './components'
 
@@ -35,32 +35,46 @@ export default defineComponent({
   components,
   setup() {
     const state = reactive({
-      activeName: tabs[0].componentName
+      activeName: tabs[0].componentName,
+      tabItemRef: {} as { [prop: string]: ComponentInternalInstance | Element }
     })
 
-    const handleClick = (tab, event) => {
-      console.log(tab, event)
-    }
+    onMounted(() => {
+      setTimeout(() => {
+        tabs.forEach((item) => {
+          ;(state.tabItemRef[item.componentName] as HTMLDivElement)
+            ?.closest('.el-tabs__item')
+            ?.setAttribute('data-custom-css', '')
+        })
+      })
+    })
 
     return {
       ...toRefs(state),
-      tabs,
-      handleClick
+      tabs
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.el-tabs {
+.left-aside {
   height: 100%;
 
-  ::v-deep(.el-tabs__item) {
+  ::v-deep(.el-tabs__header.is-left) {
+    margin-right: 0;
+  }
+
+  ::v-deep(.el-tabs__item[data-custom-css]) {
     height: 80px;
     padding: 20px 16px;
 
-    [class^='el-icon-'] {
-      font-size: 20px;
+    .tab-item {
+      @apply flex flex-col items-center justify-center;
+
+      [class^='el-icon-'] {
+        font-size: 20px;
+      }
     }
   }
 

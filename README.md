@@ -1,5 +1,7 @@
 # 基于 Vite2.x + Vue3.x + TypeScript H5 低代码平台
 
+### 后续可能会。。。搭建 PC 端后台管理系统低代码平台
+
 [![license](https://img.shields.io/github/license/buqiyuan/vite-vue3-lowcode.svg)](LICENSE)
 
 **中文** | [English](./README.EN.md)
@@ -34,7 +36,7 @@ git clone --single-branch https://gitee.com/buqiyuan/vite-vue3-lowcode.git
 - [x] 动态添加页面
 - [x] 拖拽式生成组件
 - [ ] service worker + indexeddb 实现无服务端的前端交互
-- [ ] 数据源管理
+- [ ] 数据源管理(支持导入 swagger JSON 生成数据模型及接口)
 - [ ] 提供预置函数
 - [ ] 更多组件的封装
 - [ ] 其他...

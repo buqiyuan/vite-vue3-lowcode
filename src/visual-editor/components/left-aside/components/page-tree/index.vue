@@ -1,6 +1,11 @@
 <!--页面树-->
 <template>
-  <el-button type="primary" size="small" style="margin: 10px 0" icon="el-icon-plus" @click="addPage"
+  <el-button
+    type="primary"
+    size="small"
+    class="!my-10px !mx-6px"
+    icon="el-icon-plus"
+    @click="addPage"
     >添加页面</el-button
   >
   <el-tree
