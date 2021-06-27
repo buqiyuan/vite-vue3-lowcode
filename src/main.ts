@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import './plugins/element-plus'
+import { setupElementPlus } from './plugins/element-plus'
 import { setupVant } from './plugins/vant'
 
 import 'normalize.css'
@@ -14,6 +14,8 @@ import store from './store/'
 
 const app = createApp(App)
 
+// 使用element-plus插件
+setupElementPlus(app)
 // 使用vant插件
 setupVant(app)
 

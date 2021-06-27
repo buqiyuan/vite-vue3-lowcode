@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 00:35:17
- * @LastEditTime: 2021-06-26 00:24:40
+ * @LastEditTime: 2021-06-27 14:44:35
  * @LastEditors: 卜启缘
  * @Description: 左侧边栏
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\index.vue
@@ -9,7 +9,7 @@
 <template>
   <el-tabs v-model="activeName" tab-position="left" class="left-aside">
     <template v-for="tabItem in tabs" :key="tabItem.componentName">
-      <el-tab-pane :name="tabItem.componentName">
+      <el-tab-pane :name="tabItem.componentName" lazy>
         <template #label>
           <div :ref="(el) => el && (tabItemRef[tabItem.componentName] = el)" class="tab-item">
             <i :class="tabItem.icon"></i>
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, onMounted, ComponentInternalInstance } from 'vue'
+import { defineComponent, reactive, toRefs, ComponentInternalInstance } from 'vue'
 import { tabs } from './tabs'
 import components from './components'
 
@@ -39,16 +39,6 @@ export default defineComponent({
       tabItemRef: {} as { [prop: string]: ComponentInternalInstance | Element }
     })
 
-    onMounted(() => {
-      setTimeout(() => {
-        tabs.forEach((item) => {
-          ;(state.tabItemRef[item.componentName] as HTMLDivElement)
-            ?.closest('.el-tabs__item')
-            ?.setAttribute('data-custom-css', '')
-        })
-      })
-    })
-
     return {
       ...toRefs(state),
       tabs
@@ -61,24 +51,24 @@ export default defineComponent({
 .left-aside {
   height: 100%;
 
-  ::v-deep(.el-tabs__header.is-left) {
+  > ::v-deep(.el-tabs__header) {
     margin-right: 0;
-  }
 
-  ::v-deep(.el-tabs__item[data-custom-css]) {
-    height: 80px;
-    padding: 20px 16px;
+    .el-tabs__item {
+      height: 80px;
+      padding: 20px 16px;
 
-    .tab-item {
-      @apply flex flex-col items-center justify-center;
+      .tab-item {
+        @apply flex flex-col items-center justify-center;
 
-      [class^='el-icon-'] {
-        font-size: 20px;
+        [class^='el-icon-'] {
+          font-size: 20px;
+        }
       }
     }
   }
 
-  ::v-deep(.el-tabs__content) {
+  > ::v-deep(.el-tabs__content) {
     height: 100%;
     overflow-y: auto;
   }

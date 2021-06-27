@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-06-26 21:34:53
+ * @LastEditTime: 2021-06-27 14:59:24
  * @LastEditors: 卜启缘
  * @Description: 接口请求
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-fetch.vue
@@ -12,13 +12,25 @@
     <el-button type="warning" size="small" @click="showImportSwaggerJsonModal"
       >导入swagger</el-button
     >
+    <el-popconfirm
+      confirm-button-text="确定"
+      cancel-button-text="取消"
+      icon="el-icon-info"
+      icon-color="red"
+      title="确定要删除全部接口吗？"
+      @confirm="updateFetchApi([], true)"
+    >
+      <template #reference>
+        <el-button type="danger" size="small">清空</el-button>
+      </template>
+    </el-popconfirm>
   </div>
-  <el-collapse v-model="state.activeNames">
+  <el-collapse v-model="state.activeNames" v-infinite-scroll="() => {}">
     <template v-for="item in apis" :key="item.key">
       <el-collapse-item :title="item.name" :name="item.key">
         <template #title>
           <div class="model-item-title">
-            <span>{{ item.name }}</span>
+            <span class="truncate w-160px">{{ item.name }}</span>
             <div class="model-actions">
               <i class="el-icon-edit" @click="editApiItem(item)"></i>
               <el-popconfirm
@@ -56,12 +68,13 @@ import {
   ElMessage,
   ElCascader
 } from 'element-plus'
-import { useVisualData, fieldTypes } from '@/visual-editor/hooks/useVisualData'
+import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import type { FetchApiItem, VisualEditorModel } from '@/visual-editor/visual-editor.utils'
 import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
 import { generateUUID } from '@/visual-editor/utils/'
 import { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
+import { useImportSwaggerJsonModal } from './utils'
 
 interface IState {
   activeNames: string[]
@@ -70,7 +83,7 @@ interface IState {
 }
 
 const { jsonData, incrementFetchApi, updateFetchApi, deleteFetchApi } = useVisualData()
-
+const { showImportSwaggerJsonModal } = useImportSwaggerJsonModal()
 /**
  * @description 接口集合
  */
@@ -123,8 +136,9 @@ const handleBindChange = (e: VisualEditorModel[]) => {
  * @description 显示添加接口弹窗
  */
 const showModelMoal = () => {
+  const operateType = isEdit.value ? '编辑' : '新增'
   useModal({
-    title: `${isEdit.value ? '编辑' : '新增'}接口`,
+    title: `${operateType}接口`,
     props: {
       width: 600
     },
@@ -187,7 +201,7 @@ const showModelMoal = () => {
             } else {
               incrementFetchApi(cloneDeep(state.ruleForm))
             }
-            ElMessage.success(`${isEdit.value ? '修改' : '新增'}接口成功！`)
+            ElMessage.success(`${operateType}接口成功！`)
             state.ruleForm = createEmptyApiItem()
             resolve('submit!')
           } else {
@@ -210,20 +224,17 @@ const editApiItem = (apiItem: FetchApiItem) => {
   state.ruleForm = cloneDeep(apiItem)
   showModelMoal()
 }
-
-/**
- * @description 显示导入swagger JSON模态框
- */
-const showImportSwaggerJsonModal = () => {
-  ElMessage.info('敬请期待！')
-}
 </script>
 
 <style lang="scss" scoped>
-.code {
-  padding: 4px 10px;
-  font-size: 12px;
-  line-height: 1.4;
+.low-model-item {
+  overflow: auto;
+
+  .code {
+    padding: 4px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
 }
 
 .model-item-title {

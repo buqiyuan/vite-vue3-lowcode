@@ -23,9 +23,10 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es/el-input')['default']
     ElFormItem: typeof import('element-plus/es/el-form-item')['default']
     ElForm: typeof import('element-plus/es/el-form')['default']
+    ElPopconfirm: typeof import('element-plus/es/el-popconfirm')['default']
     ElCollapseItem: typeof import('element-plus/es/el-collapse-item')['default']
     ElCollapse: typeof import('element-plus/es/el-collapse')['default']
-    ElPopconfirm: typeof import('element-plus/es/el-popconfirm')['default']
+    ElInfiniteScroll: typeof import('element-plus/es/el-infinite-scroll')['default']
   }
 }
 

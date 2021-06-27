@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import type { App } from 'vue'
 import '@vant/touch-emulator'
 import 'vant/lib/index.css'
 

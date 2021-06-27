@@ -5,22 +5,12 @@
  * @description：useVisualData
  * @update: 2021/5/6 11:59
  */
-import {
-  reactive,
-  inject,
-  readonly,
-  computed,
-  watch,
-  ComputedRef,
-  InjectionKey,
-  DeepReadonly
-} from 'vue'
+import { reactive, inject, readonly, computed, watch, InjectionKey } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type {
   VisualEditorModelValue,
   VisualEditorBlockData,
   VisualEditorPage,
-  VisualEditorConfig,
   FetchApiItem,
   VisualEditorModel
 } from '@/visual-editor/visual-editor.utils'
@@ -38,26 +28,6 @@ interface IState {
   currentBlock: VisualEditorBlockData // 当前正在操作的组件
   currentPage: VisualEditorPage // 当前正在操作的页面
   jsonData: VisualEditorModelValue // 整棵JSON树
-}
-
-export interface VisualData {
-  jsonData: DeepReadonly<VisualEditorModelValue> // 保护JSONData避免直接修改
-  currentPage: ComputedRef<VisualEditorPage> // 当前正在操作的页面
-  currentBlock: ComputedRef<VisualEditorBlockData> // 当前正在操作的组件
-  visualConfig: VisualEditorConfig // 组件配置
-  overrideProject: (jsonData: VisualEditorModelValue) => void // 使用JSON覆盖整个项目
-  updatePage: (data: { newPath?: string; oldPath: string; page: Partial<VisualEditorPage> }) => void // 更新某个页面
-  incrementPage: (path: string, page: Omit<VisualEditorPage, 'path'>) => void // 新增页面
-  deletePage: (path: string, redirect?: string) => void // 删除页面
-  updatePageBlock: (path: string, blocks: VisualEditorBlockData[]) => void // 更新某页面下的所有组件
-  setCurrentPage: (path: string) => void // 设置当前正在操作的页面
-  setCurrentBlock: (block: VisualEditorBlockData) => void // 设置当前正在操作的组件
-  incrementFetchApi: (api: FetchApiItem) => void // 新增api接口
-  deleteFetchApi: (key: string) => void // 删除某个api接口
-  updateFetchApi: (newApi: FetchApiItem) => void // 更新某个api接口
-  incrementModel: (api: VisualEditorModel) => void // 新增模型
-  deleteModel: (key: string) => void // 删除某个模型
-  updateModel: (newApi: VisualEditorModel) => void // 更新某个模型
 }
 
 /**
@@ -92,7 +62,7 @@ const defaultValue: VisualEditorModelValue = {
   }
 }
 
-export const initVisualData = (): VisualData => {
+export const initVisualData = () => {
   const localData = JSON.parse(sessionStorage.getItem(localKey) as string)
   const jsonData: VisualEditorModelValue = Object.keys(localData?.pages || {}).length
     ? localData
@@ -189,11 +159,21 @@ export const initVisualData = (): VisualData => {
   }
 
   /**
-   * @description 更新某个API接口
+   * @description 更新某个接口或者批量更新接口
+   * @param {FetchApiItem | FetchApiItem[]} api 接口
+   * @param {boolean} isCover 是否覆盖全部接口
    */
-  const updateFetchApi = (api: FetchApiItem) => {
-    const target = state.jsonData.actions.fetch.apis.find((item) => item.key == api.key)
-    Object.assign(target, api)
+  const updateFetchApi = (api: FetchApiItem | FetchApiItem[], isCover = false) => {
+    const fetch = state.jsonData.actions.fetch
+    const apis = Array.isArray(api) ? api : [api]
+    if (isCover) {
+      fetch.apis = apis
+    } else {
+      apis.forEach((apiItem) => {
+        const target = fetch.apis.find((item) => item.key == apiItem.key)
+        Object.assign(target, api)
+      })
+    }
   }
 
   /**
@@ -214,12 +194,22 @@ export const initVisualData = (): VisualData => {
   }
 
   /**
+   * @param { VisualEditorModel | VisualEditorModel[]} model 模型项或模型数组
+   * @param {boolean} isCover 是否覆盖所有模型
    * @description 更新某个模型
    */
-  const updateModel = (model: VisualEditorModel) => {
-    const index = state.jsonData.models.findIndex((item) => item.key == model.key)
-    if (index !== -1) {
-      state.jsonData.models.splice(index, 1, model)
+  const updateModel = (model: VisualEditorModel | VisualEditorModel[], isCover = false) => {
+    const jsonData = state.jsonData
+    const models = Array.isArray(model) ? model : [model]
+    if (isCover) {
+      jsonData.models = models
+    } else {
+      models.forEach((modelItem) => {
+        const index = jsonData.models.findIndex((item) => item.key == modelItem.key)
+        if (index !== -1) {
+          state.jsonData.models.splice(index, 1, modelItem)
+        }
+      })
     }
   }
 
@@ -249,7 +239,7 @@ export const initVisualData = (): VisualData => {
   }
 }
 
-export const useVisualData = () => inject<VisualData>(injectKey)!
+export const useVisualData = () => inject<ReturnType<typeof useVisualData>>(injectKey)!
 
 /**
  * 实体的字段数据类型

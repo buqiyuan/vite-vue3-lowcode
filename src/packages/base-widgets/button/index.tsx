@@ -87,6 +87,10 @@ export default {
         {
           label: '表单提交按钮',
           value: 'submit'
+        },
+        {
+          label: '表单重置按钮',
+          value: 'reset'
         }
       ],
       defaultValue: 'button'
