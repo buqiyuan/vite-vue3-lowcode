@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:39:52
- * @LastEditTime: 2021-06-24 18:50:16
+ * @LastEditTime: 2021-06-28 17:25:30
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\tabs.ts

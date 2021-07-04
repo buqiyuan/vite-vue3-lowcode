@@ -1,3 +1,11 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-06-27 18:01:21
+ * @LastEditors: 卜启缘
+ * @Description:
+ * @FilePath: \vite-vue3-lowcode\src\packages\container-component\form\index.tsx
+ */
 import { Form, Field, Button } from 'vant'
 import { renderSlot, getCurrentInstance } from 'vue'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
@@ -37,5 +45,9 @@ export default {
     height: true,
     width: true
   },
+  events: [
+    { label: '提交表单且验证通过后触发', value: 'submit' },
+    { label: '提交表单且验证不通过后触发', value: 'failed' }
+  ],
   props: compProps
 } as VisualEditorComponent

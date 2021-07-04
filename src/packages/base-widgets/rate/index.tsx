@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:50:29
+ * @LastEditTime: 2021-07-03 09:38:17
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 评分
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\rate\index.tsx
@@ -13,6 +13,7 @@ import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
   createEditorInputNumberProp,
   createEditorInputProp,
+  createEditorModelBindProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
 
@@ -38,6 +39,7 @@ export default {
         style={{
           width: size.width ? `${size.width}px` : null
         }}
+        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         v-slots={{
           input: () => (
             <Rate
@@ -52,7 +54,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputNumberProp({ label: '默认值', defaultValue: 0 }),
-    name: createEditorInputProp({ label: '字段名', defaultValue: 'rate' }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '评分' }),
     count: createEditorInputNumberProp({ label: '图标总数' }),
     size: createEditorInputProp({ label: '图标大小' }),

@@ -1,3 +1,12 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-07-04 16:50:19
+ * @LastEditors: 卜启缘
+ * @Description: 表单项类型 - 复选框
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\checkbox\index.tsx
+ */
+import { reactive } from 'vue'
 import { Field, Checkbox, CheckboxGroup } from 'vant'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
@@ -5,7 +14,8 @@ import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
   createEditorInputProp,
   createEditorSelectProp,
-  createEditorTableProp
+  createEditorCrossSortableProp,
+  createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
 
 export default {
@@ -25,6 +35,11 @@ export default {
   render: ({ size, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
+    const state = reactive({
+      checkList:
+        typeof props.modelValue === 'string' ? props.modelValue.split(',') : props.modelValue
+    })
+
     return (
       <Field
         {...props}
@@ -32,12 +47,13 @@ export default {
         style={{
           width: size.width ? `${size.width}px` : null
         }}
+        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         v-slots={{
           input: () => (
             <CheckboxGroup
               ref={(el) => registerRef(el, block._vid)}
               {...props}
-              v-model={props.modelValue}
+              v-model={state.checkList}
             >
               {props.options?.map((item) => (
                 <Checkbox name={item.value} style={{ marginBottom: '5px' }} shape="square">
@@ -51,30 +67,20 @@ export default {
     )
   },
   props: {
-    modelValue: createEditorSelectProp({
+    modelValue: createEditorInputProp({
       label: '默认值',
-      options: [
-        { label: '萝卜', value: 'radish' },
-        { label: '青菜', value: 'greens' }
-      ],
-      multiple: true,
       defaultValue: []
     }),
-    name: createEditorInputProp({ label: '字段名', defaultValue: 'checkbox' }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '复选框' }),
-    options: createEditorTableProp({
+    options: createEditorCrossSortableProp({
       label: '默认选项',
-      option: {
-        options: [
-          { label: '显示值', field: 'label' },
-          { label: '绑定值', field: 'value' },
-          { label: '备注', field: 'comments' }
-        ],
-        showKey: 'label'
-      },
+      labelPosition: 'top',
+      multiple: true,
       defaultValue: [
-        { label: '萝卜', value: 'radish' },
-        { label: '青菜', value: 'greens' }
+        { label: '胡萝卜', value: 'carrot' },
+        { label: '白菜', value: 'cabbage' },
+        { label: '猪', value: 'pig' }
       ]
     }),
     direction: createEditorSelectProp({
@@ -93,6 +99,10 @@ export default {
     }),
     ...createFieldProps()
   },
+  events: [
+    { label: '当绑定值变化时触发的事件', value: 'change' },
+    { label: '点击复选框时触发', value: 'click' }
+  ],
   resize: {
     width: true
   },

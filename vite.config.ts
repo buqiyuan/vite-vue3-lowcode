@@ -16,6 +16,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   // 环境变量
   const { VITE_BASE_URL } = loadEnv(mode, CWD)
   return {
+    base: VITE_BASE_URL, // 设置打包路径
     css: {
       modules: {
         localsConvention: 'camelCase' // 默认只支持驼峰，修改为同时支持横线和驼峰
@@ -58,7 +59,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '@': resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
       }
     },
-    base: VITE_BASE_URL, // 设置打包路径
     build: {
       rollupOptions: {
         input: {
@@ -91,17 +91,17 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     server: {
       port: 10086, // 设置服务启动端口号
       open: false, // 设置服务启动时是否自动打开浏览器
-      cors: true // 允许跨域
+      cors: true, // 允许跨域
 
-      // 设置代理，根据我们项目实际情况配置
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://xxx.xxx.xxx.xxx:x000',
-      //     changeOrigin: true,
-      //     secure: false,
-      //     rewrite: (path) => path.replace('/api/', '/')
-      //   }
-      // },
+      // 设置代理，根据项目实际情况配置
+      proxy: {
+        '/api': {
+          target: 'http://29135jo738.zicp.vip/api/v1',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace('/api/', '/')
+        }
+      }
     }
   }
 }

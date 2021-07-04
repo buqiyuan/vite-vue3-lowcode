@@ -1,12 +1,12 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-10 16:23:06
- * @LastEditTime: 2021-06-24 18:32:04
+ * @LastEditTime: 2021-07-02 22:02:53
  * @LastEditors: 卜启缘
  * @Description: 组件属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\AttrEditor.tsx
  */
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import {
   ElColorPicker,
   ElForm,
@@ -16,16 +16,22 @@ import {
   ElOption,
   ElSelect,
   ElSwitch,
-  ElPopover
+  ElPopover,
+  ElCascader
 } from 'element-plus'
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
 import { TablePropEditor, CrossSortableOptionsEditor } from './components'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
+import { cloneDeep } from 'lodash'
 
 export const AttrEditor = defineComponent({
   setup() {
-    const { visualConfig, currentBlock } = useVisualData()
+    const { visualConfig, currentBlock, jsonData } = useVisualData()
+    /**
+     * @description 模型集合
+     */
+    const models = computed(() => cloneDeep(jsonData.models))
 
     const renderEditor = (propName: string, propConfig: VisualEditorProps) => {
       const { propObj, prop } = useDotProp(currentBlock.value.props, propName)
@@ -33,14 +39,19 @@ export const AttrEditor = defineComponent({
       propObj[prop] ??= propConfig.defaultValue
 
       return {
-        [VisualEditorPropsType.input]: () => (
-          <ElInput v-model={propObj[prop]} placeholder={propConfig.tips || propConfig.label} />
-        ),
+        [VisualEditorPropsType.input]: () => {
+          if (!Object.is(propObj[prop], undefined) && !Object.is(propObj[prop], null)) {
+            propObj[prop] = `${propObj[prop]}`
+          }
+          return (
+            <ElInput v-model={propObj[prop]} placeholder={propConfig.tips || propConfig.label} />
+          )
+        },
         [VisualEditorPropsType.inputNumber]: () => <ElInputNumber v-model={propObj[prop]} />,
         [VisualEditorPropsType.switch]: () => <ElSwitch v-model={propObj[prop]} />,
         [VisualEditorPropsType.color]: () => <ElColorPicker v-model={propObj[prop]} />,
         [VisualEditorPropsType.crossSortable]: () => (
-          <CrossSortableOptionsEditor v-model={propObj[prop]} />
+          <CrossSortableOptionsEditor v-model={propObj[prop]} multiple={propConfig.multiple} />
         ),
         [VisualEditorPropsType.select]: () => (
           <ElSelect v-model={propObj[prop]} valueKey={'value'} multiple={propConfig.multiple}>
@@ -51,6 +62,21 @@ export const AttrEditor = defineComponent({
         ),
         [VisualEditorPropsType.table]: () => (
           <TablePropEditor v-model={propObj[prop]} propConfig={propConfig} />
+        ),
+        [VisualEditorPropsType.modelBind]: () => (
+          <ElCascader
+            clearable={true}
+            props={{
+              checkStrictly: true,
+              children: 'entitys',
+              label: 'name',
+              value: 'key',
+              expandTrigger: 'hover'
+            }}
+            placeholder="请选择绑定的请求数据"
+            v-model={propObj[prop]}
+            options={models.value}
+          ></ElCascader>
         )
       }[propConfig.type]()
     }
@@ -58,18 +84,7 @@ export const AttrEditor = defineComponent({
     // 表单项
     const FormEditor = () => {
       const content: JSX.Element[] = []
-      if (!currentBlock.value) {
-        content.push(
-          <>
-            <ElFormItem label="容器宽度">
-              <ElInputNumber v-model={currentBlock.value.width} {...({ step: 100 } as any)} />
-            </ElFormItem>
-            <ElFormItem label="容器高度">
-              <ElInputNumber v-model={currentBlock.value.height} {...({ step: 100 } as any)} />
-            </ElFormItem>
-          </>
-        )
-      } else {
+      if (currentBlock.value) {
         const { componentKey } = currentBlock.value
         const component = visualConfig.componentMap[componentKey]
         console.log('props.block:', currentBlock.value)

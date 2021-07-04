@@ -147,7 +147,6 @@ const showModelMoal = () => {
         ref={(el) => el && (state.ruleFormRef = el)}
         label-width="100px"
         size={'mini'}
-        class="demo-ruleForm"
       >
         <ElFormItem
           label="数据源名称"

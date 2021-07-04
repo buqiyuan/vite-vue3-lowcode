@@ -1,14 +1,14 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:47:36
+ * @LastEditTime: 2021-07-04 08:59:57
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\preview.vue
 -->
 <template>
   <template v-for="outItem in blocks" :key="outItem._vid">
-    <slot-item :element="outItem" :config="visualConfig" />
+    <slot-item :element="outItem" :models="models" :actions="actions" :config="visualConfig" />
   </template>
 </template>
 
@@ -69,6 +69,8 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      actions: jsonData.actions,
+      models: jsonData.models,
       visualConfig
     }
   }

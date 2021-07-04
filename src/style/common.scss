@@ -19,3 +19,12 @@ body {
 img {
   image-rendering: pixelated;
 }
+
+.el-dialog__body {
+  max-height: 66vh;
+  overflow: auto;
+}
+
+.h5-preview .el-dialog__body {
+  overflow: hidden;
+}

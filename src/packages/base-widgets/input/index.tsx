@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-06-25 08:49:50
+ * @LastEditTime: 2021-07-03 09:45:56
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 输入框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\input\index.tsx
@@ -33,6 +33,7 @@ export default {
         {...props}
         {...model.default}
         v-model={props.modelValue}
+        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         rules={rules}
         style={{
           width: size.width ? `${size.width}px` : null
@@ -40,6 +41,16 @@ export default {
       />
     )
   },
+  events: [
+    { label: '输入框内容变化时触发', value: 'update:model-value' },
+    { label: '输入框获得焦点时触发', value: 'focus' },
+    { label: '输入框失去焦点时触发', value: 'blur' },
+    { label: '点击清除按钮时触发', value: 'clear' },
+    { label: '点击组件时触发', value: 'click' },
+    { label: '点击输入区域时触发', value: 'click-input' },
+    { label: '点击左侧图标时触发', value: 'click-left-icon' },
+    { label: '点击右侧图标时触发', value: 'click-right-icon' }
+  ],
   props: createFieldProps(),
   resize: {
     width: true

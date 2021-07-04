@@ -50,14 +50,14 @@ const defaultValue: VisualEditorModelValue = {
   },
   models: [], // 模型实体集合
   actions: {
-    // 动作
+    // 动作集合
     fetch: {
       name: '接口请求',
       apis: []
     },
     dialog: {
       name: '对话框',
-      handles: []
+      handlers: []
     }
   }
 }
@@ -219,7 +219,7 @@ export const initVisualData = () => {
   }
 
   return {
-    visualConfig,
+    visualConfig: visualConfig,
     jsonData: readonly(state.jsonData), // 保护JSONData避免直接修改
     currentPage: computed(() => state.currentPage),
     currentBlock: computed(() => state.currentBlock),
@@ -239,7 +239,7 @@ export const initVisualData = () => {
   }
 }
 
-export const useVisualData = () => inject<ReturnType<typeof useVisualData>>(injectKey)!
+export const useVisualData = () => inject<ReturnType<typeof initVisualData>>(injectKey)!
 
 /**
  * 实体的字段数据类型

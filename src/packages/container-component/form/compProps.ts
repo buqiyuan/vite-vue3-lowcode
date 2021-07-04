@@ -1,9 +1,10 @@
-/**
- * @name: createProps
- * @author: 卜启缘
- * @date: 2021/5/30 10:50
- * @description：createProps
- * @update: 2021/5/30 10:50
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-07-03 09:35:21
+ * @LastEditors: 卜启缘
+ * @Description:
+ * @FilePath: \vite-vue3-lowcode\src\packages\container-component\form\compProps.ts
  */
 
 import {
@@ -70,7 +71,22 @@ export const compProps = {
   }),
   submitOnEnter: createEditorSwitchProp({ label: '是否在按下回车键时提交表单' }),
   validateFirst: createEditorSwitchProp({ label: '是否在某一项校验不通过时停止校验' }),
-  validateTrigger: createEditorInputProp({
-    label: '表单校验触发时机，可选值为 onChange、onSubmit，详见下表'
+  validateTrigger: createEditorSelectProp({
+    label: '表单校验触发时机',
+    options: [
+      {
+        label: 'onChange',
+        value: 'onChange'
+      },
+      {
+        label: 'onSubmit',
+        value: 'onSubmit'
+      },
+      {
+        label: 'onBlur',
+        value: 'onBlur'
+      }
+    ],
+    defaultValue: 'onBlur'
   })
 }

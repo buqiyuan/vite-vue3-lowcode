@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-25 08:53:22
+ * @LastEditTime: 2021-07-04 16:54:32
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\notice-bar\index.tsx
@@ -27,6 +27,11 @@ export default {
 
     return <NoticeBar ref={(el) => registerRef(el, block._vid)} {...props} />
   },
+  events: [
+    { label: '点击通知栏时触发', value: 'click' },
+    { label: '关闭通知栏时触发', value: 'close' },
+    { label: '每当滚动栏重新开始滚动时触发', value: 'replay' }
+  ],
   props: createFieldProps(),
   resize: {
     width: true

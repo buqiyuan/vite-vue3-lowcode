@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:51:21
+ * @LastEditTime: 2021-07-04 17:02:06
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 开关
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\switch\index.tsx
@@ -13,7 +13,8 @@ import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
   createEditorInputProp,
   createEditorSwitchProp,
-  createEditorColorProp
+  createEditorColorProp,
+  createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
 
 export default {
@@ -33,6 +34,7 @@ export default {
         style={{
           width: size.width ? `${size.width}px` : null
         }}
+        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         v-slots={{
           input: () => (
             <Switch
@@ -47,7 +49,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: 'false' }),
-    name: createEditorInputProp({ label: '字段名', defaultValue: 'switch' }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '开关' }),
     activeColor: createEditorColorProp({ label: '打开时的背景色' }),
     activeValue: createEditorInputProp({ label: '打开时对应的值', defaultValue: 'true' }),
@@ -58,6 +60,10 @@ export default {
     size: createEditorInputProp({ label: '开关尺寸', defaultValue: '20px' }),
     ...createFieldProps()
   },
+  events: [
+    { label: '开关状态切换时触发', value: 'change' },
+    { label: '点击时触发', value: 'click' }
+  ],
   resize: {
     width: true
   },

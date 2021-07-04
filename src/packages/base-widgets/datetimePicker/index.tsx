@@ -5,6 +5,7 @@ import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
   createEditorInputNumberProp,
   createEditorInputProp,
+  createEditorModelBindProp,
   createEditorSelectProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
@@ -52,6 +53,7 @@ export default {
           style={{
             width: size.width ? `${size.width}px` : null
           }}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
           v-slots={{
             input: () =>
               state.text?.trim() == '' ? (
@@ -77,10 +79,7 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),
-    name: createEditorInputProp({
-      label: '字段名',
-      defaultValue: 'datetimePicker'
-    }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '时间选择器' }),
     title: createEditorInputProp({ label: '顶部栏标题', defaultValue: '选择时间' }),
     type: createEditorSelectProp({
@@ -133,6 +132,11 @@ export default {
     placeholder: createEditorInputProp({ label: '占位符', defaultValue: '请选择' }),
     ...createFieldProps()
   },
+  events: [
+    { label: '当值变化时触发的事件', value: 'change' },
+    { label: '点击完成按钮时触发的事件', value: 'confirm' },
+    { label: '点击取消按钮时触发的事件', value: 'cancel' }
+  ],
   resize: {
     width: true
   },

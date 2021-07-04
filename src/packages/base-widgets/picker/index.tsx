@@ -1,8 +1,20 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-07-04 16:58:50
+ * @LastEditors: 卜启缘
+ * @Description: 表单项类型 - 选择器
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
+ */
 import { Field, Popup, Picker } from 'vant'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
-import { createEditorInputProp, createEditorTableProp } from '@/visual-editor/visual-editor.props'
+import {
+  createEditorCrossSortableProp,
+  createEditorInputProp,
+  createEditorModelBindProp
+} from '@/visual-editor/visual-editor.props'
 import { reactive } from 'vue'
 
 export default {
@@ -14,11 +26,17 @@ export default {
     const { registerRef } = useGlobalProperties()
     const state = reactive({
       showPicker: false,
-      text: ''
+      text: '',
+      defaultIndex: 0
     })
     const customFieldName = {
       text: 'label',
       value: 'value'
+    }
+
+    if (props.modelValue) {
+      state.defaultIndex = props.columns?.findIndex((item) => item.value == props.modelValue)
+      state.text = props.columns[state.defaultIndex]?.label
     }
 
     const onConfirm = (value) => {
@@ -39,6 +57,7 @@ export default {
           style={{
             width: size.width ? `${size.width}px` : null
           }}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         >
           {{
             input: () =>
@@ -53,6 +72,7 @@ export default {
           <Picker
             ref={(el) => registerRef(el, block._vid)}
             {...props}
+            defaultIndex={state.defaultIndex}
             columnsFieldNames={customFieldName}
             onConfirm={onConfirm}
             onCancel={() => (state.showPicker = false)}
@@ -65,42 +85,26 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),
-    name: createEditorInputProp({ label: '字段名', defaultValue: 'picker' }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '选择器' }),
-    columns: createEditorTableProp({
-      label: '数据项',
-      option: {
-        options: [
-          {
-            label: '显示值',
-            field: 'label'
-          },
-          {
-            label: '绑定值',
-            field: 'value'
-          },
-          {
-            label: '备注',
-            field: 'comments'
-          }
-        ],
-        showKey: 'label'
-      },
+    columns: createEditorCrossSortableProp({
+      label: '默认选项',
+      labelPosition: 'top',
+      multiple: false,
       defaultValue: [
-        {
-          label: '杭州',
-          value: 'hangzhou'
-        },
-        {
-          label: '上海',
-          value: 'shanghai'
-        }
+        { label: '杭州', value: 'hangzhou' },
+        { label: '上海', value: 'shanghai' }
       ]
     }),
     valueKey: createEditorInputProp({ label: '选项对象的键名', defaultValue: 'label' }),
     placeholder: createEditorInputProp({ label: '占位符', defaultValue: '请选择' }),
     ...createFieldProps()
   },
+  events: [
+    { label: '点击完成按钮时触发', value: 'confirm' },
+    { label: '点击取消按钮时触发', value: 'cancel' },
+    { label: '选项改变时触发', value: 'change' }
+  ],
   resize: {
     width: true
   },

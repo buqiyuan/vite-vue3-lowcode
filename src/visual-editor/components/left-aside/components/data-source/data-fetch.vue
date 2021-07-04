@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-06-27 14:59:24
+ * @LastEditTime: 2021-06-28 10:10:53
  * @LastEditors: 卜启缘
  * @Description: 接口请求
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-fetch.vue
@@ -149,7 +149,6 @@ const showModelMoal = () => {
         label-width="100px"
         size={'mini'}
         rules={rules}
-        class="demo-ruleForm"
       >
         <ElFormItem label="名称" prop="name">
           <ElInput v-model={state.ruleForm.name} placeholder={'请输入接口名称'}></ElInput>
@@ -187,6 +186,22 @@ const showModelMoal = () => {
             placeholder="请选择绑定的请求数据"
             onChange={handleBindChange}
             v-model={state.ruleForm.data.bind}
+            options={models.value}
+          ></ElCascader>
+        </ElFormItem>
+        <ElFormItem label="响应数据" prop={'data.recv'}>
+          <ElCascader
+            clearable={true}
+            props={{
+              checkStrictly: true,
+              children: 'entitys',
+              label: 'name',
+              value: 'key',
+              expandTrigger: 'hover'
+            }}
+            placeholder="请选择绑定的响应数据"
+            onChange={handleBindChange}
+            v-model={state.ruleForm.data.recv}
             options={models.value}
           ></ElCascader>
         </ElFormItem>

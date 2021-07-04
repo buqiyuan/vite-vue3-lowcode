@@ -5,7 +5,8 @@ export enum VisualEditorPropsType {
   select = 'select',
   table = 'table',
   switch = 'switch',
-  crossSortable = 'crossSortable'
+  modelBind = 'ModelBind',
+  crossSortable = 'CrossSortable'
 }
 
 export type VisualEditorProps = {
@@ -19,6 +20,26 @@ export type VisualEditorProps = {
   options?: VisualEditorSelectOptions
 } & {
   table?: VisualEditorTableOption
+}
+
+/*---------------------------------------modelBind-------------------------------------------*/
+interface EditorModelBindProp {
+  label: string
+  defaultValue?: any
+  tips?: string
+}
+
+export function createEditorModelBindProp({
+  label = '字段绑定',
+  defaultValue,
+  tips
+}: EditorModelBindProp): VisualEditorProps {
+  return {
+    type: VisualEditorPropsType.modelBind,
+    label,
+    tips,
+    defaultValue
+  }
 }
 
 /*---------------------------------------switch-------------------------------------------*/
@@ -162,18 +183,21 @@ export function createEditorTableProp({
 
 interface EditorCrossSortableProp {
   label: string
-  labelPosition: string
-  defaultValue?: string[]
+  labelPosition: 'top' | ''
+  multiple?: boolean
+  defaultValue?: string[] | VisualEditorSelectOptions
 }
 
 export function createEditorCrossSortableProp({
   label,
   labelPosition,
+  multiple,
   defaultValue
 }: EditorCrossSortableProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.crossSortable,
     label,
+    multiple,
     labelPosition,
     defaultValue
   }

@@ -1,11 +1,20 @@
+/*
+ * @Author: 卜启缘
+ * @Date: 2021-06-01 09:45:21
+ * @LastEditTime: 2021-07-04 17:00:24
+ * @LastEditors: 卜启缘
+ * @Description: 表单项类型 - 单选框
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\radio\index.tsx
+ */
 import { Field, Radio, RadioGroup } from 'vant'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import {
+  createEditorCrossSortableProp,
   createEditorInputProp,
-  createEditorSelectProp,
-  createEditorTableProp
+  createEditorModelBindProp,
+  createEditorSelectProp
 } from '@/visual-editor/visual-editor.props'
 
 export default {
@@ -28,6 +37,7 @@ export default {
         style={{
           width: size.width ? `${size.width}px` : null
         }}
+        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         v-slots={{
           input: () => (
             <RadioGroup
@@ -48,21 +58,16 @@ export default {
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: '' }),
-    name: createEditorInputProp({ label: '字段名', defaultValue: 'radio' }),
+    name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '单选框' }),
-    options: createEditorTableProp({
+    options: createEditorCrossSortableProp({
       label: '默认选项',
-      option: {
-        options: [
-          { label: '显示值', field: 'label' },
-          { label: '绑定值', field: 'value' },
-          { label: '备注', field: 'comments' }
-        ],
-        showKey: 'label'
-      },
+      labelPosition: 'top',
+      multiple: false,
       defaultValue: [
-        { label: '萝卜', value: 'radish' },
-        { label: '青菜', value: 'greens' }
+        { label: '胡萝卜', value: 'carrot' },
+        { label: '白菜', value: 'cabbage' },
+        { label: '猪', value: 'pig' }
       ]
     }),
     direction: createEditorSelectProp({
@@ -81,6 +86,7 @@ export default {
     }),
     ...createFieldProps()
   },
+  events: [{ label: '点击单选框时触发', value: 'click' }],
   resize: {
     width: true
   },

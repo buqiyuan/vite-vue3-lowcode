@@ -30,6 +30,10 @@ export default {
     height: true,
     width: true
   },
+  events: [
+    { label: '点击按钮，且按钮状态不为加载或禁用时触发', value: 'click' },
+    { label: '开始触摸按钮时触发', value: 'touchstart' }
+  ],
   props: {
     text: createEditorInputProp({ label: '按钮文字', defaultValue: '按钮' }),
     type: createEditorSelectProp({

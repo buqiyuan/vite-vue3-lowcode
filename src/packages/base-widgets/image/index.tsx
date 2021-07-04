@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:53:12
+ * @LastEditTime: 2021-07-04 16:53:22
  * @LastEditors: 卜启缘
  * @Description: 图片组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\image\index.tsx
@@ -84,5 +84,10 @@ export default {
     'show-error': createEditorSwitchProp({ label: '是否展示图片加载失败提示' }),
     'show-loading': createEditorSwitchProp({ label: '是否展示图片加载中提示' }),
     alt: createEditorInputProp({ label: '替代文本' })
-  }
+  },
+  events: [
+    { label: '点击图片时触发', value: 'click' },
+    { label: '图片加载完毕时触发', value: 'load' },
+    { label: '图片加载失败时触发', value: 'error' }
+  ]
 } as VisualEditorComponent

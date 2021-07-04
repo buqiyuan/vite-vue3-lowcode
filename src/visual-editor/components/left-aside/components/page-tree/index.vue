@@ -52,11 +52,11 @@
     width="380px"
     :title="operatePageData ? '编辑页面' : '新增页面'"
   >
-    <el-form :model="form">
-      <el-form-item label="页面标题" label-width="80px">
+    <el-form ref="ruleForm" :model="form" :rules="rules">
+      <el-form-item prop="title" label="页面标题" label-width="80px">
         <el-input v-model="form.title" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="页面路径" label-width="80px">
+      <el-form-item prop="path" label="页面路径" label-width="80px">
         <el-input v-model="form.path" autocomplete="off" />
       </el-form-item>
     </el-form>
@@ -75,6 +75,11 @@ import { useVisualData, createNewPage } from '@/visual-editor/hooks/useVisualDat
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
+const rules = {
+  title: [{ required: true, message: '请输入页面标题', trigger: 'blur' }],
+  path: [{ required: true, message: '请输入页面路径', trigger: 'blur' }]
+}
+
 export default defineComponent({
   name: 'PageTree',
   setup() {
@@ -84,6 +89,7 @@ export default defineComponent({
     const { jsonData, setCurrentPage, deletePage, updatePage, incrementPage } = useVisualData()
 
     const state = reactive({
+      ruleForm: null as any,
       defaultProps: {
         children: 'children',
         label: 'title'
@@ -141,24 +147,36 @@ export default defineComponent({
     }
 
     // 新增或编辑页面
-    const onSubmit = async () => {
-      const { title, path } = state.form
-      if (title.trim() == '' || path.trim() == '') {
-        return ElMessage.error('标题或路径不能为空！')
-      }
-      if (state.operatePageData) {
-        updatePage({ newPath: path, oldPath: state.operatePageData.path || path, page: { title } })
-        await router.replace(path)
-        state.currentNodeKey = path
-      } else {
-        incrementPage(path, createNewPage({ title }))
-      }
-      state.dialogFormVisible = false
+    const onSubmit = () => {
+      state.ruleForm?.validate(async (valid) => {
+        if (valid) {
+          const { title, path } = state.form
+          if (title.trim() == '' || path.trim() == '') {
+            return ElMessage.error('标题或路径不能为空！')
+          }
+          if (state.operatePageData) {
+            updatePage({
+              newPath: path,
+              oldPath: state.operatePageData.path || path,
+              page: { title }
+            })
+            await router.replace(path)
+            state.currentNodeKey = path
+          } else {
+            incrementPage(path, createNewPage({ title }))
+          }
+          state.dialogFormVisible = false
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
 
     return {
       ...toRefs(state),
       pages,
+      rules,
       setCurrentPage,
       onSubmit,
       setDefaultPage,

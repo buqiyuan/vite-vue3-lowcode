@@ -49,20 +49,22 @@ let propObj = {
   boolean: (config) => `createEditorSwitchProp(${JSON.stringify(config)})`
 }
 
-$$('#props + table tr').reduce((prev, curr) => {
-  const children = curr.children
-  const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase())
-  const child3Text = children[3].textContent
-  const defaultValue = ['true', 'false'].includes(child3Text)
-    ? child3Text
-    : `'${child3Text == '-' ? '' : child3Text}'`
-  const value = (propObj[children[2].textContent] ?? propObj['string'])({
-    label: `'${children[1].textContent}'`,
-    defaultValue
-  }).replaceAll('"', '')
-  prev[key] = value
-  return prev
-}, {})
+JSON.stringify(
+  $$('#props + table tbody tr').reduce((prev, curr) => {
+    const children = curr.children
+    const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase())
+    const child3Text = children[3].textContent
+    const defaultValue = ['true', 'false'].includes(child3Text)
+      ? child3Text
+      : `'${child3Text == '-' ? '' : child3Text}'`
+    const value = (propObj[children[2].textContent] ?? propObj['string'])({
+      label: `'${children[1].textContent}'`,
+      defaultValue
+    }).replaceAll('"', '')
+    prev[key] = value
+    return prev
+  }, {})
+).replaceAll('"', '')
 ```
 
 ## Browser support

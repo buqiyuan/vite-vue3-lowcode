@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-06-25 08:49:41
+ * @LastEditTime: 2021-07-04 16:54:00
  * @LastEditors: 卜启缘
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\nav-bar\index.tsx
@@ -48,6 +48,10 @@ export default {
     rightText: createEditorInputProp({ label: '右侧文案', defaultValue: '按钮' }),
     leftArrow: createEditorSwitchProp({ label: '是否显示左侧箭头', defaultValue: true })
   },
+  events: [
+    { label: '点击左侧按钮时触发', value: 'click-left' },
+    { label: '点击右侧按钮时触发', value: 'click-right' }
+  ],
   resize: {
     width: true
   }

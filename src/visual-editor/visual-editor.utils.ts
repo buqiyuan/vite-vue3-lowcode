@@ -23,8 +23,32 @@ export interface VisualEditorBlockData {
   model: Record<string, string> // 绑定的字段
   slotName?: string // 组件唯一标识
   animations?: Animation[] // 动画集
+  actions: Action[] // 组件动作集合
+  events: { label: string; value: string }[] // 组件事件集合
   [prop: string]: any
 }
+/**
+ * @description 组件动作事件处理
+ */
+export interface ActionHandle {
+  key: string
+  name: string
+  link: string
+  data?: {
+    bind?: string
+    recv?: string
+  }
+}
+/**
+ * @description 组件动作
+ */
+export interface Action {
+  key: string
+  name: string
+  event: string
+  handle: ActionHandle[]
+}
+
 /**
  * @description 页面配置
  */
@@ -93,7 +117,7 @@ export interface VisualEditorActions {
   }
   dialog: {
     name: '对话框'
-    handles: []
+    handlers: []
   }
 }
 /**
@@ -133,6 +157,7 @@ export interface VisualEditorComponent {
   }) => JSX.Element
   props?: Record<string, VisualEditorProps>
   animations?: Animation[] // 动画集
+  events?: { label: string; value: string }[] // 组件事件集合
   resize?: { width?: boolean; height?: boolean }
 }
 
@@ -173,6 +198,8 @@ export function createNewBlock({
       return prev
     }, {}),
     animations: [], // 动画集
+    actions: [], // 动作集合
+    events: component.events || [], // 事件集合
     model: {}
   }
 }

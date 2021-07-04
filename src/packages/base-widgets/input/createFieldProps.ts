@@ -1,7 +1,8 @@
 import {
   createEditorInputProp,
   createEditorSelectProp,
-  createEditorSwitchProp
+  createEditorSwitchProp,
+  createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
 
 /**
@@ -16,7 +17,7 @@ export const createFieldProps = () => ({
     label: '默认值',
     defaultValue: ''
   }),
-  name: createEditorInputProp({ label: '字段名', defaultValue: 'input' }),
+  name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
   label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '输入框' }),
   type: createEditorSelectProp({
     label: '输入框类型',
@@ -132,7 +133,7 @@ export const createFieldProps = () => ({
     defaultValue: 'left'
   }),
   'label-width': createEditorInputProp({ label: '左侧文本宽度' }),
-  maxlength: createEditorInputProp({ label: '输入的最大字符数' }),
+  maxlength: createEditorInputProp({ label: '输入的最大字符数', defaultValue: 500 }),
   'show-word-limit': createEditorSwitchProp({
     label: '是否显示字数统计',
     tips: '需要设置 maxlength 属性'

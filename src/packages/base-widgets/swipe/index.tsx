@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-06-21 23:06:36
+ * @LastEditTime: 2021-07-04 17:01:36
  * @LastEditors: 卜启缘
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
@@ -49,6 +49,7 @@ export default {
     )
   },
   props: createFieldProps(),
+  events: [{ label: '每一页轮播结束后触发', value: 'change' }],
   resize: {
     width: true
   },

@@ -1,43 +1,44 @@
-.list-group {
-
-}
 .list-group-item {
   position: relative;
+  display: flex;
   width: calc(100% - 20px);
+  min-height: 120px;
+  padding: 0 5px;
+  margin-top: 20px;
   margin-left: 10px;
   border: solid 3px #ebeef5;
-  margin-top: 20px;
-  min-height: 120px;
-  display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  padding: 0px 5px;
-  box-sizing: border-box;
+
   &:hover {
-    border-color: #409EFF;
     cursor: move;
+    border-color: #409eff;
   }
+
   &:last-of-type {
     margin-bottom: 20px;
   }
+
   &::before {
-    content: attr(data-label);
     position: absolute;
     top: -3px;
     left: -3px;
-    background-color: #409EFF;
-    color: white;
+    z-index: 1;
     padding: 4px 8px;
     font-size: 12px;
-    z-index: 1;
+    color: white;
+    background-color: #409eff;
+    content: attr(data-label);
   }
+
   &::after {
-    content: "";
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: 2;
+    content: '';
   }
 }

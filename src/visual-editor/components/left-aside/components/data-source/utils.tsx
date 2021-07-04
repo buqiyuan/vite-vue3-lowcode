@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-27 13:15:19
- * @LastEditTime: 2021-06-27 14:17:31
+ * @LastEditTime: 2021-06-27 15:22:51
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\utils.tsx
@@ -84,7 +84,7 @@ export const useImportSwaggerJsonModal = () => {
   return {
     showImportSwaggerJsonModal: () =>
       useModal({
-        title: '导入swagger JSON (导入swagger: 2.0)',
+        title: '导入swagger JSON (支持swagger: 2.0)',
         props: {
           width: 760
         },

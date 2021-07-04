@@ -229,11 +229,11 @@ export default defineComponent({
   display: flex;
   width: 100%;
   height: 100%;
-  padding-right: 240px;
+  padding-right: 380px;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 1314px) {
+  @media (max-width: 1114px) {
     padding-right: 0;
   }
 }
