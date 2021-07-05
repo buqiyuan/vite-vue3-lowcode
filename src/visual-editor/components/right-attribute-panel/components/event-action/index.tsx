@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-24 11:01:45
- * @LastEditTime: 2021-06-28 18:49:18
+ * @LastEditTime: 2021-07-04 19:44:10
  * @LastEditors: 卜启缘
  * @Description: 事件-动作
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\event-action\index.tsx
@@ -19,9 +19,9 @@ import {
   ElCascader,
   ElCollapse,
   ElCollapseItem,
-  ElMessage
+  ElPopconfirm
 } from 'element-plus'
-import type { Action, ActionHandle } from '@/visual-editor/visual-editor.utils'
+import type { Action } from '@/visual-editor/visual-editor.utils'
 import { generateUUID } from '@/visual-editor/utils/'
 import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
@@ -288,9 +288,18 @@ export const EventAction = defineComponent({
                 <div class={'flex justify-between'}>
                   {actionItem.name}
                   <div>
-                    <ElButton onClick={() => deleteActionItem(index)} type={'danger'} size={'mini'}>
-                      删除
-                    </ElButton>
+                    <ElPopconfirm
+                      title={'确定要删除该事件吗？'}
+                      onConfirm={() => deleteActionItem(index)}
+                    >
+                      {{
+                        reference: () => (
+                          <ElButton type={'danger'} size={'mini'}>
+                            删除
+                          </ElButton>
+                        )
+                      }}
+                    </ElPopconfirm>
                     <ElButton
                       onClick={() => showEditActionModal(actionItem)}
                       type={'primary'}

@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-23 11:40:10
+ * @LastEditTime: 2021-07-04 21:36:26
  * @LastEditors: 卜启缘
  * @Description: 基础组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\base-widgets\index.tsx
@@ -15,6 +15,9 @@ import DraggableTransitionGroup from '@/visual-editor/components/simulator-edito
 
 export default defineComponent({
   name: 'BaseWidgets',
+  label: '基本组件',
+  order: 3,
+  icon: 'el-icon-edit',
   setup() {
     const baseWidgets = ref(visualConfig.componentModules.baseWidgets)
 

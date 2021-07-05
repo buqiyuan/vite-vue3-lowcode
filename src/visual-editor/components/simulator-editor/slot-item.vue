@@ -16,7 +16,6 @@
         @mousedown.stop="selectComp(innerElement)"
       >
         <comp-render
-          :config="config"
           :element="innerElement"
           :style="{
             pointerEvents: Object.keys(innerElement.props?.slots || {}).length ? 'auto' : 'none'
@@ -27,7 +26,6 @@
               v-model:children="value.children"
               v-model:drag="isDrag"
               :slot-key="key"
-              :config="config"
               :on-contextmenu-block="onContextmenuBlock"
               :select-comp="selectComp"
             />
@@ -57,10 +55,6 @@ export default defineComponent({
   components: { CompRender, DraggableTransitionGroup },
   props: {
     slotKey: String,
-    config: {
-      type: Object,
-      default: () => ({})
-    },
     drag: {
       type: Boolean,
       default: false
@@ -89,6 +83,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import './func.scss';
+
 .inner-draggable {
   position: relative;
 }
@@ -120,27 +116,22 @@ export default defineComponent({
   transform: translate(0);
 
   &.focusWithChild {
-    outline: 2px dashed #b0c1d7;
-    outline-offset: -2px;
-  }
-
-  &.focusWithChild::before {
-    position: absolute;
-    top: 0;
-    left: -3px;
-    padding: 3px;
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-    background-color: #006eff;
-    border-radius: 3px;
-    content: attr(data-label);
-    transform: translate(-100%, 0);
+    @include showContainerBorder;
   }
 
   &.focus {
-    outline: 2px solid #006eff;
-    outline-offset: -2px;
+    @include showSoliOutline;
+
+    &::after {
+      @include showCompLabel(top);
+
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
   }
 }
 </style>

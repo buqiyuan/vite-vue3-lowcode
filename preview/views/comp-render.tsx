@@ -1,13 +1,14 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-06-25 08:47:18
+ * @LastEditTime: 2021-07-04 17:21:34
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\comp-render.tsx
  */
 import { defineComponent, PropType } from 'vue'
 import type { VisualEditorBlockData, VisualEditorConfig } from '@/visual-editor/visual-editor.utils'
+import { visualConfig } from '@/visual.config'
 
 export default defineComponent({
   name: 'CompRender',
@@ -15,15 +16,11 @@ export default defineComponent({
     element: {
       type: Object as PropType<VisualEditorBlockData>,
       default: () => ({})
-    },
-    config: {
-      type: Object as PropType<VisualEditorConfig>,
-      default: () => ({})
     }
   },
   setup(props) {
     return () =>
-      props.config.componentMap[props.element.componentKey].render({
+      visualConfig.componentMap[props.element.componentKey].render({
         size: {},
         props: props.element.props || {},
         model: {},

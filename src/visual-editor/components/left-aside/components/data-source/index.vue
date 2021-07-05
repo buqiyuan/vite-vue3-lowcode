@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-06-27 14:45:03
+ * @LastEditTime: 2021-07-04 21:36:14
  * @LastEditors: 卜启缘
  * @Description: 数据源管理
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\index.vue
@@ -17,7 +17,14 @@
   </el-tabs>
 </template>
 
-<script setup lang="tsx">
+<script lang="tsx">
+export default {
+  label: '数据源',
+  order: 2,
+  icon: 'el-icon-data-board'
+}
+</script>
+<script setup lang="tsx" name="基本组件">
 import DataModel from './data-model.vue'
 import DataFetch from './data-fetch.vue'
 </script>

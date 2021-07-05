@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-04 16:58:50
+ * @LastEditTime: 2021-07-05 10:18:29
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 选择器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
@@ -15,7 +15,7 @@ import {
   createEditorInputProp,
   createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
-import { reactive } from 'vue'
+import { reactive, getCurrentInstance } from 'vue'
 
 export default {
   key: 'picker',
@@ -24,6 +24,9 @@ export default {
   preview: () => <Field name="picker" label="选择器" placeholder={'点击选择'}></Field>,
   render: ({ size, block, props }) => {
     const { registerRef } = useGlobalProperties()
+
+    const { attrs } = getCurrentInstance()!
+
     const state = reactive({
       showPicker: false,
       text: '',
@@ -42,7 +45,6 @@ export default {
     const onConfirm = (value) => {
       props.modelValue = value.value
       state.text = value[props.valueKey || 'text']
-      state.showPicker = false
       console.log(props)
     }
 
@@ -72,6 +74,7 @@ export default {
           <Picker
             ref={(el) => registerRef(el, block._vid)}
             {...props}
+            {...attrs}
             defaultIndex={state.defaultIndex}
             columnsFieldNames={customFieldName}
             onConfirm={onConfirm}

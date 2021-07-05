@@ -1,19 +1,18 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-28 09:25:06
+ * @LastEditTime: 2021-07-05 11:06:49
  * @LastEditors: 卜启缘
  * @Description: 属性编辑器
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\index.tsx
  * RightAttributePanel
  */
 
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 import styles from './index.module.scss'
 import { ElTabPane, ElTabs } from 'element-plus'
-import MonacoEditor from '../common/monaco-editor/MonacoEditor'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { AttrEditor, Animate, PageSetting, EventAction } from './components'
+import { AttrEditor, Animate, PageSetting, EventAction, FormRule } from './components'
 
 export default defineComponent({
   name: 'RightAttributePanel',
@@ -25,14 +24,14 @@ export default defineComponent({
       isOpen: true
     })
 
-    const handleSchemaChange = (val) => {
-      try {
-        const newObj = JSON.parse(val)
-        Object.assign(currentBlock.value, newObj)
-      } catch (e) {
-        console.log('JSON格式有误：', e)
+    watch(
+      () => currentBlock.value.label,
+      (newLabel) => {
+        if (!newLabel?.startsWith('表单') && state.activeName == 'form-rule') {
+          state.activeName = 'attr'
+        }
       }
-    }
+    )
 
     return () => (
       <>
@@ -56,15 +55,11 @@ export default defineComponent({
               <ElTabPane label="事件" name="events">
                 <EventAction />
               </ElTabPane>
-              <ElTabPane label="JSON" name="json" lazy>
-                <MonacoEditor
-                  code={JSON.stringify(currentBlock.value)}
-                  layout={{ width: 360, height: 800 }}
-                  vid={state.activeName == 'json' ? currentBlock.value._vid : -1}
-                  onChange={handleSchemaChange}
-                  title=""
-                />
-              </ElTabPane>
+              {currentBlock.value.label?.startsWith('表单') ? (
+                <ElTabPane label="规则" name="form-rule" lazy>
+                  <FormRule />
+                </ElTabPane>
+              ) : null}
               <ElTabPane label="页面设置" name="page-setting">
                 <PageSetting />
               </ElTabPane>

@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-06-25 09:10:19
+ * @LastEditTime: 2021-07-04 21:36:46
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\container-component\index.tsx
@@ -16,6 +16,9 @@ import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'ContainerComponent',
+  label: '容器组件',
+  icon: 'el-icon-suitcase',
+  order: 4,
   setup() {
     const log = (evt) => {
       window.console.log(evt)

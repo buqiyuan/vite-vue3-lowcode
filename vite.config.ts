@@ -89,6 +89,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       exclude: ['vue-demi']
     },
     server: {
+      host: '0.0.0.0',
       port: 10086, // 设置服务启动端口号
       open: false, // 设置服务启动时是否自动打开浏览器
       cors: true, // 允许跨域

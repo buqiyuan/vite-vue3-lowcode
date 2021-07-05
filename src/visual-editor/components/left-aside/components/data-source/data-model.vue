@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-06-27 14:48:53
+ * @LastEditTime: 2021-07-04 19:49:52
  * @LastEditors: 卜启缘
  * @Description: 数据模型管理
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-model.vue
@@ -12,14 +12,7 @@
     <el-button type="warning" size="small" @click="showImportSwaggerJsonModal"
       >导入swagger</el-button
     >
-    <el-popconfirm
-      confirm-button-text="确定"
-      cancel-button-text="取消"
-      icon="el-icon-info"
-      icon-color="red"
-      title="确定要删除全部模型吗？"
-      @confirm="updateModel([], true)"
-    >
+    <el-popconfirm title="确定要删除全部模型吗？" @confirm="updateModel([], true)">
       <template #reference>
         <el-button type="danger" size="small">清空</el-button>
       </template>
@@ -33,14 +26,7 @@
             <span class="truncate w-160px">{{ item.name }}</span>
             <div class="model-actions">
               <i class="el-icon-edit" @click="editModel(item)"></i>
-              <el-popconfirm
-                confirm-button-text="确定"
-                cancel-button-text="取消"
-                icon="el-icon-info"
-                icon-color="red"
-                title="确定要删除该模型吗？"
-                @confirm="deleteModel(item.key)"
-              >
+              <el-popconfirm title="确定要删除该模型吗？" @confirm="deleteModel(item.key)">
                 <template #reference>
                   <i class="el-icon-delete"></i>
                 </template>

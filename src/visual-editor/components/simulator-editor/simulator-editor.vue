@@ -22,7 +22,6 @@
             >
               <comp-render
                 :key="outElement._vid"
-                :config="visualConfig"
                 :element="outElement"
                 :style="{
                   pointerEvents: Object.keys(outElement.props?.slots || {}).length ? 'auto' : 'none'
@@ -37,7 +36,6 @@
                     v-model:children="value.children"
                     v-model:drag="drag"
                     :slot-key="slotKey"
-                    :config="visualConfig"
                     :on-contextmenu-block="onContextmenuBlock"
                     :select-comp="selectComp"
                     :delete-comp="deleteComp"
@@ -59,9 +57,11 @@ import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
 import CompRender from './comp-render'
 import SlotItem from './slot-item.vue'
+import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor'
 import { cloneDeep } from 'lodash'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
+import { useModal } from '@/visual-editor/hooks/useModal'
 
 export default defineComponent({
   name: 'SimulatorEditor',
@@ -72,7 +72,7 @@ export default defineComponent({
   },
   emits: ['on-selected'],
   setup() {
-    const { currentPage, visualConfig, setCurrentBlock } = useVisualData()
+    const { currentPage, setCurrentBlock } = useVisualData()
 
     const { globalProperties } = useGlobalProperties()
 
@@ -199,6 +199,27 @@ export default defineComponent({
               }}
             />
             <DropdownOption
+              label="查看节点"
+              icon="el-icon-view"
+              {...{
+                onClick: () =>
+                  useModal({
+                    title: '节点信息',
+                    footer: null,
+                    props: {
+                      width: 600
+                    },
+                    content: () => (
+                      <MonacoEditor
+                        code={JSON.stringify(block)}
+                        layout={{ width: 530, height: 600 }}
+                        vid={block._vid}
+                      />
+                    )
+                  })
+              }}
+            />
+            <DropdownOption
               label="删除节点"
               icon="el-icon-delete"
               {...{
@@ -213,7 +234,6 @@ export default defineComponent({
     return {
       ...toRefs(state),
       currentPage,
-      visualConfig,
       pageStyle,
       deleteComp,
       selectComp,
@@ -272,9 +292,7 @@ export default defineComponent({
   }
 
   &.focus {
-    content: '';
-    outline: 2px solid #006eff;
-    outline-offset: -2px;
+    @include showComponentBorder;
   }
 
   &.drag::after {

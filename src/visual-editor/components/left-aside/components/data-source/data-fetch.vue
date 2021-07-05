@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-06-28 10:10:53
+ * @LastEditTime: 2021-07-04 19:48:28
  * @LastEditors: 卜启缘
  * @Description: 接口请求
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-fetch.vue
@@ -12,14 +12,7 @@
     <el-button type="warning" size="small" @click="showImportSwaggerJsonModal"
       >导入swagger</el-button
     >
-    <el-popconfirm
-      confirm-button-text="确定"
-      cancel-button-text="取消"
-      icon="el-icon-info"
-      icon-color="red"
-      title="确定要删除全部接口吗？"
-      @confirm="updateFetchApi([], true)"
-    >
+    <el-popconfirm title="确定要删除全部接口吗？" @confirm="updateFetchApi([], true)">
       <template #reference>
         <el-button type="danger" size="small">清空</el-button>
       </template>

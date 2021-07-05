@@ -1,17 +1,17 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-07-04 12:59:13
+ * @LastEditTime: 2021-07-05 10:18:22
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\slot-item.vue
 -->
 <template>
   <div class="__slot-item">
-    <comp-render :element="element" :config="config" v-on="events">
+    <comp-render :element="element" v-on="events">
       <template v-for="(value, key) in element.props?.slots" :key="key" #[key]>
         <template v-for="item in value?.children" :key="item._vid">
-          <slot-item :element="item" :config="config" :models="models" :actions="actions" />
+          <slot-item :element="item" :models="models" :actions="actions" />
         </template>
       </template>
     </comp-render>
@@ -46,10 +46,6 @@ export default defineComponent({
     models: {
       type: Object as PropType<VisualEditorModel[]>,
       default: () => ({})
-    },
-    config: {
-      type: Object,
-      default: () => ({})
     }
   },
   setup(props) {
@@ -58,9 +54,10 @@ export default defineComponent({
       prev[curr.event] = async () => {
         for (const handle of curr.handle) {
           const [scopeType, actionType, handleKey] = handle.link
-          if (scopeType == 'global') {
+          if (scopeType === 'global') {
             const apis: FetchApiItem[] = props.actions[actionType].apis
             const { data, options } = apis.find((item) => item.key == handleKey)!
+            const pramsObj = {}
             await request({
               ...options,
               headers: {
@@ -71,7 +68,7 @@ export default defineComponent({
                 password: '123456'
               }
             })
-          } else if (scopeType == 'component') {
+          } else if (scopeType === 'component') {
           }
         }
       }

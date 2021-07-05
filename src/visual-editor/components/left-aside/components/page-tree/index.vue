@@ -82,6 +82,9 @@ const rules = {
 
 export default defineComponent({
   name: 'PageTree',
+  label: '页面',
+  order: 1,
+  icon: 'el-icon-tickets',
   setup() {
     const router = useRouter()
     const route = useRoute()

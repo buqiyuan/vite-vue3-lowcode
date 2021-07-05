@@ -1,21 +1,21 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-04 08:59:57
+ * @LastEditTime: 2021-07-04 17:21:47
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\preview.vue
 -->
 <template>
   <template v-for="outItem in blocks" :key="outItem._vid">
-    <slot-item :element="outItem" :models="models" :actions="actions" :config="visualConfig" />
+    <slot-item :element="outItem" :models="models" :actions="actions" />
   </template>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import { Toast } from 'vant'
-import { visualConfig } from '@/visual.config'
+
 import { CacheEnum } from '@/enums'
 import type { VisualEditorModelValue } from '@/visual-editor/visual-editor.utils'
 import SlotItem from './slot-item.vue'
@@ -70,8 +70,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       actions: jsonData.actions,
-      models: jsonData.models,
-      visualConfig
+      models: jsonData.models
     }
   }
 })

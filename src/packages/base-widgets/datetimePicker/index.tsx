@@ -9,7 +9,7 @@ import {
   createEditorSelectProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
-import { reactive } from 'vue'
+import { getCurrentInstance, reactive } from 'vue'
 import { isDate } from '@/visual-editor/utils/is'
 import dayjs from 'dayjs'
 
@@ -24,10 +24,13 @@ const dateType = {
 export default {
   key: 'datetimePicker',
   moduleName: 'baseWidgets',
-  label: '表单项类型 - 选择器',
+  label: '表单项类型 - 时间选择器',
   preview: () => <Field name="datetimePicker" label="时间选择器" placeholder={'点击选择'}></Field>,
   render: ({ size, block, props }) => {
     const { registerRef } = useGlobalProperties()
+
+    const { attrs } = getCurrentInstance()!
+
     const state = reactive({
       showPicker: false,
       text: '',
@@ -63,10 +66,11 @@ export default {
               )
           }}
         />
-        <Popup v-model={[state.showPicker, 'show', ['modifier']]} position={'bottom'}>
+        <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
           <DatetimePicker
             ref={(el) => registerRef(el, block._vid)}
             {...props}
+            {...attrs}
             v-model={state.currentDate}
             onConfirm={onConfirm}
             onCancel={() => (state.showPicker = false)}
