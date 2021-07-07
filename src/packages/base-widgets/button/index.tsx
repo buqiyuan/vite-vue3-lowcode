@@ -12,18 +12,13 @@ export default {
   moduleName: 'baseWidgets',
   label: '按钮',
   preview: () => <Button type={'primary'}>按钮</Button>,
-  render: ({ props, block, size }) => {
+  render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Button
-        ref={(el) => registerRef(el, block._vid)}
-        style={{
-          height: size.height ? `${size.height}px` : null,
-          width: size.width ? `${size.width}px` : null
-        }}
-        {...props}
-      ></Button>
+      <div style={styles}>
+        <Button ref={(el) => registerRef(el, block._vid)} {...props}></Button>
+      </div>
     )
   },
   resize: {

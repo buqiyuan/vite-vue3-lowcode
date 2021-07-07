@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-03 09:38:50
+ * @LastEditTime: 2021-07-07 11:00:52
  * @LastEditors: 卜启缘
  * @Description: '表单项类型 - 步进器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\stepper\index.tsx
@@ -30,27 +30,26 @@ export default {
       v-slots={{ input: () => <Stepper modelValue={3} /> }}
     ></Field>
   ),
-  render: ({ size, block, props }) => {
+  render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Field
-        {...props}
-        modelValue={''}
-        style={{
-          width: size.width ? `${size.width}px` : null
-        }}
-        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
-        v-slots={{
-          input: () => (
-            <Stepper
-              ref={(el) => registerRef(el, block._vid)}
-              {...props}
-              v-model={props.modelValue}
-            ></Stepper>
-          )
-        }}
-      />
+      <div style={styles}>
+        <Field
+          {...props}
+          modelValue={''}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          v-slots={{
+            input: () => (
+              <Stepper
+                ref={(el) => registerRef(el, block._vid)}
+                {...props}
+                v-model={props.modelValue}
+              ></Stepper>
+            )
+          }}
+        />
+      </div>
     )
   },
   props: {

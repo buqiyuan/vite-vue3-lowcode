@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:49:31
+ * @LastEditTime: 2021-07-07 21:10:10
  * @LastEditors: 卜启缘
  * @Description: 分割线
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\divider\index.tsx
@@ -21,20 +21,23 @@ export default {
   moduleName: 'baseWidgets',
   label: '分割线',
   preview: () => <Divider style="width:190px">文本</Divider>,
-  render: ({ props, block }) => {
+  render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
     const style = {
+      width: '100%',
       color: props['text-color'],
       borderColor: props['divider-color']
     }
 
     return (
-      <Divider ref={(el) => registerRef(el, block._vid)} {...props} style={style}>
-        {{
-          default: () => props.text
-        }}
-      </Divider>
+      <div style={styles}>
+        <Divider ref={(el) => registerRef(el, block._vid)} {...props} style={style}>
+          {{
+            default: () => props.text
+          }}
+        </Divider>
+      </div>
     )
   },
   props: {

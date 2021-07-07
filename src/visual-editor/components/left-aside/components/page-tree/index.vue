@@ -47,33 +47,14 @@
       </span>
     </template>
   </el-tree>
-  <el-dialog
-    v-model="dialogFormVisible"
-    width="380px"
-    :title="operatePageData ? '编辑页面' : '新增页面'"
-  >
-    <el-form ref="ruleForm" :model="form" :rules="rules">
-      <el-form-item prop="title" label="页面标题" label-width="80px">
-        <el-input v-model="form.title" autocomplete="off" />
-      </el-form-item>
-      <el-form-item prop="path" label="页面路径" label-width="80px">
-        <el-input v-model="form.path" autocomplete="off" />
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="onSubmit">确 定</el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, computed, toRefs } from 'vue'
+<script lang="tsx">
+import { defineComponent, reactive, ref, computed, toRefs } from 'vue'
 import { useVisualData, createNewPage } from '@/visual-editor/hooks/useVisualData'
 import { useRouter, useRoute } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElForm, ElFormItem, ElInput } from 'element-plus'
+import { useModal } from '@/visual-editor/hooks/useModal'
 
 const rules = {
   title: [{ required: true, message: '请输入页面标题', trigger: 'blur' }],
@@ -91,14 +72,14 @@ export default defineComponent({
 
     const { jsonData, setCurrentPage, deletePage, updatePage, incrementPage } = useVisualData()
 
+    const ruleFormRef = ref<InstanceType<typeof ElForm>>()
+
     const state = reactive({
-      ruleForm: null as any,
       defaultProps: {
         children: 'children',
         label: 'title'
       },
       currentNodeKey: route.path,
-      dialogFormVisible: false, // 表单弹窗显隐
       operatePageData: null as any, // 当前要增加或修改的页面
       form: {
         // 增改页面表单数据
@@ -120,6 +101,56 @@ export default defineComponent({
       setCurrentPage(data.path)
       router.push(data.path)
     }
+
+    /**
+     * @description 显示新增/编辑模态框
+     */
+    const showOparateModal = () =>
+      useModal({
+        title: state.operatePageData ? '编辑页面' : '新增页面',
+        props: {
+          width: 380
+        },
+        content: () => (
+          <ElForm ref={ruleFormRef} model={state.form} rules={rules}>
+            <ElFormItem prop={'title'} label={'页面标题'} labelWidth={'80px'}>
+              <ElInput v-model={state.form.title} />
+            </ElFormItem>
+            <ElFormItem prop={'path'} label={'页面路径'} labelWidth={'80px'}>
+              <ElInput v-model={state.form.path} />
+            </ElFormItem>
+          </ElForm>
+        ),
+        onConfirm: () => {
+          return new Promise((resolve, reject) => {
+            ruleFormRef.value?.validate(async (valid) => {
+              if (valid) {
+                const { title, path } = state.form
+                if ([title.trim(), path.trim()].includes('')) {
+                  return ElMessage.error('标题或路径不能为空！')
+                }
+                if (state.operatePageData) {
+                  updatePage({
+                    newPath: path,
+                    oldPath: state.operatePageData.path || path,
+                    page: { title }
+                  })
+                  await router.replace(path)
+                  state.currentNodeKey = path
+                } else {
+                  incrementPage(path, createNewPage({ title }))
+                }
+                resolve(true)
+              } else {
+                console.log('error submit!!')
+                reject()
+                return false
+              }
+            })
+          })
+        }
+      })
+
     // 新增页面
     const addPage = () => {
       state.operatePageData = null
@@ -127,7 +158,7 @@ export default defineComponent({
         title: '',
         path: ''
       }
-      state.dialogFormVisible = true
+      showOparateModal()
     }
     // 编辑页面
     const editPage = (data) => {
@@ -136,7 +167,7 @@ export default defineComponent({
         title: data.title,
         path: data.path
       }
-      state.dialogFormVisible = true
+      showOparateModal()
       console.log('子页面数据：', data)
     }
     // 删除子页面
@@ -149,39 +180,10 @@ export default defineComponent({
       console.log('设置该页面为默认页面', data)
     }
 
-    // 新增或编辑页面
-    const onSubmit = () => {
-      state.ruleForm?.validate(async (valid) => {
-        if (valid) {
-          const { title, path } = state.form
-          if (title.trim() == '' || path.trim() == '') {
-            return ElMessage.error('标题或路径不能为空！')
-          }
-          if (state.operatePageData) {
-            updatePage({
-              newPath: path,
-              oldPath: state.operatePageData.path || path,
-              page: { title }
-            })
-            await router.replace(path)
-            state.currentNodeKey = path
-          } else {
-            incrementPage(path, createNewPage({ title }))
-          }
-          state.dialogFormVisible = false
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    }
-
     return {
       ...toRefs(state),
       pages,
-      rules,
       setCurrentPage,
-      onSubmit,
       setDefaultPage,
       handleNodeClick,
       addPage,

@@ -107,7 +107,7 @@ export default defineComponent({
   .logo {
     width: 60px;
     height: 60px;
-    background-image: url('../../../assets/logo.png');
+    background-image: url('@/assets/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
   }

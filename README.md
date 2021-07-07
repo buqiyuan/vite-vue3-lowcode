@@ -90,6 +90,10 @@ JSON.stringify(
   .replace(/\"/g, "'")
 ```
 
+## 部分功能演示
+
+[![RHfBbn.gif](https://z3.ax1x.com/2021/07/07/RHfBbn.gif)](https://imgtu.com/i/RHfBbn)
+
 ## 浏览器支持
 
 本地开发推荐使用`Chrome 80+` 浏览器

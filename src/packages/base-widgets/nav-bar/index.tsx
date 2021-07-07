@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-04 16:54:00
+ * @LastEditTime: 2021-07-07 10:56:56
  * @LastEditors: 卜启缘
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\nav-bar\index.tsx
@@ -19,19 +19,13 @@ export default {
   preview: () => (
     <NavBar title="标题" left-text="返回" right-text="按钮" left-arrow style={{ width: '100%' }} />
   ),
-  render: ({ props, size, block, custom }) => {
+  render: ({ props, styles, block, custom }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <NavBar
-        ref={(el) => registerRef(el, block._vid)}
-        placeholder
-        {...custom}
-        {...props}
-        style={{
-          width: size.width ? `${size.width}px` : null
-        }}
-      />
+      <div style={styles}>
+        <NavBar ref={(el) => registerRef(el, block._vid)} placeholder {...custom} {...props} />
+      </div>
     )
   },
   props: {

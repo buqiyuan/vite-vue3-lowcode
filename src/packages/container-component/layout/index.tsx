@@ -2,7 +2,7 @@ import { Col, Row } from 'vant'
 import { renderSlot, getCurrentInstance } from 'vue'
 import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/visual-editor.props'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import styles from './index.module.scss'
+import styleModule from './index.module.scss'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 
 interface SlotItem {
@@ -36,7 +36,7 @@ export default {
       <Col span="8">span: 8</Col>
     </Row>
   ),
-  render: function ({ props, size, block, custom }) {
+  render: function ({ props, styles, block, custom }) {
     const { slots } = getCurrentInstance()!
     const { registerRef } = useGlobalProperties()
 
@@ -51,27 +51,25 @@ export default {
     }
 
     return (
-      <Row
-        ref={(el) => registerRef(el, block._vid)}
-        {...custom}
-        {...props}
-        style={{
-          height: size.height ? `${size.height}px` : null,
-          width: size.width ? `${size.width}px` : null
-        }}
-        class={styles.vanRow}
-      >
-        {Object.values(Object.keys(props.slots).length ? props.slots : createSlots('12:12'))
-          ?.filter((item) => typeof item !== 'string')
-          .map((spanItem: SlotItem, spanIndex) => {
-            slotsTemp[block._vid][`slot${spanIndex}`] = spanItem
-            return (
-              <>
-                <Col span={spanItem.span}>{renderSlot(slots, `slot${spanIndex}`)}</Col>
-              </>
-            )
-          })}
-      </Row>
+      <div style={styles}>
+        <Row
+          ref={(el) => registerRef(el, block._vid)}
+          {...custom}
+          {...props}
+          class={styleModule.vanRow}
+        >
+          {Object.values(Object.keys(props.slots).length ? props.slots : createSlots('12:12'))
+            ?.filter((item) => typeof item !== 'string')
+            .map((spanItem: SlotItem, spanIndex) => {
+              slotsTemp[block._vid][`slot${spanIndex}`] = spanItem
+              return (
+                <>
+                  <Col span={spanItem.span}>{renderSlot(slots, `slot${spanIndex}`)}</Col>
+                </>
+              )
+            })}
+        </Row>
+      </div>
     )
   },
   resize: {

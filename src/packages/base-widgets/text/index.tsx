@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-25 08:51:29
+ * @LastEditTime: 2021-07-07 11:01:54
  * @LastEditors: 卜启缘
  * @Description: 文本
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\text\index.tsx
@@ -21,7 +21,7 @@ export default {
   moduleName: 'baseWidgets',
   label: '文本',
   preview: () => <span>预览文本</span>,
-  render: ({ props, block }) => {
+  render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
@@ -30,7 +30,8 @@ export default {
         style={{
           color: props.color,
           fontSize: `${parseFloat(props.size)}px`,
-          fontFamily: props.font
+          fontFamily: props.font,
+          ...styles
         }}
       >
         {props.text || '默认文本'}

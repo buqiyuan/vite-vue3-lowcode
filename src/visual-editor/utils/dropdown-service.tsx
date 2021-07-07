@@ -31,7 +31,7 @@ const ServiceComponent = defineComponent({
   props: { option: { type: Object as PropType<DropdownServiceOption>, required: true } },
   setup(props) {
     const ctx = getCurrentInstance()!
-    const el = ref({} as HTMLDivElement)
+    const el = ref<InstanceType<typeof HTMLDivElement>>()
 
     const state = reactive({
       option: props.option,
@@ -86,7 +86,7 @@ const ServiceComponent = defineComponent({
     Object.assign(ctx.proxy, { service })
 
     const onMousedownDocument = (e: MouseEvent) => {
-      if (!el.value.contains(e.target as HTMLElement)) {
+      if (!el.value?.contains(e.target as HTMLElement)) {
         methods.hide()
       }
     }

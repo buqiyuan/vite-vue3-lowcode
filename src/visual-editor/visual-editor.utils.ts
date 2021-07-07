@@ -1,5 +1,6 @@
 import type { VisualEditorProps } from './visual-editor.props'
 import { inject, provide } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import type { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
 
@@ -7,24 +8,32 @@ import type { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
  * @description 组件属性
  */
 export interface VisualEditorBlockData {
-  _vid: string // 组件id 时间戳
-  moduleName: keyof ComponentModules // 组件所属的模块（基础组件、容器组件）
-  componentKey: string // 映射 VisualEditorConfig 中 componentMap 的 component对象
-  label: string // 组件标签名称
-  top: number // 组件的top定位
-  left: number // 组件的left定位
-  adjustPosition: boolean // 是否需要调整位置
-  focus: boolean // 当前是否为选中状态
-  zIndex: number // z-index值
-  width: number // 组件宽度
-  height: number // 组件高度
-  hasResize: boolean // 是否调整过宽度或者高度
-  props: Record<string, any> // 组件的设计属性
-  model: Record<string, string> // 绑定的字段
-  slotName?: string // 组件唯一标识
-  animations?: Animation[] // 动画集
-  actions: Action[] // 组件动作集合
-  events: { label: string; value: string }[] // 组件事件集合
+  /** 组件id 时间戳, 组件唯一标识 */
+  _vid: string
+  /** 组件所属的模块（基础组件、容器组件） */
+  moduleName: keyof ComponentModules
+  /** 映射 VisualEditorConfig 中 componentMap 的 component对象 */
+  componentKey: string
+  /** 组件标签名称 */
+  label: string
+  /** 是否需要调整位置 */
+  adjustPosition: boolean
+  /** 当前是否为选中状态 */
+  focus: boolean
+  /** 当前组件的样式 */
+  styles: CSSProperties
+  /** 是否调整过宽度或者高度 */
+  hasResize: boolean
+  /** 组件的设计属性 */
+  props: Record<string, any>
+  /** 绑定的字段 */
+  model: Record<string, string>
+  /** 动画集 */
+  animations?: Animation[]
+  /** 组件动作集合 */
+  actions: Action[]
+  /** 组件事件集合 */
+  events: { label: string; value: string }[]
   [prop: string]: any
 }
 /**
@@ -33,7 +42,7 @@ export interface VisualEditorBlockData {
 export interface ActionHandle {
   key: string
   name: string
-  link: string
+  link: string[]
   data?: {
     bind?: string
     recv?: string
@@ -53,18 +62,25 @@ export interface Action {
  * @description 页面配置
  */
 export interface PageConfig {
-  bgImage: string // 背景图片
-  bgColor: string // 背景颜色
+  /** 背景图片 */
+  bgImage: string
+  /** 背景颜色 */
+  bgColor: string
 }
 /**
  * @description 页面对象
  */
 export interface VisualEditorPage {
-  title: string // 页面标题
-  path: string // 页面路径
-  isDefault?: boolean // 404是重定向到默认页面
-  config: PageConfig // 页面配置
-  blocks: VisualEditorBlockData[] // 当前页面的所有组件
+  /** 页面标题 */
+  title: string
+  /** 页面路径 */
+  path: string
+  /** 404是重定向到默认页面 */
+  isDefault?: boolean
+  /** 页面配置 */
+  config: PageConfig
+  /** 当前页面的所有组件 */
+  blocks: VisualEditorBlockData[]
 }
 /**
  * @description 可以认为是 路由=>页面
@@ -76,34 +92,48 @@ export interface VisualEditorPages {
  * @description 实体类型
  */
 export type EntityType = {
-  key: string // 绑定的字段 输入
-  name: string // 实体名称 输入
-  type: string // 数据类型 选择
-  value: string // 默认值 输入
+  /** 绑定的字段 输入 */
+  key: string
+  /** 实体名称 输入 */
+  name: string
+  /** 数据类型 选择 */
+  type: string
+  /** 默认值 输入 */
+  value: string
 }
 
 /**
  * @description 数据模型
  */
 export interface VisualEditorModel {
-  name: string // 数据源名称
-  key: string // 绑定的字段 该字段创建的时候生成
-  entitys: EntityType[] // 实体集合
+  /** 数据源名称 */
+  name: string
+  /** 绑定的字段 该字段创建的时候生成 */
+  key: string
+  /** 实体集合 */
+  entitys: EntityType[]
 }
 /**
  * @description 接口请求对象
  */
 export interface FetchApiItem {
-  key: string // 随机生成的key
-  name: string // 当前api名字
+  /**  随机生成的key */
+  key: string
+  /** 随机生成的key */
+  name: string
   options: {
-    url: string // 请求的url
-    method: keyof typeof RequestEnum // 请求的方法
-    contentType: keyof typeof ContentTypeEnum // 请求的内容类型
+    /** 请求的url */
+    url: string
+    /** 请求的方法 */
+    method: keyof typeof RequestEnum
+    /** 请求的内容类型 */
+    contentType: keyof typeof ContentTypeEnum
   }
   data: {
-    bind: string // 请求绑定对应的某个实体
-    recv: string // 响应的结果绑定到某个实体上
+    /** 请求绑定对应的某个实体 */
+    bind: string
+    /** 响应的结果绑定到某个实体上 */
+    recv: string
   }
 }
 
@@ -124,20 +154,29 @@ export interface VisualEditorActions {
  * @description 总的数据集
  */
 export interface VisualEditorModelValue {
-  pages: VisualEditorPages // 页面
-  models: VisualEditorModel[] // 实体
-  actions: VisualEditorActions // 动作
+  /** 页面 */
+  pages: VisualEditorPages
+  /** 实体 */
+  models: VisualEditorModel[]
+  /** 动作 */
+  actions: VisualEditorActions
 }
 /**
  * @description 动画项
  */
 export interface Animation {
-  label: string // 动画名称
-  value: string // 动画类名
-  duration: number // 动画持续时间
-  delay: number // 动画延迟多久执行
-  count: number // 动画执行次数
-  infinite: boolean // 是否无限循环动画
+  /** 动画名称 */
+  label: string
+  /** 动画类名 */
+  value: string
+  /** 动画持续时间 */
+  duration: number
+  /** 动画延迟多久执行 */
+  delay: number
+  /** 动画执行次数 */
+  count: number
+  /** 是否无限循环动画 */
+  infinite: boolean
 }
 /**
  * @description 单个组件注册规则
@@ -151,14 +190,14 @@ export interface VisualEditorComponent {
   render: (data: {
     props: any
     model: any
+    styles: CSSProperties
     block: VisualEditorBlockData
-    size: { width?: number; height?: number }
     custom: Record<string, any>
   }) => JSX.Element
   props?: Record<string, VisualEditorProps>
   animations?: Animation[] // 动画集
   events?: { label: string; value: string }[] // 组件事件集合
-  resize?: { width?: boolean; height?: boolean }
+  styles?: CSSProperties
 }
 
 export interface VisualEditorMarkLines {
@@ -166,29 +205,25 @@ export interface VisualEditorMarkLines {
   y: { top: number; showTop: number }[]
 }
 
-export function createNewBlock({
-  component,
-  left,
-  top
-}: {
-  component: VisualEditorComponent
-  top: number
-  left: number
-}): VisualEditorBlockData {
+export function createNewBlock(component: VisualEditorComponent): VisualEditorBlockData {
   component._vid = `${component._vid}`.startsWith('vid_') ? component._vid : `vid_${component._vid}`
 
   return {
-    top,
-    left,
     _vid: component._vid!,
     moduleName: component.moduleName,
     componentKey: component!.key,
     label: component!.label,
     adjustPosition: true,
     focus: false,
-    zIndex: 0,
-    width: 0,
-    height: 0,
+    styles: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      paddingTop: '0',
+      paddingRight: '0',
+      paddingLeft: '0',
+      paddingBottom: '0',
+      tempPadding: '0'
+    },
     hasResize: false,
     props: Object.keys(component.props || {}).reduce((prev, curr) => {
       const { propObj, prop } = useDotProp(prev, curr)
@@ -261,13 +296,13 @@ export function createVisualEditorConfig() {
         render: (data: {
           props: { [k in keyof Props]: any }
           model: Partial<{ [k in keyof Model]: any }>
+          styles: CSSProperties
           block: VisualEditorBlockData
-          size: { width?: number; height?: number }
           custom: Record<string, any>
         }) => JSX.Element
         props?: Props
         model?: Model
-        resize?: { width?: boolean; height?: boolean }
+        styles?: CSSProperties
       }
     ) => {
       const comp = { ...component, key, moduleName }

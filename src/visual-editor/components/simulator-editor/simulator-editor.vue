@@ -259,10 +259,10 @@ export default defineComponent({
 }
 
 .simulator-editor {
-  width: 560px;
-  height: 640px;
-  min-width: 560px;
-  padding: 10px 100px;
+  width: 660px;
+  height: 740px;
+  min-width: 660px;
+  padding: 60px 150px 0;
   overflow: hidden auto;
   background: #fafafa;
   border-radius: 5px;

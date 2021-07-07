@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-07-04 19:48:28
+ * @LastEditTime: 2021-07-07 21:48:03
  * @LastEditors: 卜启缘
  * @Description: 接口请求
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-fetch.vue
@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="tsx">
-import { reactive, computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import {
   ElForm,
   ElFormItem,
@@ -71,7 +71,6 @@ import { useImportSwaggerJsonModal } from './utils'
 
 interface IState {
   activeNames: string[]
-  ruleFormRef: any
   ruleForm: FetchApiItem
 }
 
@@ -108,10 +107,10 @@ const createEmptyApiItem = (): FetchApiItem => ({
     recv: '' // 响应的结果绑定到某个实体上
   }
 })
+const ruleFormRef = ref<InstanceType<typeof ElForm>>()
 
 const state = reactive<IState>({
   activeNames: [],
-  ruleFormRef: null,
   ruleForm: createEmptyApiItem()
 })
 
@@ -138,7 +137,7 @@ const showModelMoal = () => {
     content: () => (
       <ElForm
         model={state.ruleForm}
-        ref={(el) => el && (state.ruleFormRef = el)}
+        ref={ruleFormRef}
         label-width="100px"
         size={'mini'}
         rules={rules}
@@ -202,7 +201,7 @@ const showModelMoal = () => {
     ),
     onConfirm: () => {
       return new Promise((resolve, reject) => {
-        state.ruleFormRef.validate((valid) => {
+        ruleFormRef.value?.validate((valid) => {
           if (valid) {
             if (isEdit.value) {
               updateFetchApi(cloneDeep(state.ruleForm))

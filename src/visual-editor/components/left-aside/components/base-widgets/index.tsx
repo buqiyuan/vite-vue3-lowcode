@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-07-04 21:36:26
+ * @LastEditTime: 2021-07-06 20:32:39
  * @LastEditors: 卜启缘
  * @Description: 基础组件
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\base-widgets\index.tsx
@@ -29,7 +29,7 @@ export default defineComponent({
       console.log('当前拖拽的组件：', comp)
       const newComp = cloneDeep(comp)
       newComp._vid = Date.now()
-      return createNewBlock({ left: 0, top: 0, component: newComp })
+      return createNewBlock(newComp)
     }
 
     return () => (

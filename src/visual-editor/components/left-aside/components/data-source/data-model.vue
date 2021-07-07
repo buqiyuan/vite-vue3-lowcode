@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-07-04 19:49:52
+ * @LastEditTime: 2021-07-07 21:55:53
  * @LastEditors: 卜启缘
  * @Description: 数据模型管理
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-model.vue
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="tsx">
-import { reactive, computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import {
   ElForm,
   ElFormItem,
@@ -65,7 +65,6 @@ import { useImportSwaggerJsonModal } from './utils'
 
 interface IState {
   activeNames: string[]
-  ruleFormRef: any
   ruleForm: VisualEditorModel
 }
 
@@ -96,9 +95,10 @@ const createEmptyModel = () => ({
   entitys: [createEmptyEntity()]
 })
 
+const ruleFormRef = ref<InstanceType<typeof ElForm>>()
+
 const state = reactive<IState>({
   activeNames: [],
-  ruleFormRef: null,
   ruleForm: createEmptyModel()
 })
 
@@ -128,12 +128,7 @@ const showModelMoal = () => {
       width: 600
     },
     content: () => (
-      <ElForm
-        model={state.ruleForm}
-        ref={(el) => el && (state.ruleFormRef = el)}
-        label-width="100px"
-        size={'mini'}
-      >
+      <ElForm model={state.ruleForm} ref={ruleFormRef} label-width="100px" size={'mini'}>
         <ElFormItem
           label="数据源名称"
           prop="name"
@@ -211,7 +206,7 @@ const showModelMoal = () => {
     ),
     onConfirm: () => {
       return new Promise((resolve, reject) => {
-        state.ruleFormRef.validate((valid) => {
+        ruleFormRef.value?.validate((valid) => {
           if (valid) {
             if (isEdit.value) {
               updateModel(state.ruleForm)

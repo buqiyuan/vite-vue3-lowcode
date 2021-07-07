@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-05 10:18:29
+ * @LastEditTime: 2021-07-07 10:57:41
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 选择器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
@@ -22,7 +22,7 @@ export default {
   moduleName: 'baseWidgets',
   label: '表单项类型 - 选择器',
   preview: () => <Field name="picker" label="选择器" placeholder={'点击选择'}></Field>,
-  render: ({ size, block, props }) => {
+  render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     const { attrs } = getCurrentInstance()!
@@ -49,16 +49,13 @@ export default {
     }
 
     const PopupPicker = () => (
-      <>
+      <div style={styles}>
         <Field
           v-model={props.modelValue}
           {...props}
           readonly
           clickable
           onClick={() => (state.showPicker = true)}
-          style={{
-            width: size.width ? `${size.width}px` : null
-          }}
           name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
         >
           {{
@@ -81,7 +78,7 @@ export default {
             onCancel={() => (state.showPicker = false)}
           />
         </Popup>
-      </>
+      </div>
     )
 
     return <PopupPicker />

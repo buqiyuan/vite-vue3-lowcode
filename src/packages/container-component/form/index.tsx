@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-06-27 18:01:21
+ * @LastEditTime: 2021-07-07 21:23:23
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\container-component\form\index.tsx
@@ -27,7 +27,7 @@ export default {
       </div>
     </Form>
   ),
-  render: function ({ props, custom, block }) {
+  render: function ({ props, styles, block }) {
     const { slots } = getCurrentInstance()!
     const { registerRef } = useGlobalProperties()
 
@@ -36,9 +36,16 @@ export default {
     }
 
     return (
-      <Form ref={(el) => registerRef(el, block._vid)} {...custom} {...props} onSubmit={onSubmit}>
-        {renderSlot(slots, 'default')}
-      </Form>
+      <div style={styles}>
+        <Form
+          ref={(el) => registerRef(el, block._vid)}
+          {...props}
+          style={{ width: '100%' }}
+          onSubmit={onSubmit}
+        >
+          {renderSlot(slots, 'default')}
+        </Form>
+      </div>
     )
   },
   resize: {

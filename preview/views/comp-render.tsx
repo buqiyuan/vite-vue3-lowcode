@@ -1,13 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-04 17:21:34
+ * @LastEditTime: 2021-07-06 23:51:26
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\comp-render.tsx
  */
 import { defineComponent, PropType } from 'vue'
-import type { VisualEditorBlockData, VisualEditorConfig } from '@/visual-editor/visual-editor.utils'
+import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import { visualConfig } from '@/visual.config'
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
   setup(props) {
     return () =>
       visualConfig.componentMap[props.element.componentKey].render({
-        size: {},
+        styles: props.element.styles || {},
         props: props.element.props || {},
         model: {},
         block: props.element,

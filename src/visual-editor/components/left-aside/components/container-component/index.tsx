@@ -28,7 +28,7 @@ export default defineComponent({
       console.log('当前拖拽的组件：', comp)
       const newComp = cloneDeep(comp)
       newComp._vid = Date.now()
-      return createNewBlock({ left: 0, top: 0, component: newComp })
+      return createNewBlock(newComp)
     }
 
     return () => (

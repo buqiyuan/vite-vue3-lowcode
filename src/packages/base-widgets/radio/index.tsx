@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-04 17:00:24
+ * @LastEditTime: 2021-07-07 10:59:56
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 单选框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\radio\index.tsx
@@ -27,33 +27,32 @@ export default {
       <Radio name="2">two</Radio>
     </RadioGroup>
   ),
-  render: ({ size, block, props }) => {
+  render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Field
-        {...props}
-        modelValue={''}
-        style={{
-          width: size.width ? `${size.width}px` : null
-        }}
-        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
-        v-slots={{
-          input: () => (
-            <RadioGroup
-              ref={(el) => registerRef(el, block._vid)}
-              {...props}
-              v-model={props.modelValue}
-            >
-              {props.options?.map((item) => (
-                <Radio name={item.value} style={{ marginBottom: '5px' }}>
-                  {item.label}
-                </Radio>
-              ))}
-            </RadioGroup>
-          )
-        }}
-      />
+      <div style={styles}>
+        <Field
+          {...props}
+          modelValue={''}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          v-slots={{
+            input: () => (
+              <RadioGroup
+                ref={(el) => registerRef(el, block._vid)}
+                {...props}
+                v-model={props.modelValue}
+              >
+                {props.options?.map((item) => (
+                  <Radio name={item.value} style={{ marginBottom: '5px' }}>
+                    {item.label}
+                  </Radio>
+                ))}
+              </RadioGroup>
+            )
+          }}
+        />
+      </div>
     )
   },
   props: {

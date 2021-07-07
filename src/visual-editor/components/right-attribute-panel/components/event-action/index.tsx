@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-24 11:01:45
- * @LastEditTime: 2021-07-04 19:44:10
+ * @LastEditTime: 2021-07-07 21:07:07
  * @LastEditors: 卜启缘
  * @Description: 事件-动作
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\event-action\index.tsx
@@ -37,7 +37,7 @@ interface IState {
 const createEmptyActionHandle = () => ({
   key: generateUUID(),
   name: '',
-  link: ''
+  link: []
 })
 
 /**
@@ -57,7 +57,7 @@ export const EventAction = defineComponent({
      * @description 是否处于编辑状态
      */
     const isEdit = computed(() =>
-      currentBlock.value.actions.some((item) => item.key === state.ruleForm.key)
+      currentBlock.value.actions?.some((item) => item.key === state.ruleForm.key)
     )
 
     const state = reactive<IState>({
@@ -105,18 +105,16 @@ export const EventAction = defineComponent({
     ])
 
     /**
-     *
+     * @description 获取动作路径
      */
     const getActionPath = (link: string[]) => {
-      let result = ''
-      const maxLength = link.length - 1
-      link.reduce((prev, curr, index) => {
-        const target = prev.find((item) => item.value == curr)
-        const append = maxLength !== index ? ' => ' : ''
-        result += target?.label + append
+      const result: string[] = []
+      link.reduce((prev, curr) => {
+        const target = prev?.find((item) => item.value == curr)
+        result.push(`${target?.label}`)
         return target?.children
       }, actionOptions.value)
-      return result
+      return result.join(' => ')
     }
 
     /**
@@ -176,7 +174,7 @@ export const EventAction = defineComponent({
               rules={[{ required: true, message: '请选择事件', trigger: 'change' }]}
             >
               <ElSelect v-model={state.ruleForm.event} class={'w-full'}>
-                {currentBlock.value.events.map((eventItem) => (
+                {currentBlock.value.events?.map((eventItem) => (
                   <ElOption
                     key={eventItem.value}
                     label={eventItem.label}
@@ -275,7 +273,12 @@ export const EventAction = defineComponent({
 
     return () => (
       <>
-        <ElButton onClick={addActionItem} type={'primary'} size={'mini'}>
+        <ElButton
+          onClick={addActionItem}
+          disabled={!currentBlock.value.actions}
+          type={'primary'}
+          size={'mini'}
+        >
           添加事件
         </ElButton>
 

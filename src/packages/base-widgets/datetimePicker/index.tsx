@@ -26,7 +26,7 @@ export default {
   moduleName: 'baseWidgets',
   label: '表单项类型 - 时间选择器',
   preview: () => <Field name="datetimePicker" label="时间选择器" placeholder={'点击选择'}></Field>,
-  render: ({ size, block, props }) => {
+  render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     const { attrs } = getCurrentInstance()!
@@ -46,16 +46,13 @@ export default {
     }
 
     const PopupPicker = () => (
-      <>
+      <div style={styles}>
         <Field
           v-model={props.modelValue}
           {...props}
           readonly
           clickable
           onClick={() => (state.showPicker = true)}
-          style={{
-            width: size.width ? `${size.width}px` : null
-          }}
           name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
           v-slots={{
             input: () =>
@@ -76,7 +73,7 @@ export default {
             onCancel={() => (state.showPicker = false)}
           />
         </Popup>
-      </>
+      </div>
     )
 
     return <PopupPicker />

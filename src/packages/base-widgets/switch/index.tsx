@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-04 17:02:06
+ * @LastEditTime: 2021-07-07 11:01:29
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 开关
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\switch\index.tsx
@@ -24,27 +24,26 @@ export default {
   preview: () => (
     <Field name="switch" label="开关" v-slots={{ input: () => <Switch size={20} /> }} />
   ),
-  render: ({ size, block, props }) => {
+  render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Field
-        {...props}
-        modelValue={''}
-        style={{
-          width: size.width ? `${size.width}px` : null
-        }}
-        name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
-        v-slots={{
-          input: () => (
-            <Switch
-              ref={(el) => registerRef(el, block._vid)}
-              {...props}
-              v-model={props.modelValue}
-            />
-          )
-        }}
-      />
+      <div style={styles}>
+        <Field
+          {...props}
+          modelValue={''}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          v-slots={{
+            input: () => (
+              <Switch
+                ref={(el) => registerRef(el, block._vid)}
+                {...props}
+                v-model={props.modelValue}
+              />
+            )
+          }}
+        />
+      </div>
     )
   },
   props: {

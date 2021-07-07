@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 00:35:17
- * @LastEditTime: 2021-07-04 21:44:20
+ * @LastEditTime: 2021-07-07 14:02:29
  * @LastEditors: 卜启缘
  * @Description: 左侧边栏
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\index.vue
@@ -55,6 +55,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .left-aside {
   height: 100%;
+  contain: layout;
 
   > ::v-deep(.el-tabs__header) {
     margin-right: 0;

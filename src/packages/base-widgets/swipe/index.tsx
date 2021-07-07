@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-07-04 17:01:36
+ * @LastEditTime: 2021-07-07 11:01:14
  * @LastEditors: 卜启缘
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
@@ -29,23 +29,25 @@ export default {
       <SwipeItem style={swipeItemStyle}>4</SwipeItem>
     </Swipe>
   ),
-  render: ({ block, props }) => {
+  render: ({ block, props, styles }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <Swipe
-        ref={(el) => registerRef(el, block._vid)}
-        {...props}
-        style={{ height: `${props.height}px` }}
-      >
-        {props.images?.map((item) => (
-          <>
-            <SwipeItem key={item}>
-              <img style={{ width: '100%' }} src={item} />
-            </SwipeItem>
-          </>
-        ))}
-      </Swipe>
+      <div style={styles}>
+        <Swipe
+          ref={(el) => registerRef(el, block._vid)}
+          {...props}
+          style={{ height: `${props.height}px` }}
+        >
+          {props.images?.map((item) => (
+            <>
+              <SwipeItem key={item}>
+                <img style={{ width: '100%' }} src={item} />
+              </SwipeItem>
+            </>
+          ))}
+        </Swipe>
+      </div>
     )
   },
   props: createFieldProps(),

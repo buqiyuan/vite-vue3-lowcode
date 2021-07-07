@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-07-04 17:00:12
+ * @LastEditTime: 2021-07-07 10:58:10
  * @LastEditors: 卜启缘
  * @Description: 进度条
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\process\index.tsx
@@ -20,10 +20,14 @@ export default {
   moduleName: 'baseWidgets',
   label: '进度条',
   preview: () => <Progress style="width:190px" percentage={50} />,
-  render: ({ props }) => {
+  render: ({ props, styles }) => {
     const RenderProgress = () => <Progress {...props} pivotText={props.pivotText || undefined} />
 
-    return <RenderProgress />
+    return (
+      <div style={styles}>
+        <RenderProgress />
+      </div>
+    )
   },
   props: {
     percentage: createEditorInputNumberProp({ label: '进度百分比', defaultValue: 50 }),
