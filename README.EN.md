@@ -8,8 +8,6 @@
 
 ```shell
 git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode.git
-# or
-git clone --single-branch https://gitee.com/buqiyuan/vite-vue3-lowcode.git
 ```
 
 ## technology stack
@@ -65,6 +63,22 @@ JSON.stringify(
     return prev
   }, {})
 ).replaceAll('"', '')
+```
+
+```javascript
+// 在vant文档中 chrome控制台输入以下代码，快速生成组件事件
+JSON.stringify(
+  $$('#events + table tbody tr').reduce((prev, curr) => {
+    const children = curr.children
+    const event = {
+      label: children[1].textContent,
+      value: children[0].textContent
+    }
+    return prev.concat([event])
+  }, [])
+)
+  .replaceAll(/(?<!:)\"(?!,|})/g, '')
+  .replace(/\"/g, "'")
 ```
 
 ## Browser support

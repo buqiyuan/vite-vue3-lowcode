@@ -2,7 +2,7 @@
   <el-dialog v-model="dialogVisible" custom-class="h5-preview" :show-close="false" width="360px">
     <iframe
       v-if="dialogVisible"
-      :style="{ width: '360px', height: '640px' }"
+      :style="{ width: '100%', height: '100%' }"
       :src="previewUrl"
       frameborder="0"
       scrolling="auto"
@@ -48,6 +48,8 @@ export default defineComponent({
   overflow: hidden;
 
   .el-dialog__body {
+    width: 360px;
+    height: 640px;
     padding: 0;
   }
 

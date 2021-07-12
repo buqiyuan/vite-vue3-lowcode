@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 10:57:41
+ * @LastEditTime: 2021-07-08 15:15:52
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 选择器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
@@ -15,7 +15,7 @@ import {
   createEditorInputProp,
   createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
-import { reactive, getCurrentInstance } from 'vue'
+import { reactive, useAttrs } from 'vue'
 
 export default {
   key: 'picker',
@@ -25,7 +25,7 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    const { attrs } = getCurrentInstance()!
+    const attrs = useAttrs()
 
     const state = reactive({
       showPicker: false,

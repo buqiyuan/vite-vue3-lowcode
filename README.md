@@ -10,8 +10,6 @@
 
 ```shell
 git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode.git
-# or
-git clone --single-branch https://gitee.com/buqiyuan/vite-vue3-lowcode.git
 ```
 
 ## 技术栈

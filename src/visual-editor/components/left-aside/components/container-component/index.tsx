@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 13:22:14
- * @LastEditTime: 2021-07-04 21:36:46
+ * @LastEditTime: 2021-07-11 11:04:06
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\container-component\index.tsx
@@ -27,7 +27,6 @@ export default defineComponent({
     const cloneDog = (comp) => {
       console.log('当前拖拽的组件：', comp)
       const newComp = cloneDeep(comp)
-      newComp._vid = Date.now()
       return createNewBlock(newComp)
     }
 

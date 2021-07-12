@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-04 17:21:47
+ * @LastEditTime: 2021-07-12 10:22:26
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\preview.vue
@@ -57,14 +57,16 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      const { bgImage, bgColor } = currentPage.config
-      const bodyStyleStr = `
+      if (currentPage?.config) {
+        const { bgImage, bgColor } = currentPage.config
+        const bodyStyleStr = `
             body {
                   background-color: ${bgColor};
                   background-image: url(${bgImage});
                 }
              `
-      document.styleSheets[0].insertRule(bodyStyleStr)
+        document.styleSheets[0].insertRule(bodyStyleStr)
+      }
     })
 
     return {

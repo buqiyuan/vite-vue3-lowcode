@@ -10,13 +10,13 @@
       name: !isDrag ? 'flip-list' : null
     }"
     :group="group"
-    v-bind="{ ...dragOptions, $attrs }"
+    v-bind="{ ...dragOptions, ...$attrs }"
     :item-key="itemKey"
     @start="isDrag = true"
     @end="isDrag = false"
   >
     <template #item="item">
-      <div>
+      <div :class="{ 'item-drag': item.element.draggable }" :data-el="item.element.draggable">
         <slot name="item" v-bind="item"> </slot>
       </div>
     </template>
@@ -67,6 +67,7 @@ export default defineComponent({
     const dragOptions = computed(() => ({
       animation: 200,
       disabled: false,
+      scroll: true,
       ghostClass: 'ghost'
     }))
 

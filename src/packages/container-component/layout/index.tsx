@@ -1,5 +1,5 @@
 import { Col, Row } from 'vant'
-import { renderSlot, getCurrentInstance } from 'vue'
+import { renderSlot, useSlots } from 'vue'
 import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/visual-editor.props'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import styleModule from './index.module.scss'
@@ -36,8 +36,8 @@ export default {
       <Col span="8">span: 8</Col>
     </Row>
   ),
-  render: function ({ props, styles, block, custom }) {
-    const { slots } = getCurrentInstance()!
+  render: ({ props, styles, block, custom }) => {
+    const slots = useSlots()
     const { registerRef } = useGlobalProperties()
 
     slotsTemp[block._vid] ??= {}

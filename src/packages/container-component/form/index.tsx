@@ -1,13 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 21:23:23
+ * @LastEditTime: 2021-07-08 15:13:02
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\container-component\form\index.tsx
  */
 import { Form, Field, Button } from 'vant'
-import { renderSlot, getCurrentInstance } from 'vue'
+import { renderSlot, useSlots } from 'vue'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import { compProps } from './compProps'
@@ -28,7 +28,7 @@ export default {
     </Form>
   ),
   render: function ({ props, styles, block }) {
-    const { slots } = getCurrentInstance()!
+    const slots = useSlots()
     const { registerRef } = useGlobalProperties()
 
     const onSubmit = (values) => {

@@ -1,17 +1,20 @@
 <template>
   <draggable-transition-group
-    :key="slotKey"
     v-model="slotChildren"
     v-model:drag="isDrag"
     class="inner-draggable"
     :class="{ slot: !slotChildren?.length }"
+    draggable=".item-drag"
     :data-slot="`插槽（${slotKey}）\n 拖拽组件到此处`"
   >
     <template #item="{ element: innerElement }">
       <div
         class="list-group-item inner"
         :data-label="innerElement.label"
-        :class="{ focus: innerElement.focus, focusWithChild: innerElement.focusWithChild }"
+        :class="{
+          focus: innerElement.focus,
+          focusWithChild: innerElement.focusWithChild
+        }"
         @contextmenu.stop.prevent="onContextmenuBlock($event, innerElement, slotChildren)"
         @mousedown.stop="selectComp(innerElement)"
       >
@@ -45,35 +48,48 @@
  * @update: 2021/5/2 22:36
  */
 
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { useVModel } from '@vueuse/core'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import CompRender from './comp-render'
+import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 
 export default defineComponent({
   name: 'SlotItem',
   components: { CompRender, DraggableTransitionGroup },
   props: {
-    slotKey: String,
+    slotKey: {
+      type: String as PropType<string>,
+      default: ''
+    },
     drag: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false
     },
     children: {
-      type: Array,
+      type: Array as PropType<VisualEditorBlockData[]>,
       default: () => []
     },
     selectComp: {
-      type: Function,
+      type: Function as PropType<(comp: VisualEditorBlockData) => void>,
       required: true
     },
     onContextmenuBlock: {
-      type: Function,
+      type: Function as PropType<
+        (
+          e: MouseEvent,
+          block: VisualEditorBlockData,
+          parentBlocks?: VisualEditorBlockData[]
+        ) => void
+      >,
       required: true
     }
   },
   emits: ['update:children', 'on-selected', 'update:drag'],
   setup(props, { emit }) {
+    // 初始化时设置上次选中的组件
+    props.children.some((item) => item.focus && !void props.selectComp(item))
+
     return {
       isDrag: useVModel(props, 'drag', emit),
       slotChildren: useVModel(props, 'children', emit)
@@ -113,7 +129,6 @@ export default defineComponent({
   position: relative;
   padding: 3px;
   cursor: move;
-  transform: translate(0);
 
   &.focusWithChild {
     @include showContainerBorder;

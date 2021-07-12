@@ -1,23 +1,39 @@
 export enum VisualEditorPropsType {
+  /** 输入框 */
   input = 'input',
+  /** 数字输入框 */
   inputNumber = 'InputNumber',
+  /** 颜色选择器 */
   color = 'color',
+  /** 下拉选择器 */
   select = 'select',
+  /** 表格 */
   table = 'table',
+  /** 开关 */
   switch = 'switch',
+  /** 模型绑定选择器 */
   modelBind = 'ModelBind',
+  /** 可拖拽项 */
   crossSortable = 'CrossSortable'
 }
 
 export type VisualEditorProps = {
   type: VisualEditorPropsType
+  /** 表单项标签名称 */
   label: string
-  tips?: string // 表单项提示
-  labelPosition?: string // 表单域标签的位置
-  multiple?: boolean
+  /** 表单项提示说明 */
+  tips?: string
+  /** 表单域标签的位置 */
+  labelPosition?: string
+  /** 表单项默认值 */
   defaultValue?: any
 } & {
+  /** 可选项 */
   options?: VisualEditorSelectOptions
+  /** 是否可以多选 */
+  multiple?: boolean
+  /** 项属性配置 */
+  showItemPropsConfig?: boolean
 } & {
   table?: VisualEditorTableOption
 }
@@ -123,6 +139,7 @@ export function createEditorColorProp({ label, defaultValue }: EditorColorProp):
 export type VisualEditorSelectOptions = {
   label: string
   value: string | number | boolean | object
+  [prop: string]: any
 }[]
 
 interface EditorSelectProp {
@@ -185,6 +202,7 @@ interface EditorCrossSortableProp {
   label: string
   labelPosition: 'top' | ''
   multiple?: boolean
+  showItemPropsConfig?: boolean
   defaultValue?: string[] | VisualEditorSelectOptions
 }
 
@@ -192,12 +210,14 @@ export function createEditorCrossSortableProp({
   label,
   labelPosition,
   multiple,
+  showItemPropsConfig,
   defaultValue
 }: EditorCrossSortableProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.crossSortable,
     label,
     multiple,
+    showItemPropsConfig,
     labelPosition,
     defaultValue
   }

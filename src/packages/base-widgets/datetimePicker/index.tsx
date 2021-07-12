@@ -9,7 +9,7 @@ import {
   createEditorSelectProp,
   createEditorSwitchProp
 } from '@/visual-editor/visual-editor.props'
-import { getCurrentInstance, reactive } from 'vue'
+import { useAttrs, reactive } from 'vue'
 import { isDate } from '@/visual-editor/utils/is'
 import dayjs from 'dayjs'
 
@@ -29,7 +29,7 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    const { attrs } = getCurrentInstance()!
+    const attrs = useAttrs()
 
     const state = reactive({
       showPicker: false,

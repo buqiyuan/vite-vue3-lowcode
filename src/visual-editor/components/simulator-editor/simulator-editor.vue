@@ -1,11 +1,12 @@
 <template>
   <div class="simulator-container">
     <div class="simulator-editor">
-      <div class="simulator-editor-content" :style="pageStyle">
+      <div class="simulator-editor-content">
         <DraggableTransitionGroup
           v-model:drag="drag"
           v-model="currentPage.blocks"
-          style="min-height: 500px"
+          class="!min-h-680px"
+          draggable=".item-drag"
         >
           <template #item="{ element: outElement }">
             <div
@@ -51,7 +52,7 @@
 </template>
 
 <script lang="tsx">
-import { defineComponent, reactive, computed, toRefs } from 'vue'
+import { defineComponent, reactive, watchEffect, toRefs } from 'vue'
 import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils'
 import DraggableTransitionGroup from './draggable-transition-group.vue'
 import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service'
@@ -80,12 +81,23 @@ export default defineComponent({
       drag: false
     })
 
-    const pageStyle = computed(() => {
+    /**
+     * @description 操作当前页面样式表
+     */
+    watchEffect(() => {
       const { bgImage, bgColor } = currentPage.value.config
-      return {
-        backgroundImage: `url(${bgImage})`,
-        backgroundColor: bgColor
+      const bodyStyleStr = `
+      .simulator-editor-content {
+        background-color: ${bgColor};
+        background-image: url(${bgImage});
+      }`
+      const styleSheets = document.styleSheets[0]
+      const firstCssRule = document.styleSheets[0].cssRules[0]
+      const isExistContent = firstCssRule.cssText.includes('.simulator-editor-content')
+      if (isExistContent) {
+        styleSheets.deleteRule(0)
       }
+      styleSheets.insertRule(bodyStyleStr)
     })
 
     //递归实现
@@ -118,7 +130,7 @@ export default defineComponent({
     }
 
     // 给当前点击的组件设置聚焦
-    const handleSlotsFocus = (block, _vid) => {
+    const handleSlotsFocus = (block: VisualEditorBlockData, _vid: string) => {
       const slots = block.props?.slots || {}
       if (Object.keys(slots).length > 0) {
         Object.keys(slots).forEach((key) => {
@@ -138,7 +150,7 @@ export default defineComponent({
     }
 
     // 选择要操作的组件
-    const selectComp = (element) => {
+    const selectComp = (element: VisualEditorBlockData) => {
       setCurrentBlock(element)
       currentPage.value.blocks.forEach((block) => {
         block.focus = element._vid == block._vid
@@ -234,7 +246,6 @@ export default defineComponent({
     return {
       ...toRefs(state),
       currentPage,
-      pageStyle,
       deleteComp,
       selectComp,
       onContextmenuBlock
@@ -266,7 +277,6 @@ export default defineComponent({
   overflow: hidden auto;
   background: #fafafa;
   border-radius: 5px;
-  transform: translate(0);
   box-sizing: border-box;
   background-clip: content-box;
   contain: layout;
@@ -277,6 +287,7 @@ export default defineComponent({
 
   &-content {
     min-height: 100%;
+    transform: translate(0);
     box-shadow: 0 8px 12px #ebedf0;
   }
 }
@@ -285,7 +296,6 @@ export default defineComponent({
   position: relative;
   padding: 3px;
   cursor: move;
-  transform: translate(0);
 
   > div {
     position: relative;

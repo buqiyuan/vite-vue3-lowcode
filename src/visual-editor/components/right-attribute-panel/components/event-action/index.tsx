@@ -1,12 +1,12 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-24 11:01:45
- * @LastEditTime: 2021-07-07 21:07:07
+ * @LastEditTime: 2021-07-08 09:53:27
  * @LastEditors: 卜启缘
  * @Description: 事件-动作
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\event-action\index.tsx
  */
-import { computed, defineComponent, reactive } from 'vue'
+import { computed, ref, defineComponent, reactive } from 'vue'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import {
   ElForm,
@@ -27,7 +27,6 @@ import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
 
 interface IState {
-  ruleFormRef: NonNullable<any>
   activeNames: string[]
   ruleForm: Action
 }
@@ -59,9 +58,9 @@ export const EventAction = defineComponent({
     const isEdit = computed(() =>
       currentBlock.value.actions?.some((item) => item.key === state.ruleForm.key)
     )
+    const ruleFormRef = ref<InstanceType<typeof ElForm>>()
 
     const state = reactive<IState>({
-      ruleFormRef: null,
       activeNames: [],
       ruleForm: createEmptyAction()
     })
@@ -162,12 +161,7 @@ export const EventAction = defineComponent({
         title: `${operateType}动作`,
         props: { width: 600 },
         content: () => (
-          <ElForm
-            model={state.ruleForm}
-            ref={(el) => el && (state.ruleFormRef = el)}
-            label-width="100px"
-            size={'mini'}
-          >
+          <ElForm model={state.ruleForm} ref={ruleFormRef} label-width="100px" size={'mini'}>
             <ElFormItem
               label="事件"
               prop={'event'}
@@ -247,7 +241,7 @@ export const EventAction = defineComponent({
         ),
         onConfirm: () => {
           return new Promise((resolve, reject) => {
-            state.ruleFormRef.validate((valid) => {
+            ruleFormRef.value?.validate((valid) => {
               if (valid) {
                 const index = currentBlock.value.actions.findIndex(
                   (item) => item.key == state.ruleForm.key

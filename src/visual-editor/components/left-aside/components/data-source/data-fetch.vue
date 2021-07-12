@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-07-07 21:48:03
+ * @LastEditTime: 2021-07-09 20:00:22
  * @LastEditors: 卜启缘
  * @Description: 接口请求
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\data-fetch.vue
@@ -167,6 +167,8 @@ const showModelMoal = () => {
         </ElFormItem>
         <ElFormItem label="请求数据" prop={'data.bind'}>
           <ElCascader
+            v-model={state.ruleForm.data.bind}
+            options={models.value}
             clearable={true}
             props={{
               checkStrictly: true,
@@ -177,8 +179,6 @@ const showModelMoal = () => {
             }}
             placeholder="请选择绑定的请求数据"
             onChange={handleBindChange}
-            v-model={state.ruleForm.data.bind}
-            options={models.value}
           ></ElCascader>
         </ElFormItem>
         <ElFormItem label="响应数据" prop={'data.recv'}>

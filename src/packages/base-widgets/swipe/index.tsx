@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-07-07 11:01:14
+ * @LastEditTime: 2021-07-11 16:43:31
  * @LastEditors: 卜启缘
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
@@ -29,11 +29,11 @@ export default {
       <SwipeItem style={swipeItemStyle}>4</SwipeItem>
     </Swipe>
   ),
-  render: ({ block, props, styles }) => {
+  render: ({ block, props }) => {
     const { registerRef } = useGlobalProperties()
 
     return (
-      <div style={styles}>
+      <div>
         <Swipe
           ref={(el) => registerRef(el, block._vid)}
           {...props}
@@ -52,6 +52,7 @@ export default {
   },
   props: createFieldProps(),
   events: [{ label: '每一页轮播结束后触发', value: 'change' }],
+  showStyleConfig: false,
   resize: {
     width: true
   },

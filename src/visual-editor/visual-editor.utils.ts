@@ -28,6 +28,10 @@ export interface VisualEditorBlockData {
   props: Record<string, any>
   /** 绑定的字段 */
   model: Record<string, string>
+  /** 组件是否可以被拖拽 */
+  draggable: boolean
+  /** 是否显示组件样式配置项 */
+  showStyleConfig?: boolean
   /** 动画集 */
   animations?: Animation[]
   /** 组件动作集合 */
@@ -182,11 +186,17 @@ export interface Animation {
  * @description 单个组件注册规则
  */
 export interface VisualEditorComponent {
-  key: string // 组件名称
-  moduleName: keyof ComponentModules // 模块名称
-  _vid?: string // 组件id 时间戳
+  /** 组件name */
+  key: string
+  /** 组件所属模块名称 */
+  moduleName: keyof ComponentModules
+  /** 组件唯一id */
+  _vid?: string
+  /** 组件中文名称 */
   label: string
+  /** 组件预览函数 */
   preview: () => JSX.Element
+  /** 组件渲染函数 */
   render: (data: {
     props: any
     model: any
@@ -194,9 +204,17 @@ export interface VisualEditorComponent {
     block: VisualEditorBlockData
     custom: Record<string, any>
   }) => JSX.Element
+  /** 组件是否可以被拖拽 */
+  draggable?: boolean
+  /** 是否显示组件的样式配置项 */
+  showStyleConfig?: boolean
+  /** 组件属性 */
   props?: Record<string, VisualEditorProps>
-  animations?: Animation[] // 动画集
-  events?: { label: string; value: string }[] // 组件事件集合
+  /** 动画集 */
+  animations?: Animation[]
+  /** 组件事件集合 */
+  events?: { label: string; value: string }[]
+  /** 组件样式 */
   styles?: CSSProperties
 }
 
@@ -206,10 +224,9 @@ export interface VisualEditorMarkLines {
 }
 
 export function createNewBlock(component: VisualEditorComponent): VisualEditorBlockData {
-  component._vid = `${component._vid}`.startsWith('vid_') ? component._vid : `vid_${component._vid}`
-
+  const cid = parseInt(`${Date.now() * Math.random()}`)
   return {
-    _vid: component._vid!,
+    _vid: `vid_${cid}`,
     moduleName: component.moduleName,
     componentKey: component!.key,
     label: component!.label,
@@ -232,6 +249,8 @@ export function createNewBlock(component: VisualEditorComponent): VisualEditorBl
       }
       return prev
     }, {}),
+    draggable: component.draggable ?? true, // 是否可以拖拽
+    showStyleConfig: component.showStyleConfig ?? true, // 是否显示组件样式配置
     animations: [], // 动画集
     actions: [], // 动作集合
     events: component.events || [], // 事件集合

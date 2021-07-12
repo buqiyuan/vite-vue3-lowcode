@@ -84,7 +84,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         'element-plus',
         'vant',
         'lodash',
-        'vuedraggable/src/vuedraggable'
+        'vuedraggable'
       ],
       exclude: ['vue-demi']
     },
