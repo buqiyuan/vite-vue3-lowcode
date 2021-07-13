@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-07 10:56:39
+ * @LastEditTime: 2021-07-13 17:14:12
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 输入框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\input\index.tsx
@@ -26,7 +26,7 @@ export default {
       rules = JSON.parse(props.rules)
     } catch (e) {}
 
-    return (
+    return () => (
       <div style={styles}>
         <Field
           ref={(el) => registerRef(el, block._vid)}
@@ -34,7 +34,7 @@ export default {
           {...props}
           {...model.default}
           v-model={props.modelValue}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
           rules={rules}
         />
       </div>

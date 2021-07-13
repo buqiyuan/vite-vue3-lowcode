@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-11 22:38:54
+ * @LastEditTime: 2021-07-13 20:34:46
  * @LastEditors: 卜启缘
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\tabbar\index.tsx
@@ -18,6 +18,7 @@ import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import tabbarItem from './tabbar-item'
 import { createNewBlock } from '@/visual-editor/visual-editor.utils'
 import { BASE_URL } from '@/visual-editor/utils'
+import { onMounted, onBeforeUnmount } from 'vue'
 
 export default {
   key: 'tabbar',
@@ -33,17 +34,21 @@ export default {
   render: ({ props, block }) => {
     const { registerRef } = useGlobalProperties()
 
-    setTimeout(() => {
+    onMounted(() => {
       const compEl = window.$$refs[block._vid]?.$el
       const draggableEl = compEl?.closest('div[data-draggable]')
+      const dragArea: HTMLDivElement = document.querySelector(
+        '.simulator-editor-content > .dragArea '
+      )!
       const tabbarEl = draggableEl?.querySelector('.van-tabbar') as HTMLDivElement
-      if (draggableEl && tabbarEl) {
+      if (draggableEl && tabbarEl && dragArea) {
         tabbarEl.style.position = 'unset'
         draggableEl.style.position = 'fixed'
         draggableEl.style.bottom = '0'
         draggableEl.style.left = '0'
         draggableEl.style.width = '100%'
         draggableEl.style.zIndex = '1000'
+        dragArea.style.paddingBottom = '56px'
       } else {
         document.body.style.paddingBottom = '50px'
         const slotEl = compEl?.closest('__slot-item')
@@ -54,7 +59,16 @@ export default {
       }
     })
 
-    return (
+    onBeforeUnmount(() => {
+      const dragArea: HTMLDivElement = document.querySelector(
+        '.simulator-editor-content > .dragArea '
+      )!
+      if (dragArea) {
+        dragArea.style.paddingBottom = ''
+      }
+    })
+
+    return () => (
       <Tabbar ref={(el) => registerRef(el, block._vid)} v-model={props.modelValue} {...props}>
         {props.tabs?.map((item) => {
           const itemProps = item.block?.props

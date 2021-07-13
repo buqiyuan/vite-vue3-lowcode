@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-08 15:15:52
+ * @LastEditTime: 2021-07-13 20:20:59
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 选择器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
@@ -37,51 +37,52 @@ export default {
       value: 'value'
     }
 
-    if (props.modelValue) {
-      state.defaultIndex = props.columns?.findIndex((item) => item.value == props.modelValue)
-      state.text = props.columns[state.defaultIndex]?.label
-    }
-
     const onConfirm = (value) => {
       props.modelValue = value.value
       state.text = value[props.valueKey || 'text']
+      state.showPicker = false
       console.log(props)
     }
 
-    const PopupPicker = () => (
-      <div style={styles}>
-        <Field
-          v-model={props.modelValue}
-          {...props}
-          readonly
-          clickable
-          onClick={() => (state.showPicker = true)}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
-        >
-          {{
-            input: () =>
-              state.text?.trim() == '' ? (
-                <span class={'placeholder'}>{props.placeholder}</span>
-              ) : (
-                state.text
-              )
-          }}
-        </Field>
-        <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
-          <Picker
-            ref={(el) => registerRef(el, block._vid)}
-            {...props}
-            {...attrs}
-            defaultIndex={state.defaultIndex}
-            columnsFieldNames={customFieldName}
-            onConfirm={onConfirm}
-            onCancel={() => (state.showPicker = false)}
-          />
-        </Popup>
-      </div>
-    )
+    return () => {
+      if (props.modelValue) {
+        state.defaultIndex = props.columns?.findIndex((item) => item.value == props.modelValue)
+        state.text = props.columns[state.defaultIndex]?.label
+      }
 
-    return <PopupPicker />
+      return (
+        <div style={styles}>
+          <Field
+            v-model={props.modelValue}
+            {...props}
+            readonly
+            clickable
+            onClick={() => (state.showPicker = true)}
+            name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          >
+            {{
+              input: () =>
+                state.text?.trim() == '' ? (
+                  <span class={'placeholder'}>{props.placeholder}</span>
+                ) : (
+                  state.text
+                )
+            }}
+          </Field>
+          <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
+            <Picker
+              ref={(el) => registerRef(el, block._vid)}
+              {...props}
+              {...attrs}
+              defaultIndex={state.defaultIndex}
+              columnsFieldNames={customFieldName}
+              onConfirm={onConfirm}
+              onCancel={() => (state.showPicker = false)}
+            />
+          </Popup>
+        </div>
+      )
+    }
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),

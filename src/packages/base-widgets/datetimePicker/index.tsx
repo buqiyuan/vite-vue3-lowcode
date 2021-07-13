@@ -45,7 +45,7 @@ export default {
       console.log(props)
     }
 
-    const PopupPicker = () => (
+    return () => (
       <div style={styles}>
         <Field
           v-model={props.modelValue}
@@ -53,7 +53,7 @@ export default {
           readonly
           clickable
           onClick={() => (state.showPicker = true)}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
           v-slots={{
             input: () =>
               state.text?.trim() == '' ? (
@@ -75,8 +75,6 @@ export default {
         </Popup>
       </div>
     )
-
-    return <PopupPicker />
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),

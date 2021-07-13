@@ -15,7 +15,7 @@ export default {
   render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div style={styles}>
         <Button ref={(el) => registerRef(el, block._vid)} {...props}></Button>
       </div>

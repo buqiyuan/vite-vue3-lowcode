@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-07-07 10:58:10
+ * @LastEditTime: 2021-07-13 17:14:47
  * @LastEditors: 卜启缘
  * @Description: 进度条
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\process\index.tsx
@@ -23,7 +23,7 @@ export default {
   render: ({ props, styles }) => {
     const RenderProgress = () => <Progress {...props} pivotText={props.pivotText || undefined} />
 
-    return (
+    return () => (
       <div style={styles}>
         <RenderProgress />
       </div>

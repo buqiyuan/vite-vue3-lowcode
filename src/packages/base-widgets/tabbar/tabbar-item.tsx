@@ -1,10 +1,10 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-11 19:58:14
+ * @LastEditTime: 2021-07-13 18:20:44
  * @LastEditors: 卜启缘
  * @Description: 导航栏项
- * @FilePath: \vite-vue3-lowcode\src\packages\container-component\tabbar\tabbar-item.tsx
+ * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\tabbar\tabbar-item.tsx
  */
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createEditorInputProp, createEditorSwitchProp } from '@/visual-editor/visual-editor.props'
@@ -14,7 +14,7 @@ export default {
   moduleName: 'baseWidgets',
   label: '底部标签栏',
   preview: () => <></>,
-  render: () => <></>,
+  render: () => () => <></>,
   props: {
     // name: createEditorInputProp({
     //   label: '标签名称，作为匹配的标识符',

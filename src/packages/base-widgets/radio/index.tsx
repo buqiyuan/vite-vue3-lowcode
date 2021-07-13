@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 10:59:56
+ * @LastEditTime: 2021-07-13 17:14:55
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 单选框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\radio\index.tsx
@@ -30,12 +30,12 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div style={styles}>
         <Field
           {...props}
           modelValue={''}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
           v-slots={{
             input: () => (
               <RadioGroup

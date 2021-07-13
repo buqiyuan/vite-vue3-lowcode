@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 21:10:10
+ * @LastEditTime: 2021-07-13 18:51:58
  * @LastEditors: 卜启缘
  * @Description: 分割线
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\divider\index.tsx
@@ -15,6 +15,7 @@ import {
 } from '@/visual-editor/visual-editor.props'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { computed } from 'vue'
 
 export default {
   key: 'divider',
@@ -24,15 +25,15 @@ export default {
   render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
-    const style = {
+    const style = computed(() => ({
       width: '100%',
       color: props['text-color'],
       borderColor: props['divider-color']
-    }
+    }))
 
-    return (
+    return () => (
       <div style={styles}>
-        <Divider ref={(el) => registerRef(el, block._vid)} {...props} style={style}>
+        <Divider ref={(el) => registerRef(el, block._vid)} {...props} style={style.value}>
           {{
             default: () => props.text
           }}

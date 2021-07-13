@@ -1,16 +1,16 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-11 16:36:05
+ * @LastEditTime: 2021-07-13 20:34:53
  * @LastEditors: 卜启缘
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\nav-bar\index.tsx
  */
 import { NavBar } from 'vant'
-import 'vant/lib/nav-bar/index.css'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createEditorInputProp, createEditorSwitchProp } from '@/visual-editor/visual-editor.props'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { onBeforeUnmount, onMounted } from 'vue'
 
 export default {
   key: 'nav-bar',
@@ -22,16 +22,22 @@ export default {
   render: ({ props, block }) => {
     const { registerRef } = useGlobalProperties()
 
-    setTimeout(() => {
+    onMounted(() => {
       const compEl = window.$$refs[block._vid]?.$el
       const draggableEl = compEl?.closest('div[data-draggable]')
       const navbarEl = draggableEl?.querySelector('.van-nav-bar--fixed') as HTMLDivElement
-      if (draggableEl && navbarEl) {
+      const dragArea = document.querySelector(
+        '.simulator-editor-content > .dragArea '
+      ) as HTMLDivElement
+      if (draggableEl && navbarEl && dragArea) {
         navbarEl.style.position = 'unset'
+        draggableEl.style.position = 'fixed'
         draggableEl.style.top = '0'
         draggableEl.style.left = '0'
         draggableEl.style.width = '100%'
+        dragArea.style.paddingTop = '50px'
       } else {
+        document.body.style.paddingTop = '46px'
         const slotEl = compEl?.closest('__slot-item')
         if (slotEl) {
           slotEl.style.position = 'fixed'
@@ -40,7 +46,16 @@ export default {
       }
     })
 
-    return <NavBar ref={(el) => registerRef(el, block._vid)} placeholder {...props} />
+    onBeforeUnmount(() => {
+      const dragArea = document.querySelector(
+        '.simulator-editor-content > .dragArea '
+      ) as HTMLDivElement
+      if (dragArea) {
+        dragArea.style.paddingTop = ''
+      }
+    })
+
+    return () => <NavBar ref={(el) => registerRef(el, block._vid)} {...props} />
   },
   props: {
     title: createEditorInputProp({ label: '标题', defaultValue: '标题' }),

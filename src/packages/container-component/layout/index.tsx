@@ -4,6 +4,7 @@ import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/v
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import styleModule from './index.module.scss'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { watchEffect } from 'vue'
 
 interface SlotItem {
   value: string
@@ -42,15 +43,17 @@ export default {
 
     slotsTemp[block._vid] ??= {}
 
-    if (Object.keys(props.slots || {}).length) {
-      Object.keys(props.slots).forEach((key) => {
-        if (slotsTemp[block._vid][key]?.children) {
-          props.slots[key].children = slotsTemp[block._vid][key].children
-        }
-      })
-    }
+    watchEffect(() => {
+      if (Object.keys(props.slots || {}).length) {
+        Object.keys(props.slots).forEach((key) => {
+          if (slotsTemp[block._vid][key]?.children) {
+            props.slots[key].children = slotsTemp[block._vid][key].children
+          }
+        })
+      }
+    })
 
-    return (
+    return () => (
       <div style={styles}>
         <Row
           ref={(el) => registerRef(el, block._vid)}

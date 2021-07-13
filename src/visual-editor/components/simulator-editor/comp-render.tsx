@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-05-04 05:36:58
- * @LastEditTime: 2021-07-07 16:45:34
+ * @LastEditTime: 2021-07-13 17:17:52
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\simulator-editor\comp-render.tsx
@@ -19,13 +19,12 @@ export default defineComponent({
     }
   },
   setup(props) {
-    return () =>
-      visualConfig.componentMap[props.element.componentKey].render({
-        styles: props.element.styles || {},
-        props: props.element.props || {},
-        model: {},
-        block: props.element,
-        custom: {}
-      })
+    return visualConfig.componentMap[props.element.componentKey].render({
+      styles: props.element.styles || {},
+      props: props.element.props || {},
+      model: {},
+      block: props.element,
+      custom: {}
+    })
   }
 })

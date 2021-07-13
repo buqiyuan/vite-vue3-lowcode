@@ -203,7 +203,7 @@ export interface VisualEditorComponent {
     styles: CSSProperties
     block: VisualEditorBlockData
     custom: Record<string, any>
-  }) => JSX.Element
+  }) => () => JSX.Element
   /** 组件是否可以被拖拽 */
   draggable?: boolean
   /** 是否显示组件的样式配置项 */
@@ -318,7 +318,7 @@ export function createVisualEditorConfig() {
           styles: CSSProperties
           block: VisualEditorBlockData
           custom: Record<string, any>
-        }) => JSX.Element
+        }) => () => JSX.Element
         props?: Props
         model?: Model
         styles?: CSSProperties

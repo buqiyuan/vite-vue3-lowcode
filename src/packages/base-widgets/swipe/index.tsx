@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-07-11 16:43:31
+ * @LastEditTime: 2021-07-13 17:12:11
  * @LastEditors: 卜启缘
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
@@ -32,7 +32,7 @@ export default {
   render: ({ block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div>
         <Swipe
           ref={(el) => registerRef(el, block._vid)}

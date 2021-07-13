@@ -22,7 +22,7 @@ import { CacheEnum } from '@/enums'
 export const localKey = CacheEnum.PAGE_DATA_KEY
 
 // 注入jsonData的key
-export const injectKey: InjectionKey<string> = Symbol()
+export const injectKey: InjectionKey<ReturnType<typeof initVisualData>> = Symbol()
 
 interface IState {
   currentBlock: VisualEditorBlockData // 当前正在操作的组件

@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 11:01:54
+ * @LastEditTime: 2021-07-13 17:15:31
  * @LastEditors: 卜启缘
  * @Description: 文本
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\text\index.tsx
@@ -24,7 +24,7 @@ export default {
   render: ({ props, block, styles }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div
         ref={(el) => registerRef(el, block._vid)}
         style={{

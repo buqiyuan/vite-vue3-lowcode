@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 12:24:12
- * @LastEditTime: 2021-07-07 18:49:16
+ * @LastEditTime: 2021-07-13 17:14:20
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\notice-bar\index.tsx
@@ -25,7 +25,7 @@ export default {
   render: ({ block, props, styles }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div style={styles}>
         <NoticeBar ref={(el) => registerRef(el, block._vid)} style={{ width: '100%' }} {...props} />
       </div>

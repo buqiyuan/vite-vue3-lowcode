@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 11:00:22
+ * @LastEditTime: 2021-07-13 17:15:05
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 评分
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\rate\index.tsx
@@ -32,12 +32,12 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    return (
+    return () => (
       <div style={styles}>
         <Field
           {...props}
           modelValue={''}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
           v-slots={{
             input: () => (
               <Rate

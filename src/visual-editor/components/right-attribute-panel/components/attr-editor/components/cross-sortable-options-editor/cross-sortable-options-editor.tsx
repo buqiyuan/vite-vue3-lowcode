@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-14 15:00:45
- * @LastEditTime: 2021-07-12 10:15:21
+ * @LastEditTime: 2021-07-12 14:44:29
  * @LastEditors: 卜启缘
  * @Description: 可以拖拽排序的选项列表
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\components\cross-sortable-options-editor\cross-sortable-options-editor.tsx
@@ -67,7 +67,10 @@ export const CrossSortableOptionsEditor = defineComponent({
       }
     })
 
-    const onChange = (val) => {
+    /**
+     * @description 复选框值改变时触发
+     */
+    const onChange = (val: any[]) => {
       val = val.filter((item) => item !== '')
       val = props.multiple
         ? val
@@ -75,7 +78,10 @@ export const CrossSortableOptionsEditor = defineComponent({
       currentBlock.value.props.modelValue = val.join(',')
     }
 
-    const incrementOption = (index) => {
+    /**
+     * @param {number} index - 在某项之前新增一项
+     */
+    const incrementOption = (index: number) => {
       const length = state.list.length + 1
       const newItem = state.list.some((item) => isObject(item))
         ? Object.assign(cloneDeep(state.list[0]), {

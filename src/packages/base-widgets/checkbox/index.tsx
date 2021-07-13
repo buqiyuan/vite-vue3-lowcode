@@ -1,12 +1,12 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-07 10:54:50
+ * @LastEditTime: 2021-07-13 20:26:04
  * @LastEditors: 卜启缘
  * @Description: 表单项类型 - 复选框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\checkbox\index.tsx
  */
-import { reactive } from 'vue'
+import { computed } from 'vue'
 import { Field, Checkbox, CheckboxGroup } from 'vant'
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
 import { createFieldProps } from './createFieldProps'
@@ -35,23 +35,25 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    const state = reactive({
-      checkList:
-        typeof props.modelValue === 'string' ? props.modelValue.split(',') : props.modelValue
+    const checkList = computed({
+      get() {
+        return typeof props.modelValue === 'string' ? props.modelValue.split(',') : props.modelValue
+      },
+      set: (val) => (props.modelValue = val)
     })
 
-    return (
+    return () => (
       <div style={styles}>
         <Field
           {...props}
           modelValue={''}
-          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
+          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
           v-slots={{
             input: () => (
               <CheckboxGroup
                 ref={(el) => registerRef(el, block._vid)}
                 {...props}
-                v-model={state.checkList}
+                v-model={checkList.value}
               >
                 {props.options?.map((item) => (
                   <Checkbox name={item.value} style={{ marginBottom: '5px' }} shape="square">
