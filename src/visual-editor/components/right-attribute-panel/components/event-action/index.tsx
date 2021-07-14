@@ -22,7 +22,7 @@ import {
   ElPopconfirm
 } from 'element-plus'
 import type { Action } from '@/visual-editor/visual-editor.utils'
-import { generateUUID } from '@/visual-editor/utils/'
+import { generateNanoid } from '@/visual-editor/utils/'
 import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
 
@@ -34,7 +34,7 @@ interface IState {
  * @description 创建一个空的动作处理对象
  */
 const createEmptyActionHandle = () => ({
-  key: generateUUID(),
+  key: generateNanoid(),
   name: '',
   link: []
 })
@@ -43,7 +43,7 @@ const createEmptyActionHandle = () => ({
  * @description 新增一个空的事件
  */
 const createEmptyAction = (): Action => ({
-  key: generateUUID(),
+  key: generateNanoid(),
   name: '',
   event: '',
   handle: [createEmptyActionHandle()]

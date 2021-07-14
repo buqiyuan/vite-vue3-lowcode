@@ -1,13 +1,13 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-13 22:07:29
- * @LastEditTime: 2021-06-24 17:42:31
+ * @LastEditTime: 2021-07-13 21:25:59
  * @LastEditors: 卜启缘
  * @Description: 当前页面配置
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\page-setting\pageSetting.tsx
  */
 import { defineComponent } from 'vue'
-import { ElForm, ElFormItem, ElInput, ElUpload, ElColorPicker } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElUpload, ElColorPicker, ElSwitch } from 'element-plus'
 import styles from './styles.module.scss'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 
@@ -29,6 +29,9 @@ export const PageSetting = defineComponent({
     return () => (
       <>
         <ElForm>
+          <ElFormItem label="路由切换时缓存本页面">
+            <ElSwitch v-model={pageConfig.keepAlive} />
+          </ElFormItem>
           <ElFormItem label="背景颜色">
             <ElColorPicker v-model={pageConfig.bgColor} />
           </ElFormItem>

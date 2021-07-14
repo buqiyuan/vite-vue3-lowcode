@@ -60,7 +60,7 @@ import { useVisualData, fieldTypes } from '@/visual-editor/hooks/useVisualData'
 import type { VisualEditorModel } from '@/visual-editor/visual-editor.utils'
 import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
-import { generateUUID } from '@/visual-editor/utils/'
+import { generateNanoid } from '@/visual-editor/utils/'
 import { useImportSwaggerJsonModal } from './utils'
 
 interface IState {
@@ -91,7 +91,7 @@ const createEmptyEntity = () => ({ key: '', name: '', type: 'string', value: '' 
  */
 const createEmptyModel = () => ({
   name: '',
-  key: generateUUID(),
+  key: generateNanoid(),
   entitys: [createEmptyEntity()]
 })
 

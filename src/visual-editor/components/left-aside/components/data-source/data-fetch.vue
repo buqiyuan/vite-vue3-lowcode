@@ -65,7 +65,7 @@ import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import type { FetchApiItem, VisualEditorModel } from '@/visual-editor/visual-editor.utils'
 import { useModal } from '@/visual-editor/hooks/useModal'
 import { cloneDeep } from 'lodash'
-import { generateUUID } from '@/visual-editor/utils/'
+import { generateNanoid } from '@/visual-editor/utils/'
 import { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
 import { useImportSwaggerJsonModal } from './utils'
 
@@ -95,7 +95,7 @@ const isEdit = computed(() => apis.value.some((item) => item.key == state.ruleFo
  * @description 创建空的数据接口对象
  */
 const createEmptyApiItem = (): FetchApiItem => ({
-  key: generateUUID(),
+  key: generateNanoid(),
   name: '',
   options: {
     url: '', // 请求的url

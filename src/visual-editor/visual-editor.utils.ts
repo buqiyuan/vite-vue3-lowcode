@@ -3,6 +3,7 @@ import { inject, provide } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useDotProp } from '@/visual-editor/hooks/useDotProp'
 import type { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum'
+import { generateNanoid } from '@/visual-editor/utils'
 
 /**
  * @description 组件属性
@@ -70,6 +71,8 @@ export interface PageConfig {
   bgImage: string
   /** 背景颜色 */
   bgColor: string
+  /** 是否缓存当前页面 */
+  keepAlive: boolean
 }
 /**
  * @description 页面对象
@@ -224,9 +227,8 @@ export interface VisualEditorMarkLines {
 }
 
 export function createNewBlock(component: VisualEditorComponent): VisualEditorBlockData {
-  const cid = parseInt(`${Date.now() * Math.random()}`)
   return {
-    _vid: `vid_${cid}`,
+    _vid: `vid_${generateNanoid()}`,
     moduleName: component.moduleName,
     componentKey: component!.key,
     label: component!.label,

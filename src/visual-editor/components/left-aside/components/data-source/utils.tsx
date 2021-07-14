@@ -6,7 +6,7 @@
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\utils.tsx
  */
-import { generateUUID } from '@/visual-editor/utils'
+import { generateNanoid } from '@/visual-editor/utils'
 import type { FetchApiItem } from '@/visual-editor/visual-editor.utils'
 import { RequestEnum } from '@/enums/httpEnum'
 import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor'
@@ -27,7 +27,7 @@ export const importSwaggerJson = (swagger: any) => {
     const properties = swagger.definitions[model].properties
     const modelItem: VisualEditorModel = {
       name: model,
-      key: generateUUID(),
+      key: generateNanoid(),
       entitys: []
     }
     Object.keys(properties).forEach((field) => {
@@ -48,7 +48,7 @@ export const importSwaggerJson = (swagger: any) => {
       const bindTarget = model ? models.find((item) => item.name == model) : undefined
       typeof bindTarget == 'object' && (bindTarget.name = apiUrlObj.summary)
       const api: FetchApiItem = {
-        key: generateUUID(),
+        key: generateNanoid(),
         name: apiUrlObj.summary,
         options: {
           url: url, // 请求的url

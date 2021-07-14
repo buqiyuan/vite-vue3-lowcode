@@ -1,7 +1,7 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-12 22:18:48
- * @LastEditTime: 2021-07-05 10:18:22
+ * @LastEditTime: 2021-07-14 10:17:34
  * @LastEditors: 卜启缘
  * @Description:
  * @FilePath: \vite-vue3-lowcode\preview\views\slot-item.vue
@@ -49,7 +49,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    // 生成组件事件
+    // TODO 生成组件事件
     const events = props.element.actions.reduce((prev, curr) => {
       prev[curr.event] = async () => {
         for (const handle of curr.handle) {

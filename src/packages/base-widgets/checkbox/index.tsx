@@ -47,7 +47,7 @@ export default {
         <Field
           {...props}
           modelValue={''}
-          name={Array.isArray(props.name) ? props.name?.pop() : props.name}
+          name={Array.isArray(props.name) ? [...props.name].pop() : props.name}
           v-slots={{
             input: () => (
               <CheckboxGroup

@@ -5,7 +5,8 @@
  * @description：useVisualData
  * @update: 2021/5/6 11:59
  */
-import { reactive, inject, readonly, computed, watch, InjectionKey } from 'vue'
+import { reactive, inject, readonly, computed, watch } from 'vue'
+import type { InjectionKey } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type {
   VisualEditorModelValue,
@@ -38,7 +39,8 @@ export const createNewPage = ({ title = '新页面', path = '/' }) => ({
   path,
   config: {
     bgColor: '',
-    bgImage: ''
+    bgImage: '',
+    keepAlive: false
   },
   blocks: []
 })

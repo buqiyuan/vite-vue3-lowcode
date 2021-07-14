@@ -30,6 +30,7 @@
     "element-plus": "1.0.2-beta.54",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.25.2",
+    "nanoid": "^3.1.23",
     "normalize.css": "^8.0.1",
     "nprogress": "^1.0.0-1",
     "qrcode": "^1.4.4",
@@ -43,7 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@types/node": "^16.3.1",
+    "@types/node": "^16.3.2",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "@vitejs/plugin-legacy": "^1.4.4",

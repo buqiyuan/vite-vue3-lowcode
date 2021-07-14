@@ -1,7 +1,7 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-13 18:39:09
+ * @LastEditTime: 2021-07-14 10:32:21
  * @LastEditors: 卜启缘
  * @Description: '表单项类型 - 步进器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\stepper\index.tsx
@@ -17,6 +17,7 @@ import {
   createEditorSelectProp,
   createEditorModelBindProp
 } from '@/visual-editor/visual-editor.props'
+import { watchEffect } from 'vue'
 
 export default {
   key: 'stepper',
@@ -33,7 +34,9 @@ export default {
   render: ({ styles, block, props }) => {
     const { registerRef } = useGlobalProperties()
 
-    props.name = Array.isArray(props.name) ? props.name?.pop() : props.name
+    watchEffect(() => {
+      props.name = Array.isArray(props.name) ? [...props.name].pop() : props.name
+    })
 
     return () => (
       <div style={styles}>

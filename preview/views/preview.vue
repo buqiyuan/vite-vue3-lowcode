@@ -1,9 +1,9 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-01 09:45:21
- * @LastEditTime: 2021-07-12 10:22:26
+ * @LastEditTime: 2021-07-13 21:59:22
  * @LastEditors: 卜启缘
- * @Description:
+ * @Description: 效果预览页面
  * @FilePath: \vite-vue3-lowcode\preview\views\preview.vue
 -->
 <template>
@@ -15,19 +15,11 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import { Toast } from 'vant'
-
-import { CacheEnum } from '@/enums'
 import type { VisualEditorModelValue } from '@/visual-editor/visual-editor.utils'
 import SlotItem from './slot-item.vue'
 import router from '../router'
+import { CacheEnum } from '@/enums'
 
-/**
- * @name: preview
- * @author: 卜启缘
- * @date: 2021/4/29 23:09
- * @description：preview
- * @update: 2021/4/29 23:09
- */
 export default defineComponent({
   name: 'Preview',
   components: {
