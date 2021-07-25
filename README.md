@@ -1,15 +1,17 @@
 # 基于 Vite2.x + Vue3.x + TypeScript H5 低代码平台
 
-### 后续可能会。。。搭建 PC 端后台管理系统低代码平台
+### 只是一个简单的模板，感兴趣可以根据自己的需要调整
 
 [![license](https://img.shields.io/github/license/buqiyuan/vite-vue3-lowcode.svg)](LICENSE)
 
 **中文** | [English](./README.EN.md)
 
-## 克隆主分支，忽略 git-pages 等无关分支
+## 克隆项目
 
 ```shell
 git clone --single-branch https://github.com/buqiyuan/vite-vue3-lowcode.git
+or
+git clone --depth=1 https://github.com/buqiyuan/vite-vue3-lowcode.git
 ```
 
 ## 技术栈

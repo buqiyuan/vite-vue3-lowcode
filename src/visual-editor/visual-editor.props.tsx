@@ -35,6 +35,9 @@ export type VisualEditorProps = {
   /** 项属性配置 */
   showItemPropsConfig?: boolean
 } & {
+  max?: number
+  min?: number
+} & {
   table?: VisualEditorTableOption
 }
 
@@ -104,17 +107,23 @@ interface EditorInputNumberProp {
   label: string
   defaultValue?: any
   tips?: string
+  max?: number
+  min?: number
 }
 
 export function createEditorInputNumberProp({
   label,
   defaultValue,
+  max,
+  min,
   tips
 }: EditorInputNumberProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.inputNumber,
     label,
     tips,
+    max,
+    min,
     defaultValue
   }
 }
