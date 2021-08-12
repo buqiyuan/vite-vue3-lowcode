@@ -8,6 +8,7 @@ declare module 'vue' {
     ElCol: typeof import('element-plus/es/el-col')['default']
     ElCollapse: typeof import('element-plus/es/el-collapse')['default']
     ElCollapseItem: typeof import('element-plus/es/el-collapse-item')['default']
+    ElConfigProvider: typeof import('element-plus/es/el-config-provider')['default']
     ElContainer: typeof import('element-plus/es/el-container')['default']
     ElDialog: typeof import('element-plus/es/el-dialog')['default']
     ElDropdown: typeof import('element-plus/es/el-dropdown')['default']

@@ -63,7 +63,7 @@ export default {
               )
           }}
         />
-        <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
+        <Popup v-model={[state.showPicker, 'show']} position={'bottom'} teleport="body">
           <DatetimePicker
             ref={(el) => registerRef(el, block._vid)}
             {...props}
@@ -127,7 +127,7 @@ export default {
     loading: createEditorSwitchProp({ label: '是否显示加载状态' }),
     showToolbar: createEditorSwitchProp({ label: '是否显示顶部栏' }),
     swipeDuration: createEditorInputProp({ label: '快速滑动时惯性滚动的时长，单位ms' }),
-    visibleItemCount: createEditorInputNumberProp({ label: '可见的选项个数' }),
+    visibleItemCount: createEditorInputNumberProp({ label: '可见的选项个数', defaultValue: 6 }),
     placeholder: createEditorInputProp({ label: '占位符', defaultValue: '请选择' }),
     ...createFieldProps()
   },

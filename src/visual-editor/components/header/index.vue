@@ -29,7 +29,7 @@
           size="mini"
           icon="el-icon-video-play"
           circle
-          class="flex-shrink-0"
+          class="flex-shrink-0 !p-6px"
           @click="runPreview"
         />
       </el-tooltip>

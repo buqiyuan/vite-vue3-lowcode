@@ -57,7 +57,7 @@ export default defineComponent({
   height: 100%;
   contain: layout;
 
-  > ::v-deep(.el-tabs__header) {
+  > :deep(.el-tabs__header) {
     margin-right: 0;
 
     .el-tabs__item {
@@ -74,7 +74,7 @@ export default defineComponent({
     }
   }
 
-  > ::v-deep(.el-tabs__content) {
+  > :deep(.el-tabs__content) {
     height: 100%;
     overflow-y: auto;
   }

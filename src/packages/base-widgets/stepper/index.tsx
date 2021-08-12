@@ -61,7 +61,7 @@ export default {
     name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '步进器' }),
     min: createEditorInputNumberProp({ label: '最小值', defaultValue: 0 }),
-    max: createEditorInputNumberProp({ label: '最大值' }),
+    max: createEditorInputNumberProp({ label: '最大值', defaultValue: 10 }),
     ...createFieldProps(),
     allowEmpty: createEditorSwitchProp({ label: '是否允许输入的值为空', defaultValue: false }),
     buttonSize: createEditorInputProp({

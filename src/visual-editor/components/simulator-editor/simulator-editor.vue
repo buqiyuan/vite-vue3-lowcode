@@ -63,6 +63,7 @@ import { cloneDeep } from 'lodash'
 import { useGlobalProperties } from '@/hooks/useGlobalProperties'
 import { useVisualData } from '@/visual-editor/hooks/useVisualData'
 import { useModal } from '@/visual-editor/hooks/useModal'
+import { generateNanoid } from '@/visual-editor/utils'
 
 export default defineComponent({
   name: 'SimulatorEditor',
@@ -191,21 +192,20 @@ export default defineComponent({
                 onClick: () => {
                   const index = parentBlocks.findIndex((item) => item._vid == block._vid)
                   if (index != -1) {
-                    const setBlockVid = (block, index = -1) => {
-                      block._vid = `vid_${Date.now() + index}`
+                    const setBlockVid = (block: VisualEditorBlockData) => {
+                      block._vid = `vid_${generateNanoid()}`
+                      block.focus = false
                       const slots = block?.props?.slots || {}
                       const slotKeys = Object.keys(slots)
                       if (slotKeys.length) {
                         slotKeys.forEach((slotKey) => {
-                          slots[slotKey]?.children?.forEach((child, index) =>
-                            setBlockVid(child, index)
-                          )
+                          slots[slotKey]?.children?.forEach((child) => setBlockVid(child))
                         })
                       }
                     }
                     const blockCopy = cloneDeep(parentBlocks[index])
                     setBlockVid(blockCopy)
-                    parentBlocks.splice(index, 0, blockCopy)
+                    parentBlocks.splice(index + 1, 0, blockCopy)
                   }
                 }
               }}
