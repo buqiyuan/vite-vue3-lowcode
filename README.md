@@ -1,6 +1,6 @@
 # 基于 Vite2.x + Vue3.x + TypeScript H5 低代码平台
 
-### 只是一个简单的模板，感兴趣可以根据自己的需要调整, 在这里你可以看到 vue3 很多有趣的新特性和玩法。
+### 目前还只是一个简单的模板，后面可能会引入较为完善的机制系统，感兴趣的小伙伴可以根据自己的需要去调整, 通过这个项目或许你可以学到 vue3 很多有趣的新特性和玩法。
 
 [![license](https://img.shields.io/github/license/buqiyuan/vite-vue3-lowcode.svg)](LICENSE)
 

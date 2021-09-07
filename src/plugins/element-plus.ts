@@ -1,24 +1,80 @@
-/*
- * @Author: 卜启缘
- * @Date: 2021-04-22 02:10:31
- * @LastEditTime: 2021-07-05 11:39:10
- * @LastEditors: 卜启缘
- * @Description: 按需导入element-plus
- * @FilePath: \vite-vue3-lowcode\src\plugins\element-plus.ts
- */
-import 'element-plus/packages/theme-chalk/src/base.scss'
-// import 'element-plus/lib/theme-chalk/index.css'
-// import 'element-plus/lib/theme-chalk/el-popper.css'
-import type { App } from 'vue'
+import { App, Component } from 'vue'
+import 'element-plus/dist/index.css'
+import {
+  ElAffix,
+  ElSkeleton,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElScrollbar,
+  ElSubMenu,
+  ElButton,
+  ElCol,
+  ElRow,
+  ElSpace,
+  ElDivider,
+  ElCard,
+  ElDropdown,
+  ElDialog,
+  ElMenu,
+  ElMenuItem,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElIcon,
+  ElInput,
+  ElForm,
+  ElFormItem,
+  ElLoading,
+  ElPopover,
+  ElPopper,
+  ElTooltip,
+  ElDrawer,
+  ElPagination,
+  ElAlert,
+  ElRadioButton,
+  ElRadioGroup,
+  ElInfiniteScroll
+} from 'element-plus'
 
-import { ElInfiniteScroll, locale } from 'element-plus'
+const components = [
+  ElAffix,
+  ElSkeleton,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElScrollbar,
+  ElSubMenu,
+  ElButton,
+  ElCol,
+  ElRow,
+  ElSpace,
+  ElDivider,
+  ElCard,
+  ElDropdown,
+  ElDialog,
+  ElMenu,
+  ElMenuItem,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElIcon,
+  ElInput,
+  ElForm,
+  ElFormItem,
+  ElPopover,
+  ElPopper,
+  ElTooltip,
+  ElDrawer,
+  ElPagination,
+  ElAlert,
+  ElRadioButton,
+  ElRadioGroup
+]
 
-import lang from 'element-plus/lib/locale/lang/zh-cn'
-import 'dayjs/locale/zh-cn'
+const plugins = [ElLoading, ElInfiniteScroll]
 
-// 设置语言
-import.meta.env.DEV ? locale(lang) : locale.use(lang)
-
-export const setupElementPlus = (app: App) => {
-  app.use(ElInfiniteScroll)
+export function setupElementPlus(app: App) {
+  components.forEach((component: Component) => {
+    app.component(component.name!, component)
+  })
+  plugins.forEach((plugin) => {
+    app.use(plugin)
+  })
 }

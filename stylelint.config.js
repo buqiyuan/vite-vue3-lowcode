@@ -1,24 +1,24 @@
 module.exports = {
   root: true,
-  plugins: ['stylelint-order'],
+  plugins: ['stylelint-order', 'stylelint-scss'],
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        ignorePseudoClasses: ['global', 'deep']
+        ignorePseudoClasses: ['global', 'v-deep', 'deep']
       }
     ],
     'selector-pseudo-element-no-unknown': [
       true,
       {
-        ignorePseudoElements: ['v-deep']
+        ignorePseudoElements: ['v-deep', 'deep']
       }
     ],
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['function', 'if', 'each', 'include', 'mixin']
+        ignoreAtRules: ['function', 'if', 'each', 'include', 'mixin', 'for']
       }
     ],
     'no-empty-source': null,

@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="locale">
+  <el-config-provider :locale="zhCn">
     <router-view #="{ Component, route }">
       <component :is="Component" :key="route.path" />
     </router-view>
@@ -16,8 +16,6 @@ const visualData = initVisualData()
 provide(injectKey, visualData)
 
 const { jsonData } = visualData
-
-const locale = zhCn
 
 window.addEventListener('beforeunload', () => {
   sessionStorage.setItem(localKey, JSON.stringify(jsonData))

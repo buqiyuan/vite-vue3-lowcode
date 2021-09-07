@@ -4,8 +4,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import legacy from '@vitejs/plugin-legacy'
 import { resolve } from 'path'
 import ViteComponents, { ElementPlusResolver, VantResolver } from 'vite-plugin-components'
-import styleImport from 'vite-plugin-style-import'
 import WindiCSS from 'vite-plugin-windicss'
+import VitePluginElementPlus from 'vite-plugin-element-plus'
 
 const CWD = process.cwd()
 
@@ -36,22 +36,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         extensions: ['vue', 'tsx', 'js'],
         customComponentResolvers: [ElementPlusResolver(), VantResolver()]
       }),
-      styleImport({
-        // 手动导入组件
-        libs: [
-          {
-            libraryName: 'element-plus',
-            esModule: true,
-            ensureStyleFile: true,
-            resolveStyle: (name) => {
-              name = name.slice(3)
-              return `element-plus/packages/theme-chalk/src/${name}.scss`
-            },
-            resolveComponent: (name) => {
-              return `element-plus/lib/${name}`
-            }
-          }
-        ]
+      VitePluginElementPlus({
+        // 如果你需要使用 [component name].scss 源文件，你需要把下面的注释取消掉。
+        // 对于所有的 API 你可以参考 https://github.com/element-plus/vite-plugin-element-plus
+        // 的文档注释
+        // useSource: true
+        format: mode === 'development' ? 'esm' : 'cjs'
       })
     ],
     resolve: {
