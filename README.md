@@ -128,7 +128,7 @@ JSON.stringify(
 ```sh
 npm install
 # or
-yarn add
+yarn
 ```
 
 ### 启动项目

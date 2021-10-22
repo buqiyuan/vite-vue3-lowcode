@@ -114,7 +114,7 @@ Support modern browsers, not IE
 ```sh
 npm install
 # or
-yarn add
+yarn
 ```
 
 ### run
