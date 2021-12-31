@@ -7,8 +7,8 @@
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\components\cross-sortable-options-editor\cross-sortable-options-editor.tsx
  */
 
-import { defineComponent, reactive, computed, PropType } from 'vue'
-import Draggable from 'vuedraggable'
+import { defineComponent, reactive, computed, PropType } from 'vue';
+import Draggable from 'vuedraggable';
 import {
   ElInput,
   ElCheckboxGroup,
@@ -17,80 +17,82 @@ import {
   ElCollapseItem,
   ElTabs,
   ElTabPane,
-  ElForm
-} from 'element-plus'
-import { useVModel } from '@vueuse/core'
-import { isObject } from '@/visual-editor/utils/is'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { PropConfig } from '../prop-config'
-import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { cloneDeep } from 'lodash'
+  ElForm,
+  ElIcon,
+} from 'element-plus';
+import { useVModel } from '@vueuse/core';
+import { isObject } from '@/visual-editor/utils/is';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
+import { PropConfig } from '../prop-config';
+import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { cloneDeep } from 'lodash';
+import { Rank, CirclePlus, Remove } from '@element-plus/icons-vue';
 
 interface OptionItem extends LabelValue {
-  component?: VisualEditorComponent
-  block?: VisualEditorBlockData
+  component?: VisualEditorComponent;
+  block?: VisualEditorBlockData;
 }
 
 export const CrossSortableOptionsEditor = defineComponent({
   props: {
     modelValue: {
       type: Array as PropType<(string | OptionItem)[]>,
-      default: () => []
+      default: () => [],
     },
     multiple: Boolean, // 是否多选
-    showItemPropsConfig: Boolean // 是否多选
+    showItemPropsConfig: Boolean, // 是否多选
   },
   setup(props, { emit }) {
-    const { currentBlock } = useVisualData()
+    const { currentBlock } = useVisualData();
 
     const state = reactive({
       list: useVModel(props, 'modelValue', emit),
-      drag: false
-    })
+      drag: false,
+    });
 
     const checkList = computed({
       get: () => {
-        const value = currentBlock.value.props.modelValue
-        return Array.isArray(value) ? value : [...new Set(value?.split(','))]
+        const value = currentBlock.value.props.modelValue;
+        return Array.isArray(value) ? value : [...new Set(value?.split(','))];
       },
       set(value) {
-        currentBlock.value.props.modelValue = value
-      }
-    })
+        currentBlock.value.props.modelValue = value;
+      },
+    });
 
     const dragOptions = computed(() => {
       return {
         animation: 200,
         group: 'description',
         disabled: false,
-        ghostClass: 'ghost'
-      }
-    })
+        ghostClass: 'ghost',
+      };
+    });
 
     /**
      * @description 复选框值改变时触发
      */
     const onChange = (val: any[]) => {
-      val = val.filter((item) => item !== '')
+      val = val.filter((item) => item !== '');
       val = props.multiple
         ? val
-        : val.filter((n) => !currentBlock.value.props.modelValue?.includes(n))
-      currentBlock.value.props.modelValue = val.join(',')
-    }
+        : val.filter((n) => !currentBlock.value.props.modelValue?.includes(n));
+      currentBlock.value.props.modelValue = val.join(',');
+    };
 
     /**
      * @param {number} index - 在某项之前新增一项
      */
     const incrementOption = (index: number) => {
-      const length = state.list.length + 1
+      const length = state.list.length + 1;
       const newItem = state.list.some((item) => isObject(item))
         ? Object.assign(cloneDeep(state.list[0]), {
             label: `选项${length}`,
-            value: `选项${length}`
+            value: `选项${length}`,
           })
-        : ''
-      state.list.splice(index + 1, 0, newItem)
-    }
+        : '';
+      state.list.splice(index + 1, 0, newItem);
+    };
 
     return () => (
       <div>
@@ -106,7 +108,7 @@ export const CrossSortableOptionsEditor = defineComponent({
             component-data={{
               tag: 'ul',
               type: 'transition-group',
-              name: !state.drag ? 'flip-list' : null
+              name: !state.drag ? 'flip-list' : null,
             }}
             handle=".handle"
             {...dragOptions.value}
@@ -117,7 +119,9 @@ export const CrossSortableOptionsEditor = defineComponent({
             {{
               item: ({ element, index }) => (
                 <div class={'flex items-center justify-between'}>
-                  <i class={'el-icon-rank handle cursor-move'}></i>
+                  <ElIcon class="handle cursor-move">
+                    <Rank></Rank>
+                  </ElIcon>
                   {isObject(element) ? (
                     <>
                       <ElCheckbox label={element.value} class={'ml-5px'}>
@@ -128,12 +132,14 @@ export const CrossSortableOptionsEditor = defineComponent({
                         v-model={element.label}
                         class={'my-12px mx-3px'}
                         style={{ width: '108px' }}
+                        size="small"
                       ></ElInput>
                       value:
                       <ElInput
                         v-model={element.value}
                         class={'my-12px mx-3px'}
                         style={{ width: '106px' }}
+                        size="small"
                       ></ElInput>
                     </>
                   ) : (
@@ -141,20 +147,25 @@ export const CrossSortableOptionsEditor = defineComponent({
                       v-model={state.list[index]}
                       class={'m-12px'}
                       style={{ width: '270px' }}
+                      size="small"
                     ></ElInput>
                   )}
                   <div class={'flex flex-col'}>
-                    <i
-                      class={'el-icon-circle-plus-outline hover:text-blue-400 cursor-pointer'}
+                    <ElIcon
+                      class="hover:text-blue-400 cursor-pointer"
                       onClick={() => incrementOption(index)}
-                    ></i>
-                    <i
-                      class={'el-icon-remove-outline hover:text-red-500 cursor-pointer'}
+                    >
+                      <CirclePlus></CirclePlus>
+                    </ElIcon>
+                    <ElIcon
+                      class="hover:text-red-500 cursor-pointer"
                       onClick={() => state.list.splice(index, 1)}
-                    ></i>
+                    >
+                      <Remove></Remove>
+                    </ElIcon>
                   </div>
                 </div>
-              )
+              ),
             }}
           </Draggable>
         </ElCheckboxGroup>
@@ -164,7 +175,7 @@ export const CrossSortableOptionsEditor = defineComponent({
               <ElTabs type={'border-card'}>
                 {state.list.map((item: OptionItem) => (
                   <ElTabPane label={item.label} key={item.label}>
-                    <ElForm size="mini" labelPosition={'left'}>
+                    <ElForm labelPosition={'left'}>
                       <PropConfig component={item.component} block={item.block} />
                     </ElForm>
                   </ElTabPane>
@@ -174,6 +185,6 @@ export const CrossSortableOptionsEditor = defineComponent({
           </ElCollapse>
         )}
       </div>
-    )
-  }
-})
+    );
+  },
+});

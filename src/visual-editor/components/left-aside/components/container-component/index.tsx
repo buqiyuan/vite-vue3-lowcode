@@ -6,29 +6,30 @@
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\container-component\index.tsx
  */
-import { defineComponent } from 'vue'
-import { cloneDeep } from 'lodash'
-import { visualConfig } from '@/visual.config'
-import Draggable from 'vuedraggable'
-import styles from './index.module.scss'
-import { createNewBlock } from '@/visual-editor/visual-editor.utils'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import { defineComponent } from 'vue';
+import { cloneDeep } from 'lodash';
+import { visualConfig } from '@/visual.config';
+import Draggable from 'vuedraggable';
+import styles from './index.module.scss';
+import { createNewBlock } from '@/visual-editor/visual-editor.utils';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { Suitcase } from '@element-plus/icons-vue';
 
 export default defineComponent({
   name: 'ContainerComponent',
   label: '容器组件',
-  icon: 'el-icon-suitcase',
+  icon: Suitcase,
   order: 4,
   setup() {
     const log = (evt) => {
-      window.console.log(evt)
-    }
+      window.console.log(evt);
+    };
     // 克隆组件
     const cloneDog = (comp) => {
-      console.log('当前拖拽的组件：', comp)
-      const newComp = cloneDeep(comp)
-      return createNewBlock(newComp)
-    }
+      console.log('当前拖拽的组件：', comp);
+      const newComp = cloneDeep(comp);
+      return createNewBlock(newComp);
+    };
 
     return () => (
       <>
@@ -47,10 +48,10 @@ export default defineComponent({
               <div class={styles.listGroupItem} data-label={element.label}>
                 {element.preview()}
               </div>
-            )
+            ),
           }}
         </Draggable>
       </>
-    )
-  }
-})
+    );
+  },
+});

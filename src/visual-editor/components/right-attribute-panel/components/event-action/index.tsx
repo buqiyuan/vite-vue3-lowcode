@@ -6,8 +6,8 @@
  * @Description: 事件-动作
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\event-action\index.tsx
  */
-import { computed, ref, defineComponent, reactive } from 'vue'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
+import { computed, ref, defineComponent, reactive } from 'vue';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import {
   ElForm,
   ElFormItem,
@@ -19,16 +19,16 @@ import {
   ElCascader,
   ElCollapse,
   ElCollapseItem,
-  ElPopconfirm
-} from 'element-plus'
-import type { Action } from '@/visual-editor/visual-editor.utils'
-import { generateNanoid } from '@/visual-editor/utils/'
-import { useModal } from '@/visual-editor/hooks/useModal'
-import { cloneDeep } from 'lodash'
+  ElPopconfirm,
+} from 'element-plus';
+import type { Action } from '@/visual-editor/visual-editor.utils';
+import { generateNanoid } from '@/visual-editor/utils/';
+import { useModal } from '@/visual-editor/hooks/useModal';
+import { cloneDeep } from 'lodash';
 
 interface IState {
-  activeNames: string[]
-  ruleForm: Action
+  activeNames: string[];
+  ruleForm: Action;
 }
 /**
  * @description 创建一个空的动作处理对象
@@ -36,8 +36,8 @@ interface IState {
 const createEmptyActionHandle = () => ({
   key: generateNanoid(),
   name: '',
-  link: []
-})
+  link: [],
+});
 
 /**
  * @description 新增一个空的事件
@@ -46,24 +46,24 @@ const createEmptyAction = (): Action => ({
   key: generateNanoid(),
   name: '',
   event: '',
-  handle: [createEmptyActionHandle()]
-})
+  handle: [createEmptyActionHandle()],
+});
 
 export const EventAction = defineComponent({
   setup() {
-    const { currentBlock, currentPage, jsonData } = useVisualData()
+    const { currentBlock, currentPage, jsonData } = useVisualData();
     /**
      * @description 是否处于编辑状态
      */
     const isEdit = computed(() =>
-      currentBlock.value.actions?.some((item) => item.key === state.ruleForm.key)
-    )
-    const ruleFormRef = ref<InstanceType<typeof ElForm>>()
+      currentBlock.value.actions?.some((item) => item.key === state.ruleForm.key),
+    );
+    const ruleFormRef = ref<InstanceType<typeof ElForm>>();
 
     const state = reactive<IState>({
       activeNames: [],
-      ruleForm: createEmptyAction()
-    })
+      ruleForm: createEmptyAction(),
+    });
 
     /**
      * @description 可绑定的动作
@@ -73,17 +73,17 @@ export const EventAction = defineComponent({
         label: '全局',
         value: 'global',
         children: Object.keys(jsonData.actions).map((actionKey) => {
-          const item = cloneDeep(jsonData.actions[actionKey])
-          item.value = actionKey
-          item.label = item.name
-          const arrKey = Object.keys(item).find((key) => Array.isArray(item[key]))
+          const item = cloneDeep(jsonData.actions[actionKey]);
+          item.value = actionKey;
+          item.label = item.name;
+          const arrKey = Object.keys(item).find((key) => Array.isArray(item[key]));
           item.children = (item[arrKey] || []).map((item: any) => {
-            item.label = item.name
-            item.value = item.key
-            return item
-          })
-          return item
-        })
+            item.label = item.name;
+            item.value = item.key;
+            return item;
+          });
+          return item;
+        }),
       },
       {
         label: '组件',
@@ -91,77 +91,77 @@ export const EventAction = defineComponent({
         children: cloneDeep(currentPage.value.blocks)
           .filter((item) => item.actions?.length)
           .map((item) => {
-            item.value = item._vid
-            item.label = item.label
+            item.value = item._vid;
+            item.label = item.label;
             item.children = (item.actions || []).map((item: any) => {
-              item.label = item.name
-              item.value = item.key
-              return item
-            })
-            return item
-          })
-      }
-    ])
+              item.label = item.name;
+              item.value = item.key;
+              return item;
+            });
+            return item;
+          }),
+      },
+    ]);
 
     /**
      * @description 获取动作路径
      */
     const getActionPath = (link: string[]) => {
-      const result: string[] = []
+      const result: string[] = [];
       link.reduce((prev, curr) => {
-        const target = prev?.find((item) => item.value == curr)
-        result.push(`${target?.label}`)
-        return target?.children
-      }, actionOptions.value)
-      return result.join(' => ')
-    }
+        const target = prev?.find((item) => item.value == curr);
+        result.push(`${target?.label}`);
+        return target?.children;
+      }, actionOptions.value);
+      return result.join(' => ');
+    };
 
     /**
      * @description 删除某个动作
      */
     const deleteActionItem = (index: number) => {
-      currentBlock.value.actions.splice(index, 1)
-    }
+      currentBlock.value.actions.splice(index, 1);
+    };
     /**
      * @description 删除事件的某个动作
      */
     const deleteActionHandleItem = (index: number) => {
-      state.ruleForm.handle.splice(index, 1)
-    }
+      state.ruleForm.handle.splice(index, 1);
+    };
 
     /**
      * @description 给组件新增一个事件模型
      */
     const addActionItem = () => {
-      state.ruleForm = createEmptyAction()
-      showOperateModal()
-    }
+      state.ruleForm = createEmptyAction();
+      showOperateModal();
+    };
 
     /**
      * @description 给事件新增一个空的动作
      */
     const addActionHanleItem = () => {
-      state.ruleForm.handle.push(createEmptyActionHandle())
-    }
+      state.ruleForm.handle.push(createEmptyActionHandle());
+    };
 
     /**
      * @description 编辑事件
      */
     const showEditActionModal = (action: Action) => {
-      state.ruleForm = cloneDeep(action)
-      showOperateModal()
-    }
+      state.ruleForm = cloneDeep(action);
+      showOperateModal();
+    };
 
     /**
      * @description 显示操作动作的模态框
      */
     const showOperateModal = () => {
-      const operateType = isEdit.value ? '编辑' : '新增'
+      const operateType = isEdit.value ? '编辑' : '新增';
       useModal({
         title: `${operateType}动作`,
         props: { width: 600 },
         content: () => (
-          <ElForm model={state.ruleForm} ref={ruleFormRef} label-width="100px" size={'mini'}>
+          <ElForm model={state.ruleForm} ref={ruleFormRef} label-width="100px">
             <ElFormItem
               label="事件"
               prop={'event'}
@@ -186,7 +186,7 @@ export const EventAction = defineComponent({
             </ElFormItem>
             {!state.ruleForm.handle?.length && (
               <ElFormItem>
-                <ElButton onClick={addActionHanleItem} type={'primary'} size={'mini'}>
+                <ElButton onClick={addActionHanleItem} type={'primary'}>
                   添加动作
                 </ElButton>
               </ElFormItem>
@@ -207,19 +207,15 @@ export const EventAction = defineComponent({
                         <ElInput v-model={handleItem.name} placeholder={'请输入动作名称'}></ElInput>
                       </ElFormItem>
                       <div>
-                        <ElButton
-                          onClick={() => deleteActionHandleItem(index)}
-                          type={'danger'}
-                          size={'mini'}
-                        >
+                        <ElButton onClick={() => deleteActionHandleItem(index)} type={'danger'}>
                           删除
                         </ElButton>
-                        <ElButton onClick={addActionHanleItem} type={'primary'} size={'mini'}>
+                        <ElButton onClick={addActionHanleItem} type={'primary'}>
                           添加
                         </ElButton>
                       </div>
                     </div>
-                  )
+                  ),
                 }}
               >
                 <ElFormItem
@@ -244,35 +240,30 @@ export const EventAction = defineComponent({
             ruleFormRef.value?.validate((valid) => {
               if (valid) {
                 const index = currentBlock.value.actions.findIndex(
-                  (item) => item.key == state.ruleForm.key
-                )
+                  (item) => item.key == state.ruleForm.key,
+                );
                 if (index === -1) {
-                  currentBlock.value.actions.push(state.ruleForm)
+                  currentBlock.value.actions.push(state.ruleForm);
                 } else {
-                  currentBlock.value.actions.splice(index, 1, state.ruleForm)
+                  currentBlock.value.actions.splice(index, 1, state.ruleForm);
                 }
-                state.ruleForm = createEmptyAction()
-                resolve('submit!')
+                state.ruleForm = createEmptyAction();
+                resolve('submit!');
               } else {
-                reject()
-                console.log('error submit!!')
-                return false
+                reject();
+                console.log('error submit!!');
+                return false;
               }
-            })
-          })
+            });
+          });
         },
-        onCancel: () => (state.ruleForm = createEmptyAction())
-      })
-    }
+        onCancel: () => (state.ruleForm = createEmptyAction()),
+      });
+    };
 
     return () => (
       <>
-        <ElButton
-          onClick={addActionItem}
-          disabled={!currentBlock.value.actions}
-          type={'primary'}
-          size={'mini'}
-        >
+        <ElButton onClick={addActionItem} disabled={!currentBlock.value.actions} type="primary">
           添加事件
         </ElButton>
 
@@ -290,30 +281,22 @@ export const EventAction = defineComponent({
                       onConfirm={() => deleteActionItem(index)}
                     >
                       {{
-                        reference: () => (
-                          <ElButton type={'danger'} size={'mini'}>
-                            删除
-                          </ElButton>
-                        )
+                        reference: () => <ElButton type={'danger'}>删除</ElButton>,
                       }}
                     </ElPopconfirm>
-                    <ElButton
-                      onClick={() => showEditActionModal(actionItem)}
-                      type={'primary'}
-                      size={'mini'}
-                    >
+                    <ElButton onClick={() => showEditActionModal(actionItem)} type="primary">
                       编辑
                     </ElButton>
                   </div>
                 </div>
-              )
+              ),
             }}
           >
             <ElCollapse v-model={state.activeNames}>
               {actionItem.handle.map((item, index) => (
                 <ElCollapseItem title={`${index + 1}. ${item.name}`} key={item.key} name={item.key}>
                   {{
-                    default: () => <div>动作路径：{getActionPath(item.link)}</div>
+                    default: () => <div>动作路径：{getActionPath(item.link)}</div>,
                   }}
                 </ElCollapseItem>
               ))}
@@ -321,6 +304,6 @@ export const EventAction = defineComponent({
           </ElCard>
         ))}
       </>
-    )
-  }
-})
+    );
+  },
+});

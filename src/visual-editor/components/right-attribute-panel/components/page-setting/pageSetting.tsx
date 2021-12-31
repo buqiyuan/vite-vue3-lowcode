@@ -6,25 +6,26 @@
  * @Description: 当前页面配置
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\page-setting\pageSetting.tsx
  */
-import { defineComponent } from 'vue'
-import { ElForm, ElFormItem, ElInput, ElUpload, ElColorPicker, ElSwitch } from 'element-plus'
-import styles from './styles.module.scss'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
+import { defineComponent } from 'vue';
+import { ElForm, ElFormItem, ElInput, ElUpload, ElColorPicker, ElSwitch } from 'element-plus';
+import styles from './styles.module.scss';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
+import { Plus } from '@element-plus/icons-vue';
 
 export const PageSetting = defineComponent({
   setup() {
-    const { currentPage } = useVisualData()
+    const { currentPage } = useVisualData();
 
-    const pageConfig = currentPage.value.config
+    const pageConfig = currentPage.value.config;
 
     const beforeUpload = (file: File) => {
-      console.log(file, '要上传的文件')
-      const fileReader = new FileReader()
+      console.log(file, '要上传的文件');
+      const fileReader = new FileReader();
       fileReader.onload = (event) => {
-        pageConfig.bgImage = event.target?.result as string
-      }
-      fileReader.readAsDataURL(file)
-    }
+        pageConfig.bgImage = event.target?.result as string;
+      };
+      fileReader.readAsDataURL(file);
+    };
 
     return () => (
       <>
@@ -42,11 +43,13 @@ export const PageSetting = defineComponent({
             {pageConfig.bgImage ? (
               <img src={pageConfig.bgImage} />
             ) : (
-              <i class="el-icon-plus uploader-icon"></i>
+              <el-icon class="uploader-icon">
+                <Plus />
+              </el-icon>
             )}
           </ElUpload>
         </ElForm>
       </>
-    )
-  }
-})
+    );
+  },
+});

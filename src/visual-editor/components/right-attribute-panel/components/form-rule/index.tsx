@@ -6,8 +6,9 @@
  * @Description: 表单规则
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\form-rule\index.tsx
  */
-import { defineComponent } from 'vue'
-import { ElCard, ElTooltip } from 'element-plus'
+import { defineComponent } from 'vue';
+import { ElCard, ElTooltip } from 'element-plus';
+import { QuestionFilled } from '@element-plus/icons-vue';
 
 export const FormRule = defineComponent({
   setup() {
@@ -19,11 +20,13 @@ export const FormRule = defineComponent({
               <div class="flex justify-between">
                 <span>设置关联规则</span>
                 <ElTooltip content="当前面题目选中某些选项时才出现此题" placement="bottom-end">
-                  <i class={'el-icon-question'}></i>
+                  <el-icon>
+                    <QuestionFilled />
+                  </el-icon>
                 </ElTooltip>
               </div>
             ),
-            default: () => <div>暂无规则</div>
+            default: () => <div>暂无规则</div>,
           }}
         </ElCard>
         <ElCard shadow={'always'} bodyStyle={{ padding: 1 ? '0' : '20px' }} class={'mb-20px'}>
@@ -35,14 +38,16 @@ export const FormRule = defineComponent({
                   content="当前面题目选择某些选项时才出现此题的某些选项 "
                   placement="bottom-end"
                 >
-                  <i class={'el-icon-question'}></i>
+                  <el-icon>
+                    <QuestionFilled />
+                  </el-icon>
                 </ElTooltip>
               </div>
             ),
-            default: () => null
+            default: () => null,
           }}
         </ElCard>
       </>
-    )
-  }
-})
+    );
+  },
+});

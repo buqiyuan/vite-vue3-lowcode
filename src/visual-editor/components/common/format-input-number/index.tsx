@@ -6,51 +6,52 @@
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\common\format-input-number\index.tsx
  */
-import { defineComponent } from 'vue'
-import { ElInput } from 'element-plus'
-import type { PropType } from 'vue'
-import { useVModel } from '@vueuse/core'
-import styles from './index.module.scss'
+import { defineComponent } from 'vue';
+import { ElInput, ElIcon } from 'element-plus';
+import type { PropType } from 'vue';
+import { useVModel } from '@vueuse/core';
+import styles from './index.module.scss';
+import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 
 export const FormatInputNumber = defineComponent({
   props: {
     modelValue: {
       type: [String] as PropType<string>,
-      default: ''
+      default: '',
     },
     symbol: {
       // 符号
       type: String as PropType<string>,
-      default: 'px'
+      default: 'px',
     },
     max: {
       type: [Number],
-      default: 100
+      default: 100,
     },
     min: {
       type: [Number],
-      default: 0
-    }
+      default: 0,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { attrs }) {
-    const modelValue = useVModel(props, 'modelValue')
+    const modelValue = useVModel(props, 'modelValue');
 
     const onInput = (val) => {
-      let num = parseFloat(`${val}`.replace(/[^0-9]/gi, ''))
-      num = Number.isNaN(num) ? 0 : num
-      num = Math.max(props.min, num)
-      num = Math.min(props.max, num)
-      modelValue.value = num + props.symbol
-    }
+      let num = parseFloat(`${val}`.replace(/[^0-9]/gi, ''));
+      num = Number.isNaN(num) ? 0 : num;
+      num = Math.max(props.min, num);
+      num = Math.min(props.max, num);
+      modelValue.value = num + props.symbol;
+    };
 
     const increment = () => {
-      onInput(parseFloat(modelValue.value) + 1)
-    }
+      onInput(parseFloat(modelValue.value) + 1);
+    };
 
     const cutdown = () => {
-      onInput(Math.max(props.min, parseFloat(modelValue.value) - 1))
-    }
+      onInput(Math.max(props.min, parseFloat(modelValue.value) - 1));
+    };
 
     return () => (
       <div class={styles.formatInputNumber}>
@@ -63,13 +64,21 @@ export const FormatInputNumber = defineComponent({
           {{
             append: () => (
               <div class={'flex flex-col'}>
-                <div onClick={increment} class={'el-icon-arrow-up cursor-pointer'}></div>
-                <div onClick={cutdown} class={'el-icon-arrow-down cursor-pointer'}></div>
+                <div onClick={increment} class={'cursor-pointer leading-0'}>
+                  <ElIcon size={14}>
+                    <ArrowUp />
+                  </ElIcon>
+                </div>
+                <div onClick={cutdown} class={'cursor-pointer leading-0'}>
+                  <ElIcon size={14}>
+                    <ArrowDown />
+                  </ElIcon>
+                </div>
               </div>
-            )
+            ),
           }}
         </ElInput>
       </div>
-    )
-  }
-})
+    );
+  },
+});

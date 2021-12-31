@@ -14,6 +14,25 @@ or
 git clone --depth=1 https://github.com/buqiyuan/vite-vue3-lowcode.git
 ```
 
+```bash
+cd vite-vue3-lowcode
+
+pnpm install
+
+```
+
+- run
+
+```bash
+pnpm serve
+```
+
+- build
+
+```bash
+pnpm build
+```
+
 ## 技术栈
 
 - 编程语言：[TypeScript 4.x](https://www.typescriptlang.org/zh/) + [JavaScript](https://www.javascript.com/)
@@ -43,8 +62,7 @@ git clone --depth=1 https://github.com/buqiyuan/vite-vue3-lowcode.git
 
 ### 简易说明
 
-目前在使用表单时，需要把相关的`表单控件`放到`表单容器`内部，并且需要将`按钮`放到`表单容器`内，
-然后再讲`按钮的type`设置为`表单提交按钮`这时候点击提交按钮才会自动收集表单容器内部的所有字段和值
+目前在使用表单时，需要把相关的`表单控件`放到`表单容器`内部，并且需要将`按钮`放到`表单容器`内，然后再讲`按钮的type`设置为`表单提交按钮`这时候点击提交按钮才会自动收集表单容器内部的所有字段和值
 
 ### 快速生成组件属性
 
@@ -53,41 +71,41 @@ git clone --depth=1 https://github.com/buqiyuan/vite-vue3-lowcode.git
 let propObj = {
   string: (config) => `createEditorInputProp(${JSON.stringify(config)})`,
   number: (config) => `createEditorInputNumberProp(${JSON.stringify(config)})`,
-  boolean: (config) => `createEditorSwitchProp(${JSON.stringify(config)})`
-}
+  boolean: (config) => `createEditorSwitchProp(${JSON.stringify(config)})`,
+};
 
 JSON.stringify(
   $$('#props + table tbody tr').reduce((prev, curr) => {
-    const children = curr.children
-    const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase())
-    const child3Text = children[3].textContent
+    const children = curr.children;
+    const key = children[0].textContent.replace(/-([a-z])/g, (all, i) => i.toUpperCase());
+    const child3Text = children[3].textContent;
     const defaultValue = ['true', 'false'].includes(child3Text)
       ? child3Text
-      : `'${child3Text == '-' ? '' : child3Text}'`
+      : `'${child3Text == '-' ? '' : child3Text}'`;
     const value = (propObj[children[2].textContent] ?? propObj['string'])({
       label: `'${children[1].textContent}'`,
-      defaultValue
-    }).replaceAll('"', '')
-    prev[key] = value
-    return prev
-  }, {})
-).replaceAll('"', '')
+      defaultValue,
+    }).replaceAll('"', '');
+    prev[key] = value;
+    return prev;
+  }, {}),
+).replaceAll('"', '');
 ```
 
 ```javascript
 // 在vant文档中 chrome控制台输入以下代码，快速生成组件事件
 JSON.stringify(
   $$('#events + table tbody tr').reduce((prev, curr) => {
-    const children = curr.children
+    const children = curr.children;
     const event = {
       label: children[1].textContent,
-      value: children[0].textContent
-    }
-    return prev.concat([event])
-  }, [])
+      value: children[0].textContent,
+    };
+    return prev.concat([event]);
+  }, []),
 )
   .replaceAll(/(?<!:)\"(?!,|})/g, '')
-  .replace(/\"/g, "'")
+  .replace(/\"/g, "'");
 ```
 
 ## 部分功能演示
@@ -101,8 +119,8 @@ JSON.stringify(
 支持现代浏览器, 不支持 IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                             not support                                                                                              |                                                                                            last 2 versions                                                                                             |                                                                                                  last 2 versions                                                                                                  |                                                                                                last 2 versions                                                                                                |                                                                                                last 2 versions                                                                                                |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
 ### 提交规范
 

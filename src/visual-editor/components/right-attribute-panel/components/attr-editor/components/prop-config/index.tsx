@@ -7,7 +7,7 @@
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\components\prop-config\index.tsx
  */
 
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue';
 import {
   ElColorPicker,
   ElInput,
@@ -17,51 +17,53 @@ import {
   ElCascader,
   ElInputNumber,
   ElFormItem,
-  ElPopover
-} from 'element-plus'
-import { useDotProp } from '@/visual-editor/hooks/useDotProp'
-import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props'
-import { TablePropEditor, CrossSortableOptionsEditor } from '../../components'
-import { cloneDeep } from 'lodash'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+  ElTooltip,
+  ElIcon,
+} from 'element-plus';
+import { useDotProp } from '@/visual-editor/hooks/useDotProp';
+import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props';
+import { TablePropEditor, CrossSortableOptionsEditor } from '../../components';
+import { cloneDeep } from 'lodash';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
+import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { Warning } from '@element-plus/icons-vue';
 
 export const PropConfig = defineComponent({
   props: {
     component: {
       type: Object as PropType<VisualEditorComponent>,
-      default: () => ({})
+      default: () => ({}),
     },
     block: {
       type: Object as PropType<VisualEditorBlockData>,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props) {
-    const { jsonData } = useVisualData()
+    const { jsonData } = useVisualData();
     /**
      * @description 模型集合
      */
-    const models = computed(() => cloneDeep(jsonData.models))
+    const models = computed(() => cloneDeep(jsonData.models));
 
     const renderPropItem = (propName: string, propConfig: VisualEditorProps) => {
-      const { propObj, prop } = useDotProp(props.block.props, propName)
+      const { propObj, prop } = useDotProp(props.block.props, propName);
 
-      propObj[prop] ??= propConfig.defaultValue
+      propObj[prop] ??= propConfig.defaultValue;
 
       return {
         [VisualEditorPropsType.input]: () => {
           if (!Object.is(propObj[prop], undefined) && !Object.is(propObj[prop], null)) {
-            propObj[prop] = `${propObj[prop]}`
+            propObj[prop] = `${propObj[prop]}`;
           }
           return (
             <ElInput v-model={propObj[prop]} placeholder={propConfig.tips || propConfig.label} />
-          )
+          );
         },
         [VisualEditorPropsType.inputNumber]: () => {
-          const parseRes = parseFloat(propObj[prop])
-          propObj[prop] = Number.isNaN(parseRes) ? 0 : parseRes
-          return <ElInputNumber v-model={propObj[prop]} />
+          const parseRes = parseFloat(propObj[prop]);
+          propObj[prop] = Number.isNaN(parseRes) ? 0 : parseRes;
+          return <ElInputNumber v-model={propObj[prop]} />;
         },
         [VisualEditorPropsType.switch]: () => <ElSwitch v-model={propObj[prop]} />,
         [VisualEditorPropsType.color]: () => <ElColorPicker v-model={propObj[prop]} />,
@@ -90,15 +92,15 @@ export const PropConfig = defineComponent({
               children: 'entitys',
               label: 'name',
               value: 'key',
-              expandTrigger: 'hover'
+              expandTrigger: 'hover',
             }}
             placeholder="请选择绑定的请求数据"
             v-model={propObj[prop]}
             options={models.value}
           ></ElCascader>
-        )
-      }[propConfig.type]()
-    }
+        ),
+      }[propConfig.type]();
+    };
 
     return () => {
       return Object.entries(props.component.props ?? {}).map(([propName, propConfig]) => (
@@ -110,7 +112,7 @@ export const PropConfig = defineComponent({
                 ? {
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'flex-start'
+                    alignItems: 'flex-start',
                   }
                 : {}
             }
@@ -119,20 +121,24 @@ export const PropConfig = defineComponent({
               label: () => (
                 <>
                   {propConfig.tips && (
-                    <ElPopover width={200} trigger={'hover'} content={propConfig.tips}>
-                      {{
-                        reference: () => <i class={'el-icon-warning-outline'}></i>
-                      }}
-                    </ElPopover>
+                    <ElTooltip
+                      placement="left-start"
+                      popper-class="max-w-200px"
+                      content={propConfig.tips}
+                    >
+                      <ElIcon>
+                        <Warning />
+                      </ElIcon>
+                    </ElTooltip>
                   )}
                   {propConfig.label}
                 </>
               ),
-              default: () => renderPropItem(propName, propConfig)
+              default: () => renderPropItem(propName, propConfig),
             }}
           </ElFormItem>
         </>
-      ))
-    }
-  }
-})
+      ));
+    };
+  },
+});

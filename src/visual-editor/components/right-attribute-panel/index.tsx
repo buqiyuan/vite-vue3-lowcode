@@ -8,36 +8,37 @@
  * RightAttributePanel
  */
 
-import { defineComponent, reactive, watch } from 'vue'
-import styles from './index.module.scss'
-import { ElTabPane, ElTabs } from 'element-plus'
-import { useVisualData } from '@/visual-editor/hooks/useVisualData'
-import { AttrEditor, Animate, PageSetting, EventAction, FormRule } from './components'
+import { defineComponent, reactive, watch } from 'vue';
+import styles from './index.module.scss';
+import { ElTabPane, ElTabs } from 'element-plus';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
+import { AttrEditor, Animate, PageSetting, EventAction, FormRule } from './components';
+import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue';
 
 export default defineComponent({
   name: 'RightAttributePanel',
   setup() {
-    const { currentBlock } = useVisualData()
+    const { currentBlock } = useVisualData();
 
     const state = reactive({
       activeName: 'attr',
-      isOpen: true
-    })
+      isOpen: true,
+    });
 
     watch(
       () => currentBlock.value.label,
       (newLabel) => {
         if (!newLabel?.startsWith('表单') && state.activeName == 'form-rule') {
-          state.activeName = 'attr'
+          state.activeName = 'attr';
         }
-      }
-    )
+      },
+    );
 
     return () => (
       <>
         <div class={[styles.drawer, { [styles.isOpen]: state.isOpen }]}>
           <div class={styles.floatingActionBtn} onClick={() => (state.isOpen = !state.isOpen)}>
-            <i class={`el-icon-d-arrow-${state.isOpen ? 'right' : 'left'}`}></i>
+            {state.isOpen ? <DArrowRight /> : <DArrowLeft />}
           </div>
           <div class={styles.attrs}>
             <ElTabs
@@ -67,6 +68,6 @@ export default defineComponent({
           </div>
         </div>
       </>
-    )
-  }
-})
+    );
+  },
+});

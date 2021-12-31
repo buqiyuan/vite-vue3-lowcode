@@ -18,28 +18,30 @@
 </template>
 
 <script lang="tsx">
-export default {
-  label: '数据源',
-  order: 2,
-  icon: 'el-icon-data-board'
-}
+  import { DataBoard } from '@element-plus/icons-vue';
+
+  export default {
+    label: '数据源',
+    order: 2,
+    icon: DataBoard,
+  };
 </script>
 <script setup lang="tsx" name="基本组件">
-import DataModel from './data-model.vue'
-import DataFetch from './data-fetch.vue'
+  import DataModel from './data-model.vue';
+  import DataFetch from './data-fetch.vue';
 </script>
 
 <style lang="scss" scoped>
-.data-source :deep {
-  .el-tabs__header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
+  .data-source :deep {
+    .el-tabs__header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-  .el-tabs__content {
-    contain: layout;
-    content-visibility: auto;
+    .el-tabs__content {
+      contain: layout;
+      content-visibility: auto;
+    }
   }
-}
 </style>

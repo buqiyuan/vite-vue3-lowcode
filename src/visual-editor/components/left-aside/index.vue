@@ -12,71 +12,64 @@
       <el-tab-pane :name="tabItem.name" lazy>
         <template #label>
           <div class="tab-item">
-            <i :class="tabItem.icon"></i>
+            <el-icon :size="26"><component :is="tabItem.icon" /></el-icon>
             {{ tabItem.label }}
           </div>
         </template>
-        <component :is="tabItem.name" v-bind="$attrs" />
+        <component :is="tabItem.comp" v-bind="$attrs" />
       </el-tab-pane>
     </template>
   </el-tabs>
 </template>
 
 <script lang="ts">
-/**
- * @description 左侧边栏
- */
-import { defineComponent, reactive, toRefs } from 'vue'
-import components from './components'
+  export default {
+    name: 'LeftAside',
+  };
+</script>
 
-const tabs = Object.keys(components)
-  .map((name) => {
-    const { label, icon, order } = components[name]
-    return { label, icon, name, order }
-  })
-  .sort((a, b) => a.order - b.order)
+<script lang="ts" setup>
+  /**
+   * @description 左侧边栏
+   */
+  import { ref } from 'vue';
+  import components from './components';
 
-export default defineComponent({
-  name: 'LeftAside',
-  components,
-  setup() {
-    const state = reactive({
-      activeName: tabs[0].name
+  const tabs = Object.keys(components)
+    .map((name) => {
+      const { label, icon, order } = components[name];
+      return { label, icon, name, order, comp: components[name] };
     })
+    .sort((a, b) => a.order - b.order);
 
-    return {
-      ...toRefs(state),
-      tabs
-    }
-  }
-})
+  const activeName = ref(tabs[0].name);
 </script>
 
 <style lang="scss" scoped>
-.left-aside {
-  height: 100%;
-  contain: layout;
+  .left-aside {
+    height: 100%;
+    contain: layout;
 
-  > :deep(.el-tabs__header) {
-    margin-right: 0;
+    > :deep(.el-tabs__header) {
+      margin-right: 0;
 
-    .el-tabs__item {
-      height: 80px;
-      padding: 20px 16px;
+      .el-tabs__item {
+        height: 80px;
+        padding: 20px 16px;
 
-      .tab-item {
-        @apply flex flex-col items-center justify-center;
+        .tab-item {
+          @apply flex flex-col items-center justify-center;
 
-        [class^='el-icon-'] {
-          font-size: 20px;
+          [class^='el-icon-'] {
+            font-size: 20px;
+          }
         }
       }
     }
-  }
 
-  > :deep(.el-tabs__content) {
-    height: 100%;
-    overflow-y: auto;
+    > :deep(.el-tabs__content) {
+      height: 100%;
+      overflow-y: auto;
+    }
   }
-}
 </style>
