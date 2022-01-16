@@ -55,9 +55,17 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         targets: ['defaults', 'not IE 11'],
       }),
       AutoImport({
-        resolvers: [ElementPlusResolver(), VantResolver()],
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/,
+          /\.vue\?vue/, // .vue
+          /\.md$/, // .md
+        ],
+        dts: true,
+        imports: ['vue', 'vue-router'],
       }),
       Components({
+        dts: true,
         resolvers: [ElementPlusResolver(), VantResolver()],
       }),
     ],
@@ -99,7 +107,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       },
     },
     optimizeDeps: {
-      include: ['@vueuse/core', 'element-plus', 'vant', 'lodash', 'vuedraggable'],
+      include: ['@vueuse/core', 'element-plus', 'vant', 'lodash-es', 'vuedraggable'],
     },
     server: {
       host: '0.0.0.0',
@@ -110,7 +118,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       // 设置代理，根据项目实际情况配置
       proxy: {
         '/api': {
-          target: 'http://29135jo738.zicp.vip/api/v1',
+          target: 'https://nest-api.buqiyuan.site/api/admin/',
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace('/api/', '/'),

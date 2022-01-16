@@ -6,19 +6,34 @@
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\tabbar\index.tsx
  */
-import { Tabbar, TabbarItem } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
+import { Tabbar, TabbarItem } from 'vant';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import {
   createEditorCrossSortableProp,
   createEditorInputProp,
   createEditorSwitchProp,
-  createEditorColorProp
-} from '@/visual-editor/visual-editor.props'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
-import tabbarItem from './tabbar-item'
-import { createNewBlock } from '@/visual-editor/visual-editor.utils'
-import { BASE_URL } from '@/visual-editor/utils'
-import { onMounted, onBeforeUnmount } from 'vue'
+  createEditorColorProp,
+} from '@/visual-editor/visual-editor.props';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
+import { getTabbarItem } from './tabbar-item';
+import { createNewBlock } from '@/visual-editor/visual-editor.utils';
+import { BASE_URL } from '@/visual-editor/utils';
+import { onMounted, onBeforeUnmount } from 'vue';
+
+const defaultTabbarItems = [
+  {
+    icon: 'home-o',
+    title: '首页',
+  },
+  {
+    icon: 'apps-o',
+    title: '导航',
+  },
+  {
+    icon: 'user-o',
+    title: '我的',
+  },
+];
 
 export default {
   key: 'tabbar',
@@ -26,82 +41,77 @@ export default {
   label: '底部标签栏',
   preview: () => (
     <Tabbar>
-      <TabbarItem icon="home-o">首页</TabbarItem>
-      <TabbarItem icon="apps-o">导航</TabbarItem>
-      <TabbarItem icon="user-o">我的</TabbarItem>
+      {defaultTabbarItems.map((item) => (
+        <TabbarItem icon={item.icon}>{item.title}</TabbarItem>
+      ))}
     </Tabbar>
   ),
   render: ({ props, block }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     onMounted(() => {
-      const compEl = window.$$refs[block._vid]?.$el
-      const draggableEl = compEl?.closest('div[data-draggable]')
+      const compEl = window.$$refs[block._vid]?.$el;
+      const draggableEl = compEl?.closest('div[data-draggable]');
       const dragArea: HTMLDivElement = document.querySelector(
-        '.simulator-editor-content > .dragArea '
-      )!
-      const tabbarEl = draggableEl?.querySelector('.van-tabbar') as HTMLDivElement
+        '.simulator-editor-content > .dragArea ',
+      )!;
+      const tabbarEl = draggableEl?.querySelector('.van-tabbar') as HTMLDivElement;
       if (draggableEl && tabbarEl && dragArea) {
-        tabbarEl.style.position = 'unset'
-        draggableEl.style.position = 'fixed'
-        draggableEl.style.bottom = '0'
-        draggableEl.style.left = '0'
-        draggableEl.style.width = '100%'
-        draggableEl.style.zIndex = '1000'
-        dragArea.style.paddingBottom = '56px'
+        tabbarEl.style.position = 'unset';
+        draggableEl.style.position = 'fixed';
+        draggableEl.style.bottom = '0';
+        draggableEl.style.left = '0';
+        draggableEl.style.width = '100%';
+        draggableEl.style.zIndex = '1000';
+        dragArea.style.paddingBottom = '56px';
       } else {
-        document.body.style.paddingBottom = '50px'
-        const slotEl = compEl?.closest('__slot-item')
+        document.body.style.paddingBottom = '50px';
+        const slotEl = compEl?.closest('__slot-item');
         if (slotEl) {
-          slotEl.style.position = 'fixed'
-          slotEl.style.bottom = '0'
+          slotEl.style.position = 'fixed';
+          slotEl.style.bottom = '0';
         }
       }
-    })
+    });
 
     onBeforeUnmount(() => {
       const dragArea: HTMLDivElement = document.querySelector(
-        '.simulator-editor-content > .dragArea '
-      )!
+        '.simulator-editor-content > .dragArea ',
+      )!;
       if (dragArea) {
-        dragArea.style.paddingBottom = ''
+        dragArea.style.paddingBottom = '';
       }
-    })
+    });
 
     return () => (
       <Tabbar ref={(el) => registerRef(el, block._vid)} v-model={props.modelValue} {...props}>
         {props.tabs?.map((item) => {
-          const itemProps = item.block?.props
-          const url = `${BASE_URL}${props.baseUrl}${itemProps.url}`.replace(/\/{2,}/g, '/')
+          const itemProps = item.block?.props;
+          const url = `${BASE_URL}${props.baseUrl}${itemProps.url}`.replace(/\/{2,}/g, '/');
           return (
             <TabbarItem name={item.value} key={item.value} {...itemProps} url={url}>
               {item.label}
             </TabbarItem>
-          )
+          );
         })}
       </Tabbar>
-    )
+    );
   },
   props: {
     modelValue: createEditorInputProp({
       label: '当前选中标签的名称或索引值',
-      defaultValue: ''
+      defaultValue: '',
     }),
     tabs: createEditorCrossSortableProp({
       label: '默认选项',
       labelPosition: 'top',
       multiple: false,
       showItemPropsConfig: true,
-      defaultValue: [
-        { label: '首页', value: 'index', component: tabbarItem, block: createNewBlock(tabbarItem) },
-        {
-          label: '导航',
-          value: 'navigation',
-          component: tabbarItem,
-          block: createNewBlock(tabbarItem)
-        },
-        { label: '我的', value: 'user', component: tabbarItem, block: createNewBlock(tabbarItem) }
-      ]
+      defaultValue: defaultTabbarItems.map((item) => {
+        const block = createNewBlock(getTabbarItem());
+        block.props.icon = item.icon;
+        return { label: item.title, value: item.icon, component: getTabbarItem(), block };
+      }),
     }),
     fixed: createEditorSwitchProp({ label: '是否固定在底部', defaultValue: true }),
     border: createEditorSwitchProp({ label: '是否显示外边框', defaultValue: true }),
@@ -116,15 +126,15 @@ export default {
     // }),
     safeAreaInsetBottom: createEditorSwitchProp({
       label: '是否开启底部安全区适配，设置 fixed 时默认开启',
-      defaultValue: false
-    })
+      defaultValue: false,
+    }),
   },
   events: [
     { label: '点击左侧按钮时触发', value: 'click-left' },
-    { label: '点击右侧按钮时触发', value: 'click-right' }
+    { label: '点击右侧按钮时触发', value: 'click-right' },
   ],
   draggable: false,
   resize: {
-    width: true
-  }
-} as VisualEditorComponent
+    width: true,
+  },
+} as VisualEditorComponent;

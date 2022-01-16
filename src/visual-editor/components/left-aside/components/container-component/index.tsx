@@ -7,7 +7,7 @@
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\container-component\index.tsx
  */
 import { defineComponent } from 'vue';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { visualConfig } from '@/visual.config';
 import Draggable from 'vuedraggable';
 import styles from './index.module.scss';

@@ -1,68 +1,68 @@
-import { VisualEditorProps } from '@/visual-editor/visual-editor.props'
-import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, createApp } from 'vue'
-import { defer } from '@/visual-editor/utils/defer'
-import { ElButton, ElDialog, ElTable, ElTableColumn, ElInput } from 'element-plus'
-import { cloneDeep } from 'lodash'
+import { VisualEditorProps } from '@/visual-editor/visual-editor.props';
+import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, createApp } from 'vue';
+import { defer } from '@/visual-editor/utils/defer';
+import { ElButton, ElDialog, ElTable, ElTableColumn, ElInput } from 'element-plus';
+import { cloneDeep } from 'lodash-es';
 
 export interface TablePropEditorServiceOption {
-  data: any[]
-  config: VisualEditorProps
-  onConfirm: (val: any[]) => void
+  data: any[];
+  config: VisualEditorProps;
+  onConfirm: (val: any[]) => void;
 }
 
 const ServiceComponent = defineComponent({
   props: {
-    option: { type: Object as PropType<TablePropEditorServiceOption>, required: true }
+    option: { type: Object as PropType<TablePropEditorServiceOption>, required: true },
   },
   setup(props) {
-    const ctx = getCurrentInstance()!
+    const ctx = getCurrentInstance()!;
 
     const state = reactive({
       option: props.option,
       showFlag: false,
       mounted: (() => {
-        const dfd = defer()
-        onMounted(() => setTimeout(() => dfd.resolve(), 0))
-        return dfd.promise
+        const dfd = defer();
+        onMounted(() => setTimeout(() => dfd.resolve(), 0));
+        return dfd.promise;
       })(),
-      editData: [] as any[]
-    })
+      editData: [] as any[],
+    });
 
     const methods = {
       service: (option: TablePropEditorServiceOption) => {
-        state.option = option
-        state.editData = cloneDeep(option.data || [])
-        methods.show()
+        state.option = option;
+        state.editData = cloneDeep(option.data || []);
+        methods.show();
       },
       show: async () => {
-        await state.mounted
-        state.showFlag = true
+        await state.mounted;
+        state.showFlag = true;
       },
       hide: () => {
-        state.showFlag = false
+        state.showFlag = false;
       },
       add: () => {
-        state.editData.push({})
+        state.editData.push({});
       },
       reset: () => {
-        state.editData = cloneDeep(state.option.data)
-      }
-    }
+        state.editData = cloneDeep(state.option.data);
+      },
+    };
 
     const handler = {
       onConfirm: () => {
-        state.option.onConfirm(state.editData)
-        methods.hide()
+        state.option.onConfirm(state.editData);
+        methods.hide();
       },
       onCancel: () => {
-        methods.hide()
+        methods.hide();
       },
       onDelete: (index: number) => {
-        state.editData.splice(index, 1)
-      }
-    }
+        state.editData.splice(index, 1);
+      },
+    };
 
-    Object.assign(ctx.proxy!, methods)
+    Object.assign(ctx.proxy!, methods);
 
     return () => (
       <>
@@ -79,7 +79,7 @@ const ServiceComponent = defineComponent({
                   {state.option.config.table!.options.map((item) => (
                     <ElTableColumn {...({ label: item.label } as any)}>
                       {{
-                        default: ({ row }: { row: any }) => <ElInput v-model={row[item.field]} />
+                        default: ({ row }: { row: any }) => <ElInput v-model={row[item.field]} />,
                       }}
                     </ElTableColumn>
                   ))}
@@ -92,7 +92,7 @@ const ServiceComponent = defineComponent({
                         >
                           删除
                         </ElButton>
-                      )
+                      ),
                     }}
                   </ElTableColumn>
                 </ElTable>
@@ -105,28 +105,28 @@ const ServiceComponent = defineComponent({
                   确定
                 </ElButton>
               </>
-            )
+            ),
           }}
         </ElDialog>
       </>
-    )
-  }
-})
+    );
+  },
+});
 
 export const $$tablePropEditor = (() => {
-  let ins: any
+  let ins: any;
   return (option: Omit<TablePropEditorServiceOption, 'onConfirm'>) => {
     if (!ins) {
-      const el = document.createElement('div')
-      document.body.appendChild(el)
-      const app = createApp(ServiceComponent, { option })
-      ins = app.mount(el)
+      const el = document.createElement('div');
+      document.body.appendChild(el);
+      const app = createApp(ServiceComponent, { option });
+      ins = app.mount(el);
     }
-    const dfd = defer<any[]>()
+    const dfd = defer<any[]>();
     ins.service({
       ...option,
-      onConfirm: dfd.resolve
-    })
-    return dfd.promise
-  }
-})()
+      onConfirm: dfd.resolve,
+    });
+    return dfd.promise;
+  };
+})();

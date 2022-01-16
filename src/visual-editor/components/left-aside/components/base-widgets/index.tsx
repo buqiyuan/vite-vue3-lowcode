@@ -7,7 +7,7 @@
  * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\base-widgets\index.tsx
  */
 import { defineComponent, ref } from 'vue';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { visualConfig } from '@/visual.config';
 import styles from './index.module.scss';
 import { createNewBlock } from '@/visual-editor/visual-editor.utils';

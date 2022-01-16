@@ -55,7 +55,9 @@
     "preview/**/*.ts",
     "preview/**/*.d.ts",
     "preview/**/*.tsx",
-    "preview/**/*.vue"
+    "preview/**/*.vue",
+    "components.d.ts",
+    "auto-imports.d.ts"
   ],
   "exclude": [
     "node_modules",

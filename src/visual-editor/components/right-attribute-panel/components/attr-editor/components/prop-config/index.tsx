@@ -23,7 +23,7 @@ import {
 import { useDotProp } from '@/visual-editor/hooks/useDotProp';
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props';
 import { TablePropEditor, CrossSortableOptionsEditor } from '../../components';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { Warning } from '@element-plus/icons-vue';

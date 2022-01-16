@@ -25,7 +25,7 @@ import { isObject } from '@/visual-editor/utils/is';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import { PropConfig } from '../prop-config';
 import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { Rank, CirclePlus, Remove } from '@element-plus/icons-vue';
 
 interface OptionItem extends LabelValue {
@@ -175,7 +175,7 @@ export const CrossSortableOptionsEditor = defineComponent({
               <ElTabs type={'border-card'}>
                 {state.list.map((item: OptionItem) => (
                   <ElTabPane label={item.label} key={item.label}>
-                    <ElForm labelPosition={'left'}>
+                    <ElForm labelPosition={'left'} size="small">
                       <PropConfig component={item.component} block={item.block} />
                     </ElForm>
                   </ElTabPane>

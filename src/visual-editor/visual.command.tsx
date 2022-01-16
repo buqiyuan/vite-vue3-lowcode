@@ -1,6 +1,6 @@
 // import { useCommander } from './plugins/command.plugin'
 // import { VisualEditorBlockData, VisualEditorModelValue } from './visual-editor.utils'
-// import { cloneDeep } from 'lodash'
+// import { cloneDeep } from 'lodash-es'
 //
 // export function useVisualCommand({
 //   focusData,

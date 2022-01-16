@@ -68,7 +68,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import Preview from './preview.vue';
   import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData';
   import { BASE_URL } from '@/visual-editor/utils';

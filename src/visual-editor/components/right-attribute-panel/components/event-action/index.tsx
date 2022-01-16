@@ -24,7 +24,7 @@ import {
 import type { Action } from '@/visual-editor/visual-editor.utils';
 import { generateNanoid } from '@/visual-editor/utils/';
 import { useModal } from '@/visual-editor/hooks/useModal';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 interface IState {
   activeNames: string[];

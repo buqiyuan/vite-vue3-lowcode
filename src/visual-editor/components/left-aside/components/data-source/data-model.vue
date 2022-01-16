@@ -63,7 +63,7 @@
   import { useVisualData, fieldTypes } from '@/visual-editor/hooks/useVisualData';
   import type { VisualEditorModel } from '@/visual-editor/visual-editor.utils';
   import { useModal } from '@/visual-editor/hooks/useModal';
-  import { cloneDeep } from 'lodash';
+  import { cloneDeep } from 'lodash-es';
   import { generateNanoid } from '@/visual-editor/utils/';
   import { useImportSwaggerJsonModal } from './utils';
   import { Delete, Edit } from '@element-plus/icons-vue';

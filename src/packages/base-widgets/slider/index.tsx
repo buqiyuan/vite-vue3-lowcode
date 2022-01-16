@@ -16,7 +16,7 @@ import {
   createEditorModelBindProp,
   createEditorSwitchProp,
 } from '@/visual-editor/visual-editor.props';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 
 export default {
   key: 'slider',
