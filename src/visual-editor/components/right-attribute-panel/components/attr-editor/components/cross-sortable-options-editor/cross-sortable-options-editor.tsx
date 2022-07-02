@@ -21,12 +21,12 @@ import {
   ElIcon,
 } from 'element-plus';
 import { useVModel } from '@vueuse/core';
-import { isObject } from '@/visual-editor/utils/is';
-import { useVisualData } from '@/visual-editor/hooks/useVisualData';
-import { PropConfig } from '../prop-config';
-import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { cloneDeep } from 'lodash-es';
 import { Rank, CirclePlus, Remove } from '@element-plus/icons-vue';
+import { PropConfig } from '../prop-config';
+import { isObject } from '@/visual-editor/utils/is';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
+import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 
 interface OptionItem extends LabelValue {
   component?: VisualEditorComponent;

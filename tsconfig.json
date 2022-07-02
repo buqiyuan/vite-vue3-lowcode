@@ -24,26 +24,12 @@
     "removeComments": false,
     "strictFunctionTypes": false,
     "baseUrl": ".",
-    "types": [
-      "vite/client",
-      "node",
-      "element-plus/global"
-    ],
-    "typeRoots": [
-      "./node_modules/@types/",
-      "./types"
-    ],
+    "types": ["vite/client", "node", "element-plus/global", "unplugin-vue-define-options"],
+    "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
     "src/**/*.ts",
@@ -59,8 +45,5 @@
     "components.d.ts",
     "auto-imports.d.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

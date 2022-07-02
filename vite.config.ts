@@ -1,12 +1,14 @@
+import { resolve } from 'path';
 import { ConfigEnv, loadEnv, UserConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
-import { resolve } from 'path';
 import { ElementPlusResolver, VantResolver } from 'unplugin-vue-components/resolvers';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import WindiCSS from 'vite-plugin-windicss';
+import checker from 'vite-plugin-checker';
+import DefineOptions from 'unplugin-vue-define-options/vite';
 
 const CWD = process.cwd();
 
@@ -31,7 +33,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         },
       },
       // TODO 构建包含@charset问题 https://github.com/vitejs/vite/issues/5833
-      charset: false,
+      // charset: false,
       postcss: {
         plugins: [
           {
@@ -51,9 +53,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       vue(),
       vueJsx(),
       WindiCSS(),
+      // https://github.com/sxzz/unplugin-vue-define-options
+      DefineOptions(),
       legacy({
         targets: ['defaults', 'not IE 11'],
       }),
+      // https://github.com/antfu/unplugin-auto-import#readme
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -67,6 +72,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       Components({
         dts: true,
         resolvers: [ElementPlusResolver(), VantResolver()],
+      }),
+      // https://github.com/fi3ework/vite-plugin-checker
+      checker({
+        typescript: true,
+        // vueTsc: true,
+        eslint: {
+          lintCommand: 'eslint "./src/**/*.{.vue,ts,tsx}"', // for example, lint .ts & .tsx
+        },
       }),
     ],
     resolve: {

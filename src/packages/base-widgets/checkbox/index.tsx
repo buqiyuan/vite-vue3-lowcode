@@ -6,17 +6,17 @@
  * @Description: 表单项类型 - 复选框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\checkbox\index.tsx
  */
-import { computed } from 'vue'
-import { Field, Checkbox, CheckboxGroup } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { computed } from 'vue';
+import { Field, Checkbox, CheckboxGroup } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorInputProp,
   createEditorSelectProp,
   createEditorCrossSortableProp,
-  createEditorModelBindProp
-} from '@/visual-editor/visual-editor.props'
+  createEditorModelBindProp,
+} from '@/visual-editor/visual-editor.props';
 
 export default {
   key: 'checkbox',
@@ -33,14 +33,16 @@ export default {
     </CheckboxGroup>
   ),
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     const checkList = computed({
       get() {
-        return typeof props.modelValue === 'string' ? props.modelValue.split(',') : props.modelValue
+        return typeof props.modelValue === 'string'
+          ? props.modelValue.split(',')
+          : props.modelValue;
       },
-      set: (val) => (props.modelValue = val)
-    })
+      set: (val) => (props.modelValue = val),
+    });
 
     return () => (
       <div style={styles}>
@@ -61,16 +63,16 @@ export default {
                   </Checkbox>
                 ))}
               </CheckboxGroup>
-            )
+            ),
           }}
         />
       </div>
-    )
+    );
   },
   props: {
     modelValue: createEditorInputProp({
       label: '默认值',
-      defaultValue: []
+      defaultValue: [],
     }),
     name: createEditorModelBindProp({ label: '字段绑定', defaultValue: '' }),
     label: createEditorInputProp({ label: '输入框左侧文本', defaultValue: '复选框' }),
@@ -81,33 +83,33 @@ export default {
       defaultValue: [
         { label: '胡萝卜', value: 'carrot' },
         { label: '白菜', value: 'cabbage' },
-        { label: '猪', value: 'pig' }
-      ]
+        { label: '猪', value: 'pig' },
+      ],
     }),
     direction: createEditorSelectProp({
       label: '排列方向',
       options: [
         {
           label: '水平',
-          value: 'horizontal'
+          value: 'horizontal',
         },
         {
           label: '垂直',
-          value: 'vertical'
-        }
+          value: 'vertical',
+        },
       ],
-      defaultValue: 'horizontal'
+      defaultValue: 'horizontal',
     }),
-    ...createFieldProps()
+    ...createFieldProps(),
   },
   events: [
     { label: '当绑定值变化时触发的事件', value: 'change' },
-    { label: '点击复选框时触发', value: 'click' }
+    { label: '点击复选框时触发', value: 'click' },
   ],
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

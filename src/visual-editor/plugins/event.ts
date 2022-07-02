@@ -1,17 +1,17 @@
-type SimplyListener = () => void
+type SimplyListener = () => void;
 
 export function createEvent() {
-  const listeners: SimplyListener[] = []
+  const listeners: SimplyListener[] = [];
   return {
     on: (cb: SimplyListener) => {
-      listeners.push(cb)
+      listeners.push(cb);
     },
     off: (cb: SimplyListener) => {
-      const index = listeners.indexOf(cb)
-      if (index > -1) listeners.splice(index, 1)
+      const index = listeners.indexOf(cb);
+      if (index > -1) listeners.splice(index, 1);
     },
     emit: () => {
-      listeners.forEach((item) => item())
-    }
-  }
+      listeners.forEach((item) => item());
+    },
+  };
 }

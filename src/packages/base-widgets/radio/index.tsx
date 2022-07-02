@@ -6,16 +6,16 @@
  * @Description: 表单项类型 - 单选框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\radio\index.tsx
  */
-import { Field, Radio, RadioGroup } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { Field, Radio, RadioGroup } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorCrossSortableProp,
   createEditorInputProp,
   createEditorModelBindProp,
-  createEditorSelectProp
-} from '@/visual-editor/visual-editor.props'
+  createEditorSelectProp,
+} from '@/visual-editor/visual-editor.props';
 
 export default {
   key: 'radio',
@@ -28,7 +28,7 @@ export default {
     </RadioGroup>
   ),
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     return () => (
       <div style={styles}>
@@ -49,11 +49,11 @@ export default {
                   </Radio>
                 ))}
               </RadioGroup>
-            )
+            ),
           }}
         />
       </div>
-    )
+    );
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: '' }),
@@ -66,30 +66,30 @@ export default {
       defaultValue: [
         { label: '胡萝卜', value: 'carrot' },
         { label: '白菜', value: 'cabbage' },
-        { label: '猪', value: 'pig' }
-      ]
+        { label: '猪', value: 'pig' },
+      ],
     }),
     direction: createEditorSelectProp({
       label: '排列方向',
       options: [
         {
           label: '水平',
-          value: 'horizontal'
+          value: 'horizontal',
         },
         {
           label: '垂直',
-          value: 'vertical'
-        }
+          value: 'vertical',
+        },
       ],
-      defaultValue: 'horizontal'
+      defaultValue: 'horizontal',
     }),
-    ...createFieldProps()
+    ...createFieldProps(),
   },
   events: [{ label: '点击单选框时触发', value: 'click' }],
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

@@ -23,7 +23,7 @@
           <div class="model-item-title">
             <span class="truncate w-160px">{{ item.name }}</span>
             <div class="model-actions">
-              <el-icon size="24" color="#2196f3" @click.stop="editModel(item)">
+              <el-icon :size="24" color="#2196f3" @click.stop="editModel(item)">
                 <Edit />
               </el-icon>
               <el-popconfirm
@@ -32,7 +32,7 @@
                 @confirm="deleteModel(item.key)"
               >
                 <template #reference>
-                  <el-icon size="24" color="#f44336"><Delete /></el-icon>
+                  <el-icon :size="24" color="#f44336"><Delete /></el-icon>
                 </template>
               </el-popconfirm>
             </div>
@@ -59,14 +59,15 @@
     ElCard,
     ElButton,
     ElMessage,
+    ElIcon,
   } from 'element-plus';
-  import { useVisualData, fieldTypes } from '@/visual-editor/hooks/useVisualData';
-  import type { VisualEditorModel } from '@/visual-editor/visual-editor.utils';
-  import { useModal } from '@/visual-editor/hooks/useModal';
   import { cloneDeep } from 'lodash-es';
-  import { generateNanoid } from '@/visual-editor/utils/';
-  import { useImportSwaggerJsonModal } from './utils';
   import { Delete, Edit } from '@element-plus/icons-vue';
+  import { useImportSwaggerJsonModal } from './utils';
+  import type { VisualEditorModel } from '@/visual-editor/visual-editor.utils';
+  import { useVisualData, fieldTypes } from '@/visual-editor/hooks/useVisualData';
+  import { useModal } from '@/visual-editor/hooks/useModal';
+  import { generateNanoid } from '@/visual-editor/utils/';
 
   interface IState {
     activeNames: string[];
@@ -261,6 +262,7 @@
 
     .model-actions {
       display: flex;
+
       i {
         padding: 6px;
         margin: 0 2px;

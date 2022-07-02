@@ -7,11 +7,8 @@
  */
 import { reactive } from 'vue';
 import { ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
-import { useQRCode } from '@vueuse/integrations';
+import { useQRCode } from '@vueuse/integrations/useQRCode';
 import { useClipboard } from '@vueuse/core';
-import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData';
-import { useModal } from '@/visual-editor/hooks/useModal';
-import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor';
 import {
   DocumentCopy,
   Cellphone,
@@ -23,6 +20,9 @@ import {
   Download,
   Upload,
 } from '@element-plus/icons-vue';
+import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData';
+import { useModal } from '@/visual-editor/hooks/useModal';
+import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor';
 import 'element-plus/es/components/message/style/css';
 
 export const useTools = () => {
@@ -95,7 +95,7 @@ export const useTools = () => {
       title: '真机预览',
       icon: Cellphone,
       onClick: () => {
-        const qrcode = useQRCode(location.origin + '/preview');
+        const qrcode = useQRCode(`${location.origin}/preview`);
         useModal({
           title: '预览二维码（暂不可用）',
           props: {

@@ -8,10 +8,10 @@
  */
 import { defineComponent, computed, watch } from 'vue';
 import { ElForm, ElFormItem, ElPopover, ElRadioGroup, ElRadioButton, ElIcon } from 'element-plus';
+import { Warning } from '@element-plus/icons-vue';
+import { PropConfig } from './components/prop-config';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import { FormatInputNumber } from '@/visual-editor/components/common/format-input-number';
-import { PropConfig } from './components/prop-config';
-import { Warning } from '@element-plus/icons-vue';
 
 export const AttrEditor = defineComponent({
   setup() {
@@ -75,8 +75,8 @@ export const AttrEditor = defineComponent({
             </ElFormItem>
           </>,
         );
-        if (!!component) {
-          if (!!component.props) {
+        if (component) {
+          if (component.props) {
             content.push(<PropConfig component={component} block={currentBlock.value} />);
             {
               currentBlock.value.showStyleConfig &&

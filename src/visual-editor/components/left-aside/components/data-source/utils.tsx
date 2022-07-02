@@ -1,19 +1,18 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-27 13:15:19
- * @LastEditTime: 2021-06-27 15:22:51
+ * @LastEditTime: 2022-07-02 23:12:37
  * @LastEditors: 卜启缘
  * @Description:
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\utils.tsx
+ * @FilePath: /vite-vue3-lowcode/src/visual-editor/components/left-aside/components/data-source/utils.tsx
  */
+import { ElMessage } from 'element-plus';
+import type { FetchApiItem, VisualEditorModel } from '@/visual-editor/visual-editor.utils';
 import { generateNanoid } from '@/visual-editor/utils';
-import type { FetchApiItem } from '@/visual-editor/visual-editor.utils';
 import { RequestEnum } from '@/enums/httpEnum';
 import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
-import type { VisualEditorModel } from '@/visual-editor/visual-editor.utils';
 import { useModal } from '@/visual-editor/hooks/useModal';
-import { ElMessage } from 'element-plus';
 
 /**
  * @description 导入丝袜哥, eg: 简单的解析代码，需要根据自己需要完善
@@ -51,7 +50,7 @@ export const importSwaggerJson = (swagger: any) => {
         key: generateNanoid(),
         name: apiUrlObj.summary,
         options: {
-          url: url, // 请求的url
+          url, // 请求的url
           method: method.toLocaleUpperCase() as RequestEnum, // 请求的方法
           contentType: apiUrlObj.produces[0] || apiUrlObj.consumes[0], // 请求的内容类型
         },

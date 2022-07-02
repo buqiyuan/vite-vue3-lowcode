@@ -1,30 +1,30 @@
-import type { Animation } from '@/visual-editor/visual-editor.utils'
+import type { Animation } from '@/visual-editor/visual-editor.utils';
 
 export interface animationBoxTs {
-  label: string
-  value: Animation[]
+  label: string;
+  value: Animation[];
 }
 // 动画类型
 export interface animationTabsTs {
-  in: animationBoxTs
-  out: animationBoxTs
-  other: animationBoxTs
+  in: animationBoxTs;
+  out: animationBoxTs;
+  other: animationBoxTs;
 }
 
 export const animationTabs: animationTabsTs = {
   in: {
     label: '进入',
-    value: []
+    value: [],
   },
   out: {
     label: '退出',
-    value: []
+    value: [],
   },
   other: {
     label: '其他',
-    value: []
-  }
-}
+    value: [],
+  },
+};
 
 const opt = [
   {
@@ -33,41 +33,41 @@ const opt = [
     children: [
       {
         label: '弹跳',
-        value: 'bounce'
+        value: 'bounce',
       },
       {
         label: '闪烁',
-        value: 'flash'
+        value: 'flash',
       },
       {
         label: '跳动',
-        value: 'pulse'
+        value: 'pulse',
       },
       {
         label: '抖动',
-        value: 'headShake'
+        value: 'headShake',
       },
       {
         label: '摇摆',
-        value: 'swing'
+        value: 'swing',
       },
       {
         label: '橡皮圈',
-        value: 'rubberBand'
+        value: 'rubberBand',
       },
       {
         label: '果冻',
-        value: 'jello'
+        value: 'jello',
       },
       {
         label: '晃动',
-        value: 'tada'
+        value: 'tada',
       },
       {
         label: '抖动',
-        value: 'wobble'
-      }
-    ]
+        value: 'wobble',
+      },
+    ],
   },
 
   {
@@ -76,25 +76,25 @@ const opt = [
     children: [
       {
         label: '弹跳进入',
-        value: 'bounceIn'
+        value: 'bounceIn',
       },
       {
         label: '向下弹跳进入',
-        value: 'bounceInDown'
+        value: 'bounceInDown',
       },
       {
         label: '向右弹跳进入',
-        value: 'bounceInLeft'
+        value: 'bounceInLeft',
       },
       {
         label: '向左弹跳进入',
-        value: 'bounceInRight'
+        value: 'bounceInRight',
       },
       {
         label: '向上弹跳进入',
-        value: 'bounceInUp'
-      }
-    ]
+        value: 'bounceInUp',
+      },
+    ],
   },
 
   {
@@ -103,25 +103,25 @@ const opt = [
     children: [
       {
         label: '弹跳退出',
-        value: 'bounceOut'
+        value: 'bounceOut',
       },
       {
         label: '向下弹跳退出',
-        value: 'bounceOutDown'
+        value: 'bounceOutDown',
       },
       {
         label: '向左弹跳退出',
-        value: 'bounceOutLeft'
+        value: 'bounceOutLeft',
       },
       {
         label: '向右弹跳退出',
-        value: 'bounceOutRight'
+        value: 'bounceOutRight',
       },
       {
         label: '向上弹跳退出',
-        value: 'bounceOutUp'
-      }
-    ]
+        value: 'bounceOutUp',
+      },
+    ],
   },
 
   {
@@ -130,41 +130,41 @@ const opt = [
     children: [
       {
         label: '渐显进入',
-        value: 'fadeIn'
+        value: 'fadeIn',
       },
       {
         label: '向下渐显进入',
-        value: 'fadeInDown'
+        value: 'fadeInDown',
       },
       {
         label: '由屏幕外向下渐显进入',
-        value: 'fadeInDownBig'
+        value: 'fadeInDownBig',
       },
       {
         label: '向右显进入',
-        value: 'fadeInLeft'
+        value: 'fadeInLeft',
       },
       {
         label: '由屏幕外向右渐显进入',
-        value: 'fadeInLeftBig'
+        value: 'fadeInLeftBig',
       },
       {
         label: '向左渐显进入',
-        value: 'fadeInRight'
+        value: 'fadeInRight',
       },
       {
         label: '由屏幕外向左渐显进入',
-        value: 'fadeInRightBig'
+        value: 'fadeInRightBig',
       },
       {
         label: '向上渐显进入',
-        value: 'fadeInUp'
+        value: 'fadeInUp',
       },
       {
         label: '由屏幕外向上渐显进入',
-        value: 'fadeInUpBig'
-      }
-    ]
+        value: 'fadeInUpBig',
+      },
+    ],
   },
 
   {
@@ -173,41 +173,41 @@ const opt = [
     children: [
       {
         label: '渐隐退出',
-        value: 'fadeOut'
+        value: 'fadeOut',
       },
       {
         label: '向下渐隐退出',
-        value: 'fadeOutDown'
+        value: 'fadeOutDown',
       },
       {
         label: '向下渐隐退出屏幕外',
-        value: 'fadeOutDownBig'
+        value: 'fadeOutDownBig',
       },
       {
         label: '向左渐隐退出',
-        value: 'fadeOutLeft'
+        value: 'fadeOutLeft',
       },
       {
         label: '向左渐隐退出屏幕外',
-        value: 'fadeOutLeftBig'
+        value: 'fadeOutLeftBig',
       },
       {
         label: '向右渐隐退出',
-        value: 'fadeOutRight'
+        value: 'fadeOutRight',
       },
       {
         label: '向右渐隐退出屏幕外',
-        value: 'fadeOutRightBig'
+        value: 'fadeOutRightBig',
       },
       {
         label: '向上渐隐退出',
-        value: 'fadeOutUp'
+        value: 'fadeOutUp',
       },
       {
         label: '向上渐隐退出屏幕外',
-        value: 'fadeOutUpBig'
-      }
-    ]
+        value: 'fadeOutUpBig',
+      },
+    ],
   },
 
   {
@@ -216,25 +216,25 @@ const opt = [
     children: [
       {
         label: '翻动',
-        value: 'flip'
+        value: 'flip',
       },
       {
         label: '纵向翻动',
-        value: 'flipInX'
+        value: 'flipInX',
       },
       {
         label: '横向翻动',
-        value: 'flipInY'
+        value: 'flipInY',
       },
       {
         label: '立体纵向翻动',
-        value: 'flipOutX'
+        value: 'flipOutX',
       },
       {
         label: '立体横向翻动',
-        value: 'flipOutY'
-      }
-    ]
+        value: 'flipOutY',
+      },
+    ],
   },
 
   {
@@ -243,21 +243,21 @@ const opt = [
     children: [
       {
         label: '向左加速进入',
-        value: 'lightSpeedInRight'
+        value: 'lightSpeedInRight',
       },
       {
         label: '向右加速进入',
-        value: 'lightSpeedInLeft'
+        value: 'lightSpeedInLeft',
       },
       {
         label: '向右加速退出',
-        value: 'lightSpeedOutRight'
+        value: 'lightSpeedOutRight',
       },
       {
         label: '向左加速退出',
-        value: 'lightSpeedOutLeft'
-      }
-    ]
+        value: 'lightSpeedOutLeft',
+      },
+    ],
   },
 
   {
@@ -266,25 +266,25 @@ const opt = [
     children: [
       {
         label: '旋转渐显',
-        value: 'rotateIn'
+        value: 'rotateIn',
       },
       {
         label: '左下角旋转渐显',
-        value: 'rotateInDownLeft'
+        value: 'rotateInDownLeft',
       },
       {
         label: '右下角旋转渐显',
-        value: 'rotateInDownRight'
+        value: 'rotateInDownRight',
       },
       {
         label: '左上角旋转渐显',
-        value: 'rotateInUpLeft'
+        value: 'rotateInUpLeft',
       },
       {
         label: '右上角旋转渐显',
-        value: 'rotateInUpRight'
-      }
-    ]
+        value: 'rotateInUpRight',
+      },
+    ],
   },
 
   {
@@ -293,25 +293,25 @@ const opt = [
     children: [
       {
         label: '旋转渐隐',
-        value: 'rotateOut'
+        value: 'rotateOut',
       },
       {
         label: '左下角旋转渐隐',
-        value: 'rotateOutDownLeft'
+        value: 'rotateOutDownLeft',
       },
       {
         label: '左下角旋转渐隐',
-        value: 'rotateOutDownRight'
+        value: 'rotateOutDownRight',
       },
       {
         label: '左上角旋转渐隐',
-        value: 'rotateOutUpLeft'
+        value: 'rotateOutUpLeft',
       },
       {
         label: '右上角旋转渐隐',
-        value: 'rotateOutUpRight'
-      }
-    ]
+        value: 'rotateOutUpRight',
+      },
+    ],
   },
 
   {
@@ -320,21 +320,21 @@ const opt = [
     children: [
       {
         label: '向上平移进入',
-        value: 'slideInUp'
+        value: 'slideInUp',
       },
       {
         label: '向下平移进入',
-        value: 'slideInDown'
+        value: 'slideInDown',
       },
       {
         label: '向右平移进入',
-        value: 'slideInLeft'
+        value: 'slideInLeft',
       },
       {
         label: '向左平移进入',
-        value: 'slideInRight'
-      }
-    ]
+        value: 'slideInRight',
+      },
+    ],
   },
   {
     label: '平移退出',
@@ -342,21 +342,21 @@ const opt = [
     children: [
       {
         label: '向上平移退出',
-        value: 'slideOutUp'
+        value: 'slideOutUp',
       },
       {
         label: '向下平移退出',
-        value: 'slideOutDown'
+        value: 'slideOutDown',
       },
       {
         label: '向左平移退出',
-        value: 'slideOutLeft'
+        value: 'slideOutLeft',
       },
       {
         label: '向右平移退出',
-        value: 'slideOutRight'
-      }
-    ]
+        value: 'slideOutRight',
+      },
+    ],
   },
 
   {
@@ -365,25 +365,25 @@ const opt = [
     children: [
       {
         label: '放大进入',
-        value: 'zoomIn'
+        value: 'zoomIn',
       },
       {
         label: '向下放大进入',
-        value: 'zoomInDown'
+        value: 'zoomInDown',
       },
       {
         label: '向右放大进入',
-        value: 'zoomInLeft'
+        value: 'zoomInLeft',
       },
       {
         label: '向左放大进入',
-        value: 'zoomInRight'
+        value: 'zoomInRight',
       },
       {
         label: '向上放大进入',
-        value: 'zoomInUp'
-      }
-    ]
+        value: 'zoomInUp',
+      },
+    ],
   },
 
   {
@@ -392,25 +392,25 @@ const opt = [
     children: [
       {
         label: '缩小退出',
-        value: 'zoomOut'
+        value: 'zoomOut',
       },
       {
         label: '向下缩小退出',
-        value: 'zoomOutDown'
+        value: 'zoomOutDown',
       },
       {
         label: '向左缩小退出',
-        value: 'zoomOutLeft'
+        value: 'zoomOutLeft',
       },
       {
         label: '向右缩小退出',
-        value: 'zoomOutRight'
+        value: 'zoomOutRight',
       },
       {
         label: '向上缩小退出',
-        value: 'zoomOutUp'
-      }
-    ]
+        value: 'zoomOutUp',
+      },
+    ],
   },
 
   {
@@ -419,51 +419,51 @@ const opt = [
     children: [
       {
         label: '悬挂',
-        value: 'hinge'
+        value: 'hinge',
       },
       {
         label: '滚动进入',
-        value: 'rollIn'
+        value: 'rollIn',
       },
       {
         label: '滚动退出',
-        value: 'rollOut'
-      }
-    ]
-  }
-]
+        value: 'rollOut',
+      },
+    ],
+  },
+];
 
 /**
  * @return {Object} { animationValue: animatonLabel }
  */
-const inReg = /进|渐显/
-const outReg = /退|渐隐/
+const inReg = /进|渐显/;
+const outReg = /退|渐隐/;
 const defaultOption = {
   delay: 0,
   count: 1,
   duration: 1,
-  infinite: false
-}
+  infinite: false,
+};
 for (let index = 0; index < opt.length; index++) {
-  const items = opt[index].children
+  const items = opt[index].children;
   items.forEach((item) => {
     if (inReg.test(item.label)) {
       animationTabs.in.value.push({
         ...item,
-        ...defaultOption
-      })
+        ...defaultOption,
+      });
     } else if (outReg.test(item.label)) {
       animationTabs.out.value.push({
         ...item,
-        ...defaultOption
-      })
+        ...defaultOption,
+      });
     } else {
       animationTabs.other.value.push({
         ...item,
-        ...defaultOption
-      })
+        ...defaultOption,
+      });
     }
-  })
+  });
 }
 
-export default animationTabs
+export default animationTabs;

@@ -1,10 +1,10 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 00:35:17
- * @LastEditTime: 2021-07-07 14:02:29
+ * @LastEditTime: 2022-07-02 18:26:09
  * @LastEditors: 卜启缘
  * @Description: 左侧边栏
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\index.vue
+ * @FilePath: /vite-vue3-lowcode/src/visual-editor/components/left-aside/index.vue
 -->
 <template>
   <el-tabs v-model="activeName" tab-position="left" class="left-aside">
@@ -22,18 +22,16 @@
   </el-tabs>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'LeftAside',
-  };
-</script>
-
 <script lang="ts" setup>
   /**
    * @description 左侧边栏
    */
   import { ref } from 'vue';
   import components from './components';
+
+  defineOptions({
+    name: 'LeftAside',
+  });
 
   const tabs = Object.keys(components)
     .map((name) => {

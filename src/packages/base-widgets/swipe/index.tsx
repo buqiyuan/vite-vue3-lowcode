@@ -6,16 +6,16 @@
  * @Description: 轮播图组件
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\swipe\index.tsx
  */
-import { Swipe, SwipeItem } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { Swipe, SwipeItem } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 
 const swipeItemStyle = `color: #fff;
 font-size: 20px;
 line-height: 150px;
 text-align: center;
-background-color: #39a9ed;`
+background-color: #39a9ed;`;
 
 export default {
   key: 'swipe',
@@ -30,7 +30,7 @@ export default {
     </Swipe>
   ),
   render: ({ block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     return () => (
       <div>
@@ -48,15 +48,15 @@ export default {
           ))}
         </Swipe>
       </div>
-    )
+    );
   },
   props: createFieldProps(),
   events: [{ label: '每一页轮播结束后触发', value: 'change' }],
   showStyleConfig: false,
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

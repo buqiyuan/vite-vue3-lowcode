@@ -68,11 +68,11 @@
 </template>
 
 <script lang="ts" setup>
+  import { VideoPlay } from '@element-plus/icons-vue';
   import Preview from './preview.vue';
+  import { useTools } from './useTools';
   import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData';
   import { BASE_URL } from '@/visual-editor/utils';
-  import { useTools } from './useTools';
-  import { VideoPlay } from '@element-plus/icons-vue';
 
   const isShowH5Preview = ref(false);
 

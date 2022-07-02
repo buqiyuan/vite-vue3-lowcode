@@ -7,8 +7,8 @@
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\rate\index.tsx
  */
 import { Field, Rate } from 'vant';
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorInputNumberProp,

@@ -1,21 +1,21 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 
-import router from './router'
+import router from './router';
 
-import { setupVant } from '@/plugins/vant'
+import { setupVant } from '@/plugins/vant';
 
-import 'animate.css'
+import 'animate.css';
 
-const app = createApp(App)
+const app = createApp(App);
 
 // 安装vant插件
-setupVant(app)
+setupVant(app);
 
-app.config.globalProperties.$$refs = {}
+app.config.globalProperties.$$refs = {};
 
 // if (import.meta.env.DEV) {
-window.$$refs = app.config.globalProperties.$$refs
+window.$$refs = app.config.globalProperties.$$refs;
 // }
 
-app.use(router).mount('#app')
+app.use(router).mount('#app');

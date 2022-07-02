@@ -14,101 +14,101 @@ export enum VisualEditorPropsType {
   /** 模型绑定选择器 */
   modelBind = 'ModelBind',
   /** 可拖拽项 */
-  crossSortable = 'CrossSortable'
+  crossSortable = 'CrossSortable',
 }
 
 export type VisualEditorProps = {
-  type: VisualEditorPropsType
+  type: VisualEditorPropsType;
   /** 表单项标签名称 */
-  label: string
+  label: string;
   /** 表单项提示说明 */
-  tips?: string
+  tips?: string;
   /** 表单域标签的位置 */
-  labelPosition?: string
+  labelPosition?: string;
   /** 表单项默认值 */
-  defaultValue?: any
+  defaultValue?: any;
 } & {
   /** 可选项 */
-  options?: VisualEditorSelectOptions
+  options?: VisualEditorSelectOptions;
   /** 是否可以多选 */
-  multiple?: boolean
+  multiple?: boolean;
   /** 项属性配置 */
-  showItemPropsConfig?: boolean
+  showItemPropsConfig?: boolean;
 } & {
-  max?: number
-  min?: number
+  max?: number;
+  min?: number;
 } & {
-  table?: VisualEditorTableOption
-}
+  table?: VisualEditorTableOption;
+};
 
 /*---------------------------------------modelBind-------------------------------------------*/
 interface EditorModelBindProp {
-  label: string
-  defaultValue?: any
-  tips?: string
+  label: string;
+  defaultValue?: any;
+  tips?: string;
 }
 
 export function createEditorModelBindProp({
   label = '字段绑定',
   defaultValue,
-  tips
+  tips,
 }: EditorModelBindProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.modelBind,
     label,
     tips,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 
 /*---------------------------------------switch-------------------------------------------*/
 interface EditorSwitchProp {
-  label: string
-  defaultValue?: boolean
-  tips?: string
+  label: string;
+  defaultValue?: boolean;
+  tips?: string;
 }
 
 export function createEditorSwitchProp({
   label,
   defaultValue,
-  tips
+  tips,
 }: EditorSwitchProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.switch,
     label,
     tips,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 
 /*---------------------------------------input-------------------------------------------*/
 
 interface EditorInputProp {
-  label: string
-  defaultValue?: any
-  tips?: string
+  label: string;
+  defaultValue?: any;
+  tips?: string;
 }
 
 export function createEditorInputProp({
   label,
   defaultValue,
-  tips
+  tips,
 }: EditorInputProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.input,
     label,
     tips,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 /*---------------------------------------InputNumber -------------------------------------------*/
 
 interface EditorInputNumberProp {
-  label: string
-  defaultValue?: any
-  tips?: string
-  max?: number
-  min?: number
+  label: string;
+  defaultValue?: any;
+  tips?: string;
+  max?: number;
+  min?: number;
 }
 
 export function createEditorInputNumberProp({
@@ -116,7 +116,7 @@ export function createEditorInputNumberProp({
   defaultValue,
   max,
   min,
-  tips
+  tips,
 }: EditorInputNumberProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.inputNumber,
@@ -124,39 +124,39 @@ export function createEditorInputNumberProp({
     tips,
     max,
     min,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 
 /*---------------------------------------color-------------------------------------------*/
 
 interface EditorColorProp {
-  label: string
-  defaultValue?: string
+  label: string;
+  defaultValue?: string;
 }
 
 export function createEditorColorProp({ label, defaultValue }: EditorColorProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.color,
     label,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 
 /*---------------------------------------select-------------------------------------------*/
 
 export type VisualEditorSelectOptions = {
-  label: string
-  value: string | number | boolean | object
-  [prop: string]: any
-}[]
+  label: string;
+  value: string | number | boolean | object;
+  [prop: string]: any;
+}[];
 
 interface EditorSelectProp {
-  label: string
-  options: VisualEditorSelectOptions
-  defaultValue?: any
-  multiple?: boolean
-  tips?: string
+  label: string;
+  options: VisualEditorSelectOptions;
+  defaultValue?: any;
+  multiple?: boolean;
+  tips?: string;
 }
 
 export function createEditorSelectProp({
@@ -164,7 +164,7 @@ export function createEditorSelectProp({
   options,
   defaultValue,
   tips,
-  multiple
+  multiple,
 }: EditorSelectProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.select,
@@ -172,47 +172,47 @@ export function createEditorSelectProp({
     defaultValue,
     tips,
     options,
-    multiple
-  }
+    multiple,
+  };
 }
 
 /*---------------------------------------table-------------------------------------------*/
 
 export type VisualEditorTableOption = {
   options: {
-    label: string // 列显示文本
-    field: string // 列绑定的字段
-  }[]
-  showKey: string
-}
+    label: string; // 列显示文本
+    field: string; // 列绑定的字段
+  }[];
+  showKey: string;
+};
 
 interface EditorTableProp {
-  label: string
-  option: VisualEditorTableOption
-  defaultValue?: { label: string; value: string }[]
+  label: string;
+  option: VisualEditorTableOption;
+  defaultValue?: { label: string; value: string }[];
 }
 
 export function createEditorTableProp({
   label,
   option,
-  defaultValue
+  defaultValue,
 }: EditorTableProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.table,
     label,
     table: option,
-    defaultValue
-  }
+    defaultValue,
+  };
 }
 
 /*---------------------------------------CrossSortableOptions-------------------------------------------*/
 
 interface EditorCrossSortableProp {
-  label: string
-  labelPosition: 'top' | ''
-  multiple?: boolean
-  showItemPropsConfig?: boolean
-  defaultValue?: string[] | VisualEditorSelectOptions
+  label: string;
+  labelPosition: 'top' | '';
+  multiple?: boolean;
+  showItemPropsConfig?: boolean;
+  defaultValue?: string[] | VisualEditorSelectOptions;
 }
 
 export function createEditorCrossSortableProp({
@@ -220,7 +220,7 @@ export function createEditorCrossSortableProp({
   labelPosition,
   multiple,
   showItemPropsConfig,
-  defaultValue
+  defaultValue,
 }: EditorCrossSortableProp): VisualEditorProps {
   return {
     type: VisualEditorPropsType.crossSortable,
@@ -228,6 +228,6 @@ export function createEditorCrossSortableProp({
     multiple,
     showItemPropsConfig,
     labelPosition,
-    defaultValue
-  }
+    defaultValue,
+  };
 }

@@ -6,16 +6,16 @@
  * @Description: 表单项类型 - 开关
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\switch\index.tsx
  */
-import { Field, Switch } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { Field, Switch } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorInputProp,
   createEditorSwitchProp,
   createEditorColorProp,
-  createEditorModelBindProp
-} from '@/visual-editor/visual-editor.props'
+  createEditorModelBindProp,
+} from '@/visual-editor/visual-editor.props';
 
 export default {
   key: 'switch',
@@ -25,7 +25,7 @@ export default {
     <Field name="switch" label="开关" v-slots={{ input: () => <Switch size={20} /> }} />
   ),
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     return () => (
       <div style={styles}>
@@ -40,11 +40,11 @@ export default {
                 {...props}
                 v-model={props.modelValue}
               />
-            )
+            ),
           }}
         />
       </div>
-    )
+    );
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值', defaultValue: 'false' }),
@@ -57,16 +57,16 @@ export default {
     disabled: createEditorSwitchProp({ label: '是否为禁用状态' }),
     loading: createEditorSwitchProp({ label: '是否为加载状态' }),
     size: createEditorInputProp({ label: '开关尺寸', defaultValue: '20px' }),
-    ...createFieldProps()
+    ...createFieldProps(),
   },
   events: [
     { label: '开关状态切换时触发', value: 'change' },
-    { label: '点击时触发', value: 'click' }
+    { label: '点击时触发', value: 'click' },
   ],
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

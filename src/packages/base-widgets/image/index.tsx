@@ -7,14 +7,14 @@
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\image\index.tsx
  */
 import { Image } from 'vant';
+import { Picture } from '@element-plus/icons-vue';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import {
   createEditorInputProp,
   createEditorSelectProp,
   createEditorSwitchProp,
 } from '@/visual-editor/visual-editor.props';
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { useGlobalProperties } from '@/hooks/useGlobalProperties';
-import { Picture } from '@element-plus/icons-vue';
 
 export default {
   key: 'image',

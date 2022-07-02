@@ -67,5 +67,5 @@ export const KeyboardCode = {
   120: 'F9',
   121: 'F10',
   122: 'F11',
-  123: 'F12'
-} as Record<number, string>
+  123: 'F12',
+} as Record<number, string>;

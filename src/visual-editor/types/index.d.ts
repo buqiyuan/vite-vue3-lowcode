@@ -10,43 +10,43 @@
 declare global {
   /** label-value一般用做选项 */
   type LabelValue = {
-    label: string
-    value: any
-  }
+    label: string;
+    value: any;
+  };
   /** label-value 数组 一般用做选项 */
-  type LabelValueOptions = OptionItem[]
+  type LabelValueOptions = OptionItem[];
 
-  type RequestIdleCallbackHandle = any
+  type RequestIdleCallbackHandle = any;
 
   type RequestIdleCallbackDeadline = {
-    readonly didTimeout: boolean
-    timeRemaining: () => number
-  }
+    readonly didTimeout: boolean;
+    timeRemaining: () => number;
+  };
 
   type RequestIdleCallbackOptions = {
-    timeout: number
-  }
+    timeout: number;
+  };
   interface Window {
-    $$refs: any
+    $$refs: any;
     requestIdleCallback: (
       callback: (deadline: RequestIdleCallbackDeadline) => void,
-      opts?: RequestIdleCallbackOptions
-    ) => RequestIdleCallbackHandle
-    cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void
+      opts?: RequestIdleCallbackOptions,
+    ) => RequestIdleCallbackHandle;
+    cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
   }
 }
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
-    $$refs: any
+    $$refs: any;
   }
 }
 
 declare module '@vue/runtime-dom' {
   export interface CSSProperties {
     /** 临时padding变量. */
-    tempPadding?: string
+    tempPadding?: string;
   }
 }
 
-export {}
+export {};

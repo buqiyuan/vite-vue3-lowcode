@@ -6,10 +6,10 @@
  * @Description: 表单项类型 - 输入框
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\input\index.tsx
  */
-import { Field } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { Field } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 
 export default {
   key: 'input',
@@ -19,11 +19,11 @@ export default {
     <Field name="用户名" label="用户名" labelWidth={50} colon placeholder="请输入用户名" />
   ),
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
-    let rules = []
+    let rules = [];
     try {
-      rules = JSON.parse(props.rules)
+      rules = JSON.parse(props.rules);
     } catch (e) {}
 
     return () => (
@@ -36,7 +36,7 @@ export default {
           rules={rules}
         />
       </div>
-    )
+    );
   },
   events: [
     { label: '输入框内容变化时触发', value: 'update:model-value' },
@@ -46,13 +46,13 @@ export default {
     { label: '点击组件时触发', value: 'click' },
     { label: '点击输入区域时触发', value: 'click-input' },
     { label: '点击左侧图标时触发', value: 'click-left-icon' },
-    { label: '点击右侧图标时触发', value: 'click-right-icon' }
+    { label: '点击右侧图标时触发', value: 'click-right-icon' },
   ],
   props: createFieldProps(),
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

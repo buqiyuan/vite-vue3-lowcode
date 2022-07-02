@@ -50,5 +50,5 @@ export const fontArr = [
   { label: '方正姚体', value: 'FZYaoti' },
   { label: '思源黑体', value: 'Source Han Sans CN' },
   { label: '思源宋体', value: 'Source Han Serif SC' },
-  { label: '文泉驿微米黑', value: 'WenQuanYi Micro Hei' }
-]
+  { label: '文泉驿微米黑', value: 'WenQuanYi Micro Hei' },
+];

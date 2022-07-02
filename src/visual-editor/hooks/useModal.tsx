@@ -12,58 +12,58 @@ import {
   PropType,
   getCurrentInstance,
   ComponentInternalInstance,
-  isVNode
-} from 'vue'
-import { ElButton, ElDialog } from 'element-plus'
-import { isFunction } from '@/visual-editor/utils/is'
+  isVNode,
+} from 'vue';
+import { ElButton, ElDialog } from 'element-plus';
+import { isFunction } from '@/visual-editor/utils/is';
 
 interface ModalOptions {
-  title?: string
-  footer?: null | (() => JSX.Element)
-  content: ComponentInternalInstance | (() => JSX.Element)
-  onConfirm?: () => void
-  onCancel?: () => void
+  title?: string;
+  footer?: null | (() => JSX.Element);
+  content: ComponentInternalInstance | (() => JSX.Element);
+  onConfirm?: () => void;
+  onCancel?: () => void;
   props?: {
-    [propName: string]: any
-  }
+    [propName: string]: any;
+  };
 }
 
 const Modal = defineComponent({
   props: {
     options: {
       type: Object as PropType<ModalOptions>,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props) {
-    const instance = getCurrentInstance()!
+    const instance = getCurrentInstance()!;
 
     const state = reactive({
       options: props.options,
-      visible: true
-    })
+      visible: true,
+    });
 
     const methods = {
       service: (options: ModalOptions) => {
-        state.options = options
-        methods.show()
+        state.options = options;
+        methods.show();
       },
       show: () => (state.visible = true),
-      hide: () => (state.visible = false)
-    }
+      hide: () => (state.visible = false),
+    };
 
     const handler = {
       onConfirm: async () => {
-        await state.options.onConfirm?.()
-        methods.hide()
+        await state.options.onConfirm?.();
+        methods.hide();
       },
       onCancel: () => {
-        state.options.onCancel?.()
-        methods.hide()
-      }
-    }
+        state.options.onCancel?.();
+        methods.hide();
+      },
+    };
 
-    Object.assign(instance.proxy, methods)
+    Object.assign(instance.proxy!, methods);
 
     return () => (
       <ElDialog
@@ -88,24 +88,24 @@ const Modal = defineComponent({
                   确定
                 </ElButton>
               </div>
-            )
+            ),
         }}
       </ElDialog>
-    )
-  }
-})
+    );
+  },
+});
 
 export const useModal = (() => {
-  let instance: any
+  let instance: any;
   return (options: ModalOptions) => {
     if (instance) {
-      instance.service(options)
-      return instance
+      instance.service(options);
+      return instance;
     }
-    const div = document.createElement('div')
-    document.body.appendChild(div)
-    const app = createApp(Modal, { options })
-    instance = app.mount(div)
-    return instance
-  }
-})()
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const app = createApp(Modal, { options });
+    instance = app.mount(div);
+    return instance;
+  };
+})();

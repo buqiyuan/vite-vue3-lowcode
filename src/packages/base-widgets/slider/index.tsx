@@ -7,8 +7,9 @@
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\slider\index.tsx
  */
 import { Field, Slider } from 'vant';
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { omit } from 'lodash-es';
 import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorInputNumberProp,
@@ -16,7 +17,6 @@ import {
   createEditorModelBindProp,
   createEditorSwitchProp,
 } from '@/visual-editor/visual-editor.props';
-import { omit } from 'lodash-es';
 
 export default {
   key: 'slider',

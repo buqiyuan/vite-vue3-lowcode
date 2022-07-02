@@ -55,13 +55,13 @@
 
 <script lang="tsx">
   import { defineComponent, reactive, watchEffect, toRefs } from 'vue';
-  import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils';
+  import { cloneDeep } from 'lodash-es';
   import DraggableTransitionGroup from './draggable-transition-group.vue';
-  import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service';
   import CompRender from './comp-render';
   import SlotItem from './slot-item.vue';
+  import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils';
+  import { $$dropdown, DropdownOption } from '@/visual-editor/utils/dropdown-service';
   import MonacoEditor from '@/visual-editor/components/common/monaco-editor/MonacoEditor';
-  import { cloneDeep } from 'lodash-es';
   import { useGlobalProperties } from '@/hooks/useGlobalProperties';
   import { useVisualData } from '@/visual-editor/hooks/useVisualData';
   import { useModal } from '@/visual-editor/hooks/useModal';

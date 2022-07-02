@@ -6,18 +6,18 @@
  * @Description: '表单项类型 - 步进器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\stepper\index.tsx
  */
-import { Field, Stepper } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { watchEffect } from 'vue';
+import { Field, Stepper } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorInputNumberProp,
   createEditorInputProp,
   createEditorSwitchProp,
   createEditorSelectProp,
-  createEditorModelBindProp
-} from '@/visual-editor/visual-editor.props'
-import { watchEffect } from 'vue'
+  createEditorModelBindProp,
+} from '@/visual-editor/visual-editor.props';
 
 export default {
   key: 'stepper',
@@ -32,11 +32,11 @@ export default {
     ></Field>
   ),
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
     watchEffect(() => {
-      props.name = Array.isArray(props.name) ? [...props.name].pop() : props.name
-    })
+      props.name = Array.isArray(props.name) ? [...props.name].pop() : props.name;
+    });
 
     return () => (
       <div style={styles}>
@@ -50,11 +50,11 @@ export default {
                 v-model={props.modelValue}
                 {...props}
               ></Stepper>
-            )
+            ),
           }}
         />
       </div>
-    )
+    );
   },
   props: {
     modelValue: createEditorInputNumberProp({ label: '默认值', defaultValue: 0 }),
@@ -66,12 +66,12 @@ export default {
     allowEmpty: createEditorSwitchProp({ label: '是否允许输入的值为空', defaultValue: false }),
     buttonSize: createEditorInputProp({
       label: '按钮大小以及输入框高度，默认单位为 px',
-      defaultValue: '28px'
+      defaultValue: '28px',
     }),
     decimalLength: createEditorInputProp({ label: '固定显示的小数位数', defaultValue: '' }),
     defaultValue: createEditorInputProp({
       label: '初始值，当 v-model 为空时生效',
-      defaultValue: '1'
+      defaultValue: '1',
     }),
     disableInput: createEditorSwitchProp({ label: '是否禁用输入框', defaultValue: false }),
     disableMinus: createEditorSwitchProp({ label: '是否禁用减少按钮', defaultValue: false }),
@@ -90,17 +90,17 @@ export default {
       options: [
         {
           label: '默认',
-          value: ''
+          value: '',
         },
-        { label: '圆角风格', value: 'round' }
+        { label: '圆角风格', value: 'round' },
       ],
-      defaultValue: ''
-    })
+      defaultValue: '',
+    }),
   },
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;

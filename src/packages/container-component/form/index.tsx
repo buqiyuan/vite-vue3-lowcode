@@ -6,11 +6,11 @@
  * @Description:
  * @FilePath: \vite-vue3-lowcode\src\packages\container-component\form\index.tsx
  */
-import { Form, Field, Button } from 'vant'
-import { renderSlot, useSlots } from 'vue'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
-import { compProps } from './compProps'
+import { renderSlot, useSlots } from 'vue';
+import { Form, Field, Button } from 'vant';
+import { compProps } from './compProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 
 export default {
   key: 'form',
@@ -27,13 +27,13 @@ export default {
       </div>
     </Form>
   ),
-  render: function ({ props, styles, block }) {
-    const slots = useSlots()
-    const { registerRef } = useGlobalProperties()
+  render({ props, styles, block }) {
+    const slots = useSlots();
+    const { registerRef } = useGlobalProperties();
 
     const onSubmit = (values) => {
-      console.log('onSubmit:', values)
-    }
+      console.log('onSubmit:', values);
+    };
 
     return () => (
       <div style={styles}>
@@ -46,15 +46,15 @@ export default {
           {renderSlot(slots, 'default')}
         </Form>
       </div>
-    )
+    );
   },
   resize: {
     height: true,
-    width: true
+    width: true,
   },
   events: [
     { label: '提交表单且验证通过后触发', value: 'submit' },
-    { label: '提交表单且验证不通过后触发', value: 'failed' }
+    { label: '提交表单且验证不通过后触发', value: 'failed' },
   ],
-  props: compProps
-} as VisualEditorComponent
+  props: compProps,
+} as VisualEditorComponent;

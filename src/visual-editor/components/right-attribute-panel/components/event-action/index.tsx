@@ -1,13 +1,12 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-06-24 11:01:45
- * @LastEditTime: 2021-07-08 09:53:27
+ * @LastEditTime: 2022-07-02 18:29:25
  * @LastEditors: 卜启缘
  * @Description: 事件-动作
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\event-action\index.tsx
+ * @FilePath: /vite-vue3-lowcode/src/visual-editor/components/right-attribute-panel/components/event-action/index.tsx
  */
 import { computed, ref, defineComponent, reactive } from 'vue';
-import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import {
   ElForm,
   ElFormItem,
@@ -21,10 +20,11 @@ import {
   ElCollapseItem,
   ElPopconfirm,
 } from 'element-plus';
+import { cloneDeep } from 'lodash-es';
 import type { Action } from '@/visual-editor/visual-editor.utils';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import { generateNanoid } from '@/visual-editor/utils/';
 import { useModal } from '@/visual-editor/hooks/useModal';
-import { cloneDeep } from 'lodash-es';
 
 interface IState {
   activeNames: string[];
@@ -92,7 +92,6 @@ export const EventAction = defineComponent({
           .filter((item) => item.actions?.length)
           .map((item) => {
             item.value = item._vid;
-            item.label = item.label;
             item.children = (item.actions || []).map((item: any) => {
               item.label = item.name;
               item.value = item.key;

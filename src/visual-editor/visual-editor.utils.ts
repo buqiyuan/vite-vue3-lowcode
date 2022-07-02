@@ -1,8 +1,8 @@
-import type { VisualEditorProps } from './visual-editor.props';
 import { inject, provide } from 'vue';
+import type { VisualEditorProps } from './visual-editor.props';
 import type { CSSProperties } from 'vue';
-import { useDotProp } from '@/visual-editor/hooks/useDotProp';
 import type { RequestEnum, ContentTypeEnum } from '@/enums/httpEnum';
+import { useDotProp } from '@/visual-editor/hooks/useDotProp';
 import { generateNanoid } from '@/visual-editor/utils';
 
 /**

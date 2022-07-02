@@ -6,7 +6,9 @@
  * @Description: 导航栏
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\tabbar\index.tsx
  */
+import { onMounted, onBeforeUnmount } from 'vue';
 import { Tabbar, TabbarItem } from 'vant';
+import { getTabbarItem } from './tabbar-item';
 import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import {
   createEditorCrossSortableProp,
@@ -15,10 +17,8 @@ import {
   createEditorColorProp,
 } from '@/visual-editor/visual-editor.props';
 import { useGlobalProperties } from '@/hooks/useGlobalProperties';
-import { getTabbarItem } from './tabbar-item';
 import { createNewBlock } from '@/visual-editor/visual-editor.utils';
 import { BASE_URL } from '@/visual-editor/utils';
-import { onMounted, onBeforeUnmount } from 'vue';
 
 const defaultTabbarItems = [
   {

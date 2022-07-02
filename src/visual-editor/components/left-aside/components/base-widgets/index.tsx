@@ -8,11 +8,11 @@
  */
 import { defineComponent, ref } from 'vue';
 import { cloneDeep } from 'lodash-es';
-import { visualConfig } from '@/visual.config';
+import { Edit } from '@element-plus/icons-vue';
 import styles from './index.module.scss';
+import { visualConfig } from '@/visual.config';
 import { createNewBlock } from '@/visual-editor/visual-editor.utils';
 import DraggableTransitionGroup from '@/visual-editor/components/simulator-editor/draggable-transition-group.vue';
-import { Edit } from '@element-plus/icons-vue';
 
 export default defineComponent({
   name: 'BaseWidgets',

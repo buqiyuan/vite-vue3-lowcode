@@ -1,17 +1,16 @@
-import { Col, Row } from 'vant'
-import { renderSlot, useSlots } from 'vue'
-import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/visual-editor.props'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import styleModule from './index.module.scss'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
-import { watchEffect } from 'vue'
+import { renderSlot, useSlots, watchEffect } from 'vue';
+import { Col, Row } from 'vant';
+import styleModule from './index.module.scss';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { createEditorInputProp, createEditorSelectProp } from '@/visual-editor/visual-editor.props';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 
 interface SlotItem {
-  value: string
-  [prop: string]: any
+  value: string;
+  [prop: string]: any;
 }
 
-const slotsTemp = {} as any
+const slotsTemp = {} as any;
 
 const createSlots = (str: string): SlotItem =>
   str.split(':').reduce(
@@ -19,12 +18,12 @@ const createSlots = (str: string): SlotItem =>
       prev[`slot${index}`] = {
         key: `slot${index}`,
         span: curr,
-        children: []
-      }
-      return prev
+        children: [],
+      };
+      return prev;
     },
-    { value: str }
-  )
+    { value: str },
+  );
 
 export default {
   key: 'layout',
@@ -38,20 +37,20 @@ export default {
     </Row>
   ),
   render: ({ props, styles, block, custom }) => {
-    const slots = useSlots()
-    const { registerRef } = useGlobalProperties()
+    const slots = useSlots();
+    const { registerRef } = useGlobalProperties();
 
-    slotsTemp[block._vid] ??= {}
+    slotsTemp[block._vid] ??= {};
 
     watchEffect(() => {
       if (Object.keys(props.slots || {}).length) {
         Object.keys(props.slots).forEach((key) => {
           if (slotsTemp[block._vid][key]?.children) {
-            props.slots[key].children = slotsTemp[block._vid][key].children
+            props.slots[key].children = slotsTemp[block._vid][key].children;
           }
-        })
+        });
       }
-    })
+    });
 
     return () => (
       <div style={styles}>
@@ -64,20 +63,20 @@ export default {
           {Object.values(Object.keys(props.slots).length ? props.slots : createSlots('12:12'))
             ?.filter((item) => typeof item !== 'string')
             .map((spanItem: SlotItem, spanIndex) => {
-              slotsTemp[block._vid][`slot${spanIndex}`] = spanItem
+              slotsTemp[block._vid][`slot${spanIndex}`] = spanItem;
               return (
                 <>
                   <Col span={spanItem.span}>{renderSlot(slots, `slot${spanIndex}`)}</Col>
                 </>
-              )
+              );
             })}
         </Row>
       </div>
-    )
+    );
   },
   resize: {
     height: true,
-    width: true
+    width: true,
   },
   props: {
     gutter: createEditorInputProp({ label: '列间隔' }),
@@ -90,9 +89,9 @@ export default {
         { label: '18:6', value: createSlots('18:6') },
         { label: '8:8:8', value: createSlots('8:8:8') },
         { label: '6:12:6', value: createSlots('6:12:6') },
-        { label: '6:6:6:6', value: createSlots('6:6:6:6') }
+        { label: '6:6:6:6', value: createSlots('6:6:6:6') },
       ],
-      defaultValue: createSlots('12:12')
+      defaultValue: createSlots('12:12'),
     }),
     justify: createEditorSelectProp({
       label: '主轴对齐方式',
@@ -101,16 +100,16 @@ export default {
         { label: '居中排列', value: 'center' },
         { label: '均匀对齐', value: 'space-around' },
         { label: '两端对齐', value: 'space-between' },
-        { label: '右对齐', value: 'end' }
-      ]
+        { label: '右对齐', value: 'end' },
+      ],
     }),
     align: createEditorSelectProp({
       label: '交叉轴对齐方式',
       options: [
         { label: '顶部对齐', value: 'top' },
         { label: '垂直居中', value: 'center' },
-        { label: '底部对齐', value: 'bottom' }
-      ]
-    })
-  }
-} as VisualEditorComponent
+        { label: '底部对齐', value: 'bottom' },
+      ],
+    }),
+  },
+} as VisualEditorComponent;

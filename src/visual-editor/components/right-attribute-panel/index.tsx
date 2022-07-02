@@ -9,11 +9,11 @@
  */
 
 import { defineComponent, reactive, watch } from 'vue';
-import styles from './index.module.scss';
 import { ElTabPane, ElTabs } from 'element-plus';
-import { useVisualData } from '@/visual-editor/hooks/useVisualData';
-import { AttrEditor, Animate, PageSetting, EventAction, FormRule } from './components';
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue';
+import styles from './index.module.scss';
+import { AttrEditor, Animate, PageSetting, EventAction, FormRule } from './components';
+import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 
 export default defineComponent({
   name: 'RightAttributePanel',

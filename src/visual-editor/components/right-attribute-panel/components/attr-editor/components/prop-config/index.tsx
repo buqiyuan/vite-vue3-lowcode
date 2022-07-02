@@ -1,10 +1,10 @@
 /*
  * @Author: 卜启缘
  * @Date: 2021-07-11 17:53:54
- * @LastEditTime: 2021-07-11 18:36:17
+ * @LastEditTime: 2022-07-02 22:58:55
  * @LastEditors: 卜启缘
  * @Description: 组件属性配置
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\right-attribute-panel\components\attr-editor\components\prop-config\index.tsx
+ * @FilePath: /vite-vue3-lowcode/src/visual-editor/components/right-attribute-panel/components/attr-editor/components/prop-config/index.tsx
  */
 
 import { computed, defineComponent, PropType } from 'vue';
@@ -19,14 +19,15 @@ import {
   ElFormItem,
   ElTooltip,
   ElIcon,
+  ExpandTrigger,
 } from 'element-plus';
+import { cloneDeep } from 'lodash-es';
+import { Warning } from '@element-plus/icons-vue';
+import { TablePropEditor, CrossSortableOptionsEditor } from '../../components';
 import { useDotProp } from '@/visual-editor/hooks/useDotProp';
 import { VisualEditorProps, VisualEditorPropsType } from '@/visual-editor/visual-editor.props';
-import { TablePropEditor, CrossSortableOptionsEditor } from '../../components';
-import { cloneDeep } from 'lodash-es';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
 import { VisualEditorBlockData, VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
-import { Warning } from '@element-plus/icons-vue';
 
 export const PropConfig = defineComponent({
   props: {
@@ -92,11 +93,11 @@ export const PropConfig = defineComponent({
               children: 'entitys',
               label: 'name',
               value: 'key',
-              expandTrigger: 'hover',
+              expandTrigger: ExpandTrigger.HOVER,
             }}
             placeholder="请选择绑定的请求数据"
             v-model={propObj[prop]}
-            options={models.value}
+            options={[...models.value]}
           ></ElCascader>
         ),
       }[propConfig.type]();
@@ -126,9 +127,11 @@ export const PropConfig = defineComponent({
                       popper-class="max-w-200px"
                       content={propConfig.tips}
                     >
-                      <ElIcon>
-                        <Warning />
-                      </ElIcon>
+                      <div>
+                        <ElIcon>
+                          <Warning />
+                        </ElIcon>
+                      </div>
                     </ElTooltip>
                   )}
                   {propConfig.label}

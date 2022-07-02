@@ -8,12 +8,12 @@
  */
 import { defineComponent } from 'vue';
 import { cloneDeep } from 'lodash-es';
-import { visualConfig } from '@/visual.config';
 import Draggable from 'vuedraggable';
-import styles from './index.module.scss';
-import { createNewBlock } from '@/visual-editor/visual-editor.utils';
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 import { Suitcase } from '@element-plus/icons-vue';
+import styles from './index.module.scss';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { visualConfig } from '@/visual.config';
+import { createNewBlock } from '@/visual-editor/visual-editor.utils';
 
 export default defineComponent({
   name: 'ContainerComponent',

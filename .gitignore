@@ -51,3 +51,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# auto generate file
+components.d.ts
+auto-imports.d.ts

@@ -40,23 +40,21 @@
   </el-tree>
 </template>
 
-<script lang="tsx">
-  export default {
+<script lang="tsx" setup>
+  import { ref, computed } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
+  import { ElMessage, ElForm, ElFormItem, ElInput } from 'element-plus';
+  import { Tickets, Plus, MoreFilled, Edit, Delete, Link } from '@element-plus/icons-vue';
+  import type { VisualEditorPage } from '@/visual-editor/visual-editor.utils';
+  import { useModal } from '@/visual-editor/hooks/useModal';
+  import { useVisualData, createNewPage } from '@/visual-editor/hooks/useVisualData';
+
+  defineOptions({
     name: 'PageTree',
     label: '页面',
     order: 1,
     icon: Tickets,
-  };
-</script>
-
-<script lang="tsx" setup>
-  import { ref, computed } from 'vue';
-  import { useVisualData, createNewPage } from '@/visual-editor/hooks/useVisualData';
-  import { useRouter, useRoute } from 'vue-router';
-  import { ElMessage, ElForm, ElFormItem, ElInput } from 'element-plus';
-  import { useModal } from '@/visual-editor/hooks/useModal';
-  import type { VisualEditorPage } from '@/visual-editor/visual-editor.utils';
-  import { Tickets, Plus, MoreFilled, Edit, Delete, Link } from '@element-plus/icons-vue';
+  });
 
   const rules = {
     title: [{ required: true, message: '请输入页面标题', trigger: 'blur' }],

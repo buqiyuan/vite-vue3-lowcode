@@ -1,8 +1,8 @@
 import {
   createEditorInputProp,
   createEditorSelectProp,
-  createEditorSwitchProp
-} from '@/visual-editor/visual-editor.props'
+  createEditorSwitchProp,
+} from '@/visual-editor/visual-editor.props';
 
 /**
  * @name: createFieldProps
@@ -19,21 +19,21 @@ export const createFieldProps = () => ({
     options: [
       {
         label: '左对齐',
-        value: 'left'
+        value: 'left',
       },
       {
         label: '居中',
-        value: 'center'
+        value: 'center',
       },
       {
         label: '右对齐',
-        value: 'right'
-      }
+        value: 'right',
+      },
     ],
-    defaultValue: 'left'
+    defaultValue: 'left',
   }),
   border: createEditorSwitchProp({ label: '是否显示内边框', defaultValue: true }),
   readonly: createEditorSwitchProp({ label: '是否为只读状态' }),
   required: createEditorSwitchProp({ label: '是否显示表单必填星号' }),
-  rules: createEditorInputProp({ label: '表单校验规则' })
-})
+  rules: createEditorInputProp({ label: '表单校验规则' }),
+});

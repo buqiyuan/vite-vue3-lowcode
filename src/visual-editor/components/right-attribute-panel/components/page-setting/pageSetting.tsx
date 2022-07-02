@@ -8,9 +8,9 @@
  */
 import { defineComponent } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElUpload, ElColorPicker, ElSwitch } from 'element-plus';
+import { Plus } from '@element-plus/icons-vue';
 import styles from './styles.module.scss';
 import { useVisualData } from '@/visual-editor/hooks/useVisualData';
-import { Plus } from '@element-plus/icons-vue';
 
 export const PageSetting = defineComponent({
   setup() {

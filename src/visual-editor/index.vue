@@ -33,34 +33,34 @@
 </template>
 
 <script setup lang="ts">
-import Header from './components/header/index.vue'
-import LeftAside from './components/left-aside/index.vue'
-import RightAttributePanel from './components/right-attribute-panel'
-import SimulatorEditor from './components/simulator-editor/simulator-editor.vue'
+  import Header from './components/header/index.vue';
+  import LeftAside from './components/left-aside/index.vue';
+  import RightAttributePanel from './components/right-attribute-panel';
+  import SimulatorEditor from './components/simulator-editor/simulator-editor.vue';
 </script>
 
 <style lang="scss">
-.el-header,
-.el-footer {
-  position: relative;
-  z-index: 99;
-  background-color: white;
-}
-
-.el-aside {
-  background-color: white;
-}
-
-.layout-container {
-  height: calc(100vh - 80px);
-}
-
-.el-main {
-  position: relative;
-  padding: 12px;
-  background-color: #f5f5f5;
-  @media (min-width: 1111px) {
-    overflow-x: hidden;
+  .el-header,
+  .el-footer {
+    position: relative;
+    z-index: 99;
+    background-color: white;
   }
-}
+
+  .el-aside {
+    background-color: white;
+  }
+
+  .layout-container {
+    height: calc(100vh - 80px);
+  }
+
+  .el-main {
+    position: relative;
+    padding: 12px;
+    background-color: #f5f5f5;
+    @media (min-width: 1111px) {
+      overflow-x: hidden;
+    }
+  }
 </style>

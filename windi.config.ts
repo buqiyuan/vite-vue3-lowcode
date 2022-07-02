@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite-plugin-windicss'
-import colors from 'windicss/colors'
-import typography from 'windicss/plugin/typography'
+import { defineConfig } from 'vite-plugin-windicss';
+import colors from 'windicss/colors';
+import typography from 'windicss/plugin/typography';
 
 export default defineConfig({
   darkMode: 'class',
@@ -19,8 +19,8 @@ export default defineConfig({
               textDecoration: 'underline',
               '&:hover': {
                 opacity: 1,
-                color: colors.teal[600]
-              }
+                color: colors.teal[600],
+              },
             },
             b: { color: 'inherit' },
             strong: { color: 'inherit' },
@@ -29,10 +29,10 @@ export default defineConfig({
             h2: { color: 'inherit' },
             h3: { color: 'inherit' },
             h4: { color: 'inherit' },
-            code: { color: 'inherit' }
-          }
-        }
-      }
-    }
-  }
-})
+            code: { color: 'inherit' },
+          },
+        },
+      },
+    },
+  },
+});

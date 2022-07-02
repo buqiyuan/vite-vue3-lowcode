@@ -1,25 +1,25 @@
-import { defineComponent, PropType, SetupContext } from 'vue'
-import { VisualEditorProps } from '@/visual-editor/visual-editor.props'
-import { ElButton, ElTag } from 'element-plus'
-import { $$tablePropEditor } from './table-prop-edit.service'
-import { useVModel } from '@vueuse/core'
+import { defineComponent, PropType, SetupContext } from 'vue';
+import { ElButton, ElTag } from 'element-plus';
+import { useVModel } from '@vueuse/core';
+import { $$tablePropEditor } from './table-prop-edit.service';
+import { VisualEditorProps } from '@/visual-editor/visual-editor.props';
 
 export const TablePropEditor = defineComponent({
   props: {
     modelValue: { type: Array as PropType<any[]> },
-    propConfig: { type: Object as PropType<VisualEditorProps>, required: true }
+    propConfig: { type: Object as PropType<VisualEditorProps>, required: true },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }: SetupContext) {
-    const model = useVModel(props, 'modelValue', emit)
+    const model = useVModel(props, 'modelValue', emit);
 
     const onClick = async () => {
       const data = await $$tablePropEditor({
         config: props.propConfig,
-        data: props.modelValue || []
-      })
-      model.value = data
-    }
+        data: props.modelValue || [],
+      });
+      model.value = data;
+    };
 
     return () => (
       <div>
@@ -30,6 +30,6 @@ export const TablePropEditor = defineComponent({
           <ElTag {...({ onClick } as any)}>{item[props.propConfig.table!.showKey]}</ElTag>
         ))}
       </div>
-    )
-  }
-})
+    );
+  },
+});

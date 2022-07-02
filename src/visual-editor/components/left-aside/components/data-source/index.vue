@@ -1,10 +1,10 @@
 <!--
  * @Author: 卜启缘
  * @Date: 2021-06-24 18:36:03
- * @LastEditTime: 2021-07-07 14:12:15
+ * @LastEditTime: 2022-07-02 23:13:00
  * @LastEditors: 卜启缘
  * @Description: 数据源管理
- * @FilePath: \vite-vue3-lowcode\src\visual-editor\components\left-aside\components\data-source\index.vue
+ * @FilePath: /vite-vue3-lowcode/src/visual-editor/components/left-aside/components/data-source/index.vue
 -->
 <template>
   <el-tabs type="border-card" stretch class="data-source">
@@ -17,18 +17,16 @@
   </el-tabs>
 </template>
 
-<script lang="tsx">
+<script setup lang="tsx" name="基本组件">
   import { DataBoard } from '@element-plus/icons-vue';
+  import DataModel from './data-model.vue';
+  import DataFetch from './data-fetch.vue';
 
-  export default {
+  defineOptions({
     label: '数据源',
     order: 2,
     icon: DataBoard,
-  };
-</script>
-<script setup lang="tsx" name="基本组件">
-  import DataModel from './data-model.vue';
-  import DataFetch from './data-fetch.vue';
+  });
 </script>
 
 <style lang="scss" scoped>

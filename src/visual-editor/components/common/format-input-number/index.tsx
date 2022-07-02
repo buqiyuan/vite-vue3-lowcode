@@ -8,10 +8,10 @@
  */
 import { defineComponent } from 'vue';
 import { ElInput, ElIcon } from 'element-plus';
-import type { PropType } from 'vue';
 import { useVModel } from '@vueuse/core';
-import styles from './index.module.scss';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import styles from './index.module.scss';
+import type { PropType } from 'vue';
 
 export const FormatInputNumber = defineComponent({
   props: {

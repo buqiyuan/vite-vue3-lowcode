@@ -6,16 +6,16 @@
  * @Description: 表单项类型 - 选择器
  * @FilePath: \vite-vue3-lowcode\src\packages\base-widgets\picker\index.tsx
  */
-import { Field, Popup, Picker } from 'vant'
-import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils'
-import { createFieldProps } from './createFieldProps'
-import { useGlobalProperties } from '@/hooks/useGlobalProperties'
+import { reactive, useAttrs } from 'vue';
+import { Field, Popup, Picker } from 'vant';
+import { createFieldProps } from './createFieldProps';
+import type { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
+import { useGlobalProperties } from '@/hooks/useGlobalProperties';
 import {
   createEditorCrossSortableProp,
   createEditorInputProp,
-  createEditorModelBindProp
-} from '@/visual-editor/visual-editor.props'
-import { reactive, useAttrs } from 'vue'
+  createEditorModelBindProp,
+} from '@/visual-editor/visual-editor.props';
 
 export default {
   key: 'picker',
@@ -23,31 +23,31 @@ export default {
   label: '表单项类型 - 选择器',
   preview: () => <Field name="picker" label="选择器" placeholder={'点击选择'}></Field>,
   render: ({ styles, block, props }) => {
-    const { registerRef } = useGlobalProperties()
+    const { registerRef } = useGlobalProperties();
 
-    const attrs = useAttrs()
+    const attrs = useAttrs();
 
     const state = reactive({
       showPicker: false,
       text: '',
-      defaultIndex: 0
-    })
+      defaultIndex: 0,
+    });
     const customFieldName = {
       text: 'label',
-      value: 'value'
-    }
+      value: 'value',
+    };
 
     const onConfirm = (value) => {
-      props.modelValue = value.value
-      state.text = value[props.valueKey || 'text']
-      state.showPicker = false
-      console.log(props)
-    }
+      props.modelValue = value.value;
+      state.text = value[props.valueKey || 'text'];
+      state.showPicker = false;
+      console.log(props);
+    };
 
     return () => {
       if (props.modelValue) {
-        state.defaultIndex = props.columns?.findIndex((item) => item.value == props.modelValue)
-        state.text = props.columns[state.defaultIndex]?.label
+        state.defaultIndex = props.columns?.findIndex((item) => item.value == props.modelValue);
+        state.text = props.columns[state.defaultIndex]?.label;
       }
 
       return (
@@ -66,7 +66,7 @@ export default {
                   <span class={'placeholder'}>{props.placeholder}</span>
                 ) : (
                   state.text
-                )
+                ),
             }}
           </Field>
           <Popup v-model={[state.showPicker, 'show']} position={'bottom'}>
@@ -81,8 +81,8 @@ export default {
             />
           </Popup>
         </div>
-      )
-    }
+      );
+    };
   },
   props: {
     modelValue: createEditorInputProp({ label: '默认值' }),
@@ -94,21 +94,21 @@ export default {
       multiple: false,
       defaultValue: [
         { label: '杭州', value: 'hangzhou' },
-        { label: '上海', value: 'shanghai' }
-      ]
+        { label: '上海', value: 'shanghai' },
+      ],
     }),
     placeholder: createEditorInputProp({ label: '占位符', defaultValue: '请选择' }),
-    ...createFieldProps()
+    ...createFieldProps(),
   },
   events: [
     { label: '点击完成按钮时触发', value: 'confirm' },
     { label: '点击取消按钮时触发', value: 'cancel' },
-    { label: '选项改变时触发', value: 'change' }
+    { label: '选项改变时触发', value: 'change' },
   ],
   resize: {
-    width: true
+    width: true,
   },
   model: {
-    default: '绑定字段'
-  }
-} as VisualEditorComponent
+    default: '绑定字段',
+  },
+} as VisualEditorComponent;
