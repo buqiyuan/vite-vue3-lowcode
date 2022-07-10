@@ -40,7 +40,7 @@ export default {
   },
   props: {
     text: createEditorInputProp({ label: '显示文本' }),
-    font: createEditorSelectProp({ label: '字体设置', options: fontArr }),
+    font: createEditorSelectProp({ label: '字体设置', options: [...fontArr] }),
     color: createEditorColorProp({ label: '字体颜色' }),
     size: createEditorInputNumberProp({
       label: '字体大小',

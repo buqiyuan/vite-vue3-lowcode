@@ -67,7 +67,7 @@ const Modal = defineComponent({
 
     return () => (
       <ElDialog
-        modelValue={state.visible}
+        v-model={state.visible}
         title={state.options.title}
         destroyOnClose={true}
         {...state.options.props}

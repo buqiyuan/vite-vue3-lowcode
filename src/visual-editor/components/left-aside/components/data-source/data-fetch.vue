@@ -60,6 +60,7 @@
     ElMessage,
     ElCascader,
     ElIcon,
+    ExpandTrigger,
   } from 'element-plus';
   import { cloneDeep } from 'lodash-es';
   import { Delete, Edit } from '@element-plus/icons-vue';
@@ -163,14 +164,14 @@
           <ElFormItem label="请求数据" prop={'data.bind'}>
             <ElCascader
               v-model={state.ruleForm.data.bind}
-              options={models.value}
+              options={[...models.value]}
               clearable={true}
               props={{
                 checkStrictly: true,
                 children: 'entitys',
                 label: 'name',
                 value: 'key',
-                expandTrigger: 'hover',
+                expandTrigger: ExpandTrigger.HOVER,
               }}
               placeholder="请选择绑定的请求数据"
               onChange={handleBindChange}
@@ -184,12 +185,12 @@
                 children: 'entitys',
                 label: 'name',
                 value: 'key',
-                expandTrigger: 'hover',
+                expandTrigger: ExpandTrigger.HOVER,
               }}
               placeholder="请选择绑定的响应数据"
               onChange={handleBindChange}
               v-model={state.ruleForm.data.recv}
-              options={models.value}
+              options={[...models.value]}
             ></ElCascader>
           </ElFormItem>
         </ElForm>

@@ -22,7 +22,7 @@
   </draggable>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   /**
    * @name: draggable-transition-group
    * @author:卜启缘
@@ -30,52 +30,44 @@
    * @description：draggable-transition-group
    * @update: 2021/5/1 23:15
    */
-  import { computed, defineComponent, reactive, toRefs, SetupContext } from 'vue';
+  import { computed } from 'vue';
   import draggable from 'vuedraggable';
   import { useVModel } from '@vueuse/core';
 
-  export default defineComponent({
+  defineOptions({
     name: 'DraggableTransitionGroup',
-    components: { draggable },
-    props: {
-      moduleValue: {
-        type: Array,
-        default: () => [],
-      },
-      drag: {
-        type: Boolean,
-        default: false,
-      },
-      itemKey: {
-        type: String,
-        default: '_vid',
-      },
-      group: {
-        type: Object,
-        default: () => ({ name: 'components' }),
-      },
-      fallbackClass: String,
-    },
-    emits: ['update:moduleValue', 'update:drag'],
-    setup(props, { emit }: SetupContext) {
-      const state = reactive({
-        list: useVModel(props, 'moduleValue', emit),
-        isDrag: useVModel(props, 'drag', emit),
-      });
-
-      const dragOptions = computed(() => ({
-        animation: 200,
-        disabled: false,
-        scroll: true,
-        ghostClass: 'ghost',
-      }));
-
-      return {
-        ...toRefs(state),
-        dragOptions,
-      };
-    },
   });
+
+  const props = defineProps({
+    moduleValue: {
+      type: Array,
+      default: () => [],
+    },
+    drag: {
+      type: Boolean,
+      default: false,
+    },
+    itemKey: {
+      type: String,
+      default: '_vid',
+    },
+    group: {
+      type: Object,
+      default: () => ({ name: 'components' }),
+    },
+    fallbackClass: String,
+  });
+  const emit = defineEmits(['update:moduleValue', 'update:drag']);
+
+  const list = useVModel(props, 'moduleValue', emit);
+  const isDrag = useVModel(props, 'drag', emit);
+
+  const dragOptions = computed(() => ({
+    animation: 200,
+    disabled: false,
+    scroll: true,
+    ghostClass: 'ghost',
+  }));
 </script>
 
 <style lang="scss" scoped>

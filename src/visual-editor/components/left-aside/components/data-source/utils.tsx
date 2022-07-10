@@ -22,25 +22,25 @@ import { useModal } from '@/visual-editor/hooks/useModal';
 export const importSwaggerJson = (swagger: any) => {
   swagger = typeof swagger == 'string' ? JSON.parse(swagger) : swagger;
   const models: VisualEditorModel[] = [];
-  Object.keys(swagger.definitions).forEach((model) => {
-    const properties = swagger.definitions[model].properties;
+  Object.entries<any>(swagger.definitions).forEach(([name, model]) => {
+    const properties = model.properties;
     const modelItem: VisualEditorModel = {
-      name: model,
+      name,
       key: generateNanoid(),
       entitys: [],
     };
-    Object.keys(properties).forEach((field) => {
+    Object.entries<any>(properties).forEach(([field, property]) => {
       modelItem.entitys.push({
         key: field,
-        name: properties[field].description || field,
-        type: properties[field].type,
+        name: property.description || field,
+        type: property.type,
         value: '',
       });
     });
     models.push(modelItem);
   });
   const apis: FetchApiItem[] = [];
-  Object.keys(swagger.paths).forEach((url) => {
+  Object.entries(swagger.paths).forEach(([url]) => {
     Object.keys(swagger.paths[url]).forEach((method) => {
       const apiUrlObj = swagger.paths[url][method];
       const model = apiUrlObj.parameters?.[0]?.schema?.$ref?.split('/').pop();

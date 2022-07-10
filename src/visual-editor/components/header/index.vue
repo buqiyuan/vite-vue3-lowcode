@@ -74,6 +74,10 @@
   import { useVisualData, localKey } from '@/visual-editor/hooks/useVisualData';
   import { BASE_URL } from '@/visual-editor/utils';
 
+  defineOptions({
+    name: 'PageHeader',
+  });
+
   const isShowH5Preview = ref(false);
 
   const tools = useTools();

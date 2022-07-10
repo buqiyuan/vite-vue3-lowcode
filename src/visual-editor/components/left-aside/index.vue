@@ -33,10 +33,10 @@
     name: 'LeftAside',
   });
 
-  const tabs = Object.keys(components)
-    .map((name) => {
-      const { label, icon, order } = components[name];
-      return { label, icon, name, order, comp: components[name] };
+  const tabs = Object.entries(components)
+    .map(([name, component]) => {
+      const { label, icon, order } = component;
+      return { label, icon, name, order, comp: component };
     })
     .sort((a, b) => a.order - b.order);
 

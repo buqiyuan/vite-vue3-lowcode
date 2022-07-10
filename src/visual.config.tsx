@@ -4,12 +4,12 @@ import containerComponent from '@/packages/container-component';
 
 export const visualConfig = createVisualEditorConfig();
 // 注册基础控件
-Object.keys(baseWidgets).forEach((name: string) =>
-  visualConfig.registry('baseWidgets', name, baseWidgets[name]),
+Object.entries(baseWidgets).forEach(([name, widget]) =>
+  visualConfig.registry('baseWidgets', name, widget),
 );
 // 注册容器组件
-Object.keys(containerComponent).forEach((name: string) =>
-  visualConfig.registry('containerComponents', name, containerComponent[name]),
+Object.entries(containerComponent).forEach(([name, widget]) =>
+  visualConfig.registry('containerComponents', name, widget),
 );
 
 console.log(

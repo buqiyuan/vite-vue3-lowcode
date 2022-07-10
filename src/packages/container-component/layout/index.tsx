@@ -44,9 +44,9 @@ export default {
 
     watchEffect(() => {
       if (Object.keys(props.slots || {}).length) {
-        Object.keys(props.slots).forEach((key) => {
+        Object.entries<SlotItem>(props.slots).forEach(([key, slot]) => {
           if (slotsTemp[block._vid][key]?.children) {
-            props.slots[key].children = slotsTemp[block._vid][key].children;
+            slot.children = slotsTemp[block._vid][key].children;
           }
         });
       }

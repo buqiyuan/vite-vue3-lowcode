@@ -8,7 +8,7 @@ import { generateNanoid } from '@/visual-editor/utils';
 /**
  * @description 组件属性
  */
-export interface VisualEditorBlockData {
+export type VisualEditorBlockData = {
   /** 组件id 时间戳, 组件唯一标识 */
   _vid: string;
   /** 组件所属的模块（基础组件、容器组件） */
@@ -42,11 +42,11 @@ export interface VisualEditorBlockData {
   /** 组件事件集合 */
   events: { label: string; value: string }[];
   [prop: string]: any;
-}
+};
 /**
  * @description 组件动作事件处理
  */
-export interface ActionHandle {
+export type ActionHandle = {
   key: string;
   name: string;
   link: string[];
@@ -54,32 +54,32 @@ export interface ActionHandle {
     bind?: string;
     recv?: string;
   };
-}
+};
 /**
  * @description 组件动作
  */
-export interface Action {
+export type Action = {
   key: string;
   name: string;
   event: string;
   handle: ActionHandle[];
-}
+};
 
 /**
  * @description 页面配置
  */
-export interface PageConfig {
+export type PageConfig = {
   /** 背景图片 */
   bgImage: string;
   /** 背景颜色 */
   bgColor: string;
   /** 是否缓存当前页面 */
   keepAlive: boolean;
-}
+};
 /**
  * @description 页面对象
  */
-export interface VisualEditorPage {
+export type VisualEditorPage = {
   /** 页面标题 */
   title: string;
   /** 页面路径 */
@@ -90,13 +90,13 @@ export interface VisualEditorPage {
   config: PageConfig;
   /** 当前页面的所有组件 */
   blocks: VisualEditorBlockData[];
-}
+};
 /**
  * @description 可以认为是 路由=>页面
  */
-export interface VisualEditorPages {
+export type VisualEditorPages = {
   [path: string]: VisualEditorPage;
-}
+};
 /**
  * @description 实体类型
  */
@@ -114,18 +114,18 @@ export type EntityType = {
 /**
  * @description 数据模型
  */
-export interface VisualEditorModel {
+export type VisualEditorModel = {
   /** 数据源名称 */
   name: string;
   /** 绑定的字段 该字段创建的时候生成 */
   key: string;
   /** 实体集合 */
   entitys: EntityType[];
-}
+};
 /**
  * @description 接口请求对象
  */
-export interface FetchApiItem {
+export type FetchApiItem = {
   /**  随机生成的key */
   key: string;
   /** 随机生成的key */
@@ -144,12 +144,12 @@ export interface FetchApiItem {
     /** 响应的结果绑定到某个实体上 */
     recv: string;
   };
-}
+};
 
 /**
  * @description 动作集合
  */
-export interface VisualEditorActions {
+export type VisualEditorActions = {
   fetch: {
     name: '接口请求';
     apis: FetchApiItem[];
@@ -158,22 +158,22 @@ export interface VisualEditorActions {
     name: '对话框';
     handlers: [];
   };
-}
+};
 /**
  * @description 总的数据集
  */
-export interface VisualEditorModelValue {
+export type VisualEditorModelValue = {
   /** 页面 */
   pages: VisualEditorPages;
   /** 实体 */
   models: VisualEditorModel[];
   /** 动作 */
   actions: VisualEditorActions;
-}
+};
 /**
  * @description 动画项
  */
-export interface Animation {
+export type Animation = {
   /** 动画名称 */
   label: string;
   /** 动画类名 */
@@ -186,11 +186,11 @@ export interface Animation {
   count: number;
   /** 是否无限循环动画 */
   infinite: boolean;
-}
+};
 /**
  * @description 单个组件注册规则
  */
-export interface VisualEditorComponent {
+export type VisualEditorComponent = {
   /** 组件name */
   key: string;
   /** 组件所属模块名称 */
@@ -221,12 +221,12 @@ export interface VisualEditorComponent {
   events?: { label: string; value: string }[];
   /** 组件样式 */
   styles?: CSSProperties;
-}
+};
 
-export interface VisualEditorMarkLines {
+export type VisualEditorMarkLines = {
   x: { left: number; showLeft: number }[];
   y: { top: number; showTop: number }[];
-}
+};
 
 export function createNewBlock(component: VisualEditorComponent): VisualEditorBlockData {
   return {
@@ -246,10 +246,10 @@ export function createNewBlock(component: VisualEditorComponent): VisualEditorBl
       tempPadding: '0',
     },
     hasResize: false,
-    props: Object.keys(component.props || {}).reduce((prev, curr) => {
-      const { propObj, prop } = useDotProp(prev, curr);
-      if (component.props![curr]?.defaultValue) {
-        propObj[prop] = prev[curr] = component.props![curr]?.defaultValue;
+    props: Object.entries(component.props || {}).reduce((prev, [propName, propSchema]) => {
+      const { propObj, prop } = useDotProp(prev, propName);
+      if (propSchema?.defaultValue) {
+        propObj[prop] = prev[propName] = propSchema?.defaultValue;
       }
       return prev;
     }, {}),
@@ -262,7 +262,7 @@ export function createNewBlock(component: VisualEditorComponent): VisualEditorBl
   };
 }
 
-export interface VisualDragEvent {
+export type VisualDragEvent = {
   dragstart: {
     on: (cb: () => void) => void;
     off: (cb: () => void) => void;
@@ -273,7 +273,7 @@ export interface VisualDragEvent {
     off: (cb: () => void) => void;
     emit: () => void;
   };
-}
+};
 
 export const VisualDragProvider = (() => {
   const VISUAL_DRAG_PROVIDER = '@@VISUAL_DRAG_PROVIDER';
@@ -288,10 +288,10 @@ export const VisualDragProvider = (() => {
 })();
 
 // 组件模块
-export interface ComponentModules {
+export type ComponentModules = {
   baseWidgets: VisualEditorComponent[]; // 基础组件
   containerComponents: VisualEditorComponent[]; // 容器组件
-}
+};
 /**
  * @description 创建编辑器配置
  * @returns {} 返回编辑器注册组件的方法等

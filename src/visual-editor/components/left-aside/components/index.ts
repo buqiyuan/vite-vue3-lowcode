@@ -1,6 +1,8 @@
+import { DefineComponent } from 'vue';
+
 const modules = import.meta.globEager('./*/index.(tsx|vue)');
 
-const components = {};
+const components: Record<string, DefineComponent> = {};
 
 console.log(modules, '起航');
 

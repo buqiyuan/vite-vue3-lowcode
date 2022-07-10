@@ -10,37 +10,24 @@
   </el-dialog>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
   import { useVModel } from '@vueuse/core';
   import { BASE_URL } from '@/visual-editor/utils';
-  /**
-   * @name: preview
-   * @author: 卜启缘
-   * @date: 2021/4/29 23:09
-   * @description：preview
-   * @update: 2021/4/29 23:09
-   */
-  export default defineComponent({
-    name: 'Preview',
-    props: {
-      visible: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    emits: ['update:visible'],
-    setup(props, { emit }) {
-      const state = reactive({
-        dialogVisible: useVModel(props, 'visible', emit),
-        previewUrl: `${BASE_URL}preview/${location.hash}`,
-      });
 
-      return {
-        ...toRefs(state),
-      };
+  defineOptions({
+    name: 'Preview',
+  });
+
+  const props = defineProps({
+    visible: {
+      type: Boolean,
+      default: false,
     },
   });
+  const emits = defineEmits(['update:visible']);
+
+  const dialogVisible = useVModel(props, 'visible', emits);
+  const previewUrl = `${BASE_URL}preview/${location.hash}`;
 </script>
 
 <style lang="scss">

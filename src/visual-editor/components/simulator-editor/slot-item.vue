@@ -39,7 +39,7 @@
   </draggable-transition-group>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   /**
    * @name: slot-item
    * @author:卜启缘
@@ -48,54 +48,51 @@
    * @update: 2021/5/2 22:36
    */
 
-  import { defineComponent, PropType } from 'vue';
+  import { PropType } from 'vue';
   import { useVModel } from '@vueuse/core';
   import DraggableTransitionGroup from './draggable-transition-group.vue';
   import CompRender from './comp-render';
   import type { VisualEditorBlockData } from '@/visual-editor/visual-editor.utils';
 
-  export default defineComponent({
+  defineOptions({
     name: 'SlotItem',
-    components: { CompRender, DraggableTransitionGroup },
-    props: {
-      slotKey: {
-        type: String as PropType<string | number>,
-        default: '',
-      },
-      drag: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-      },
-      children: {
-        type: Array as PropType<VisualEditorBlockData[]>,
-        default: () => [],
-      },
-      selectComp: {
-        type: Function as PropType<(comp: VisualEditorBlockData) => void>,
-        required: true,
-      },
-      onContextmenuBlock: {
-        type: Function as PropType<
-          (
-            e: MouseEvent,
-            block: VisualEditorBlockData,
-            parentBlocks?: VisualEditorBlockData[],
-          ) => void
-        >,
-        required: true,
-      },
-    },
-    emits: ['update:children', 'on-selected', 'update:drag'],
-    setup(props, { emit }) {
-      // 初始化时设置上次选中的组件
-      props.children.some((item) => item.focus && props.selectComp(item));
+  });
 
-      return {
-        isDrag: useVModel(props, 'drag', emit),
-        slotChildren: useVModel(props, 'children', emit),
-      };
+  const props = defineProps({
+    slotKey: {
+      type: String as PropType<string | number>,
+      default: '',
+    },
+    drag: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    children: {
+      type: Array as PropType<VisualEditorBlockData[]>,
+      default: () => [],
+    },
+    selectComp: {
+      type: Function as PropType<(comp: VisualEditorBlockData) => void>,
+      required: true,
+    },
+    onContextmenuBlock: {
+      type: Function as PropType<
+        (
+          e: MouseEvent,
+          block: VisualEditorBlockData,
+          parentBlocks?: VisualEditorBlockData[],
+        ) => void
+      >,
+      required: true,
     },
   });
+  const emit = defineEmits(['update:children', 'on-selected', 'update:drag']);
+
+  const isDrag = useVModel(props, 'drag', emit);
+  const slotChildren = useVModel(props, 'children', emit);
+
+  // 初始化时设置上次选中的组件
+  props.children.some((item) => item.focus && props.selectComp(item));
 </script>
 
 <style lang="scss" scoped>

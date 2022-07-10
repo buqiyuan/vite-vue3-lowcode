@@ -1,17 +1,17 @@
 import type { Animation } from '@/visual-editor/visual-editor.utils';
 
-export interface animationBoxTs {
+export type AnimationBox = {
   label: string;
   value: Animation[];
-}
+};
 // 动画类型
-export interface animationTabsTs {
-  in: animationBoxTs;
-  out: animationBoxTs;
-  other: animationBoxTs;
-}
+export type AnimationTabs = {
+  in: AnimationBox;
+  out: AnimationBox;
+  other: AnimationBox;
+};
 
-export const animationTabs: animationTabsTs = {
+export const animationTabs: AnimationTabs = {
   in: {
     label: '进入',
     value: [],
@@ -431,7 +431,7 @@ const opt = [
       },
     ],
   },
-];
+] as const;
 
 /**
  * @return {Object} { animationValue: animatonLabel }
@@ -446,7 +446,7 @@ const defaultOption = {
 };
 for (let index = 0; index < opt.length; index++) {
   const items = opt[index].children;
-  items.forEach((item) => {
+  items.forEach((item: LabelValue) => {
     if (inReg.test(item.label)) {
       animationTabs.in.value.push({
         ...item,
