@@ -1,6 +1,8 @@
 import { VisualEditorComponent } from '@/visual-editor/visual-editor.utils';
 
-const modules = import.meta.globEager('./*/index.tsx');
+const modules: Record<string, any> = import.meta.glob('./*/index.tsx', {
+  eager: true,
+});
 
 const components: Record<string, VisualEditorComponent> = {};
 

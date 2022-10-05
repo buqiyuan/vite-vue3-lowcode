@@ -1,6 +1,8 @@
 import { DefineComponent } from 'vue';
 
-const modules = import.meta.globEager('./*/index.(tsx|vue)');
+const modules: Record<string, DefineComponent> = import.meta.glob('./*/index.(tsx|vue)', {
+  eager: true,
+});
 
 const components: Record<string, DefineComponent> = {};
 

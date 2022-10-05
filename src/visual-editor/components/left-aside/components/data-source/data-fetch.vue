@@ -60,7 +60,6 @@
     ElMessage,
     ElCascader,
     ElIcon,
-    ExpandTrigger,
   } from 'element-plus';
   import { cloneDeep } from 'lodash-es';
   import { Delete, Edit } from '@element-plus/icons-vue';
@@ -171,7 +170,7 @@
                 children: 'entitys',
                 label: 'name',
                 value: 'key',
-                expandTrigger: ExpandTrigger.HOVER,
+                expandTrigger: 'hover',
               }}
               placeholder="请选择绑定的请求数据"
               onChange={handleBindChange}
@@ -185,7 +184,7 @@
                 children: 'entitys',
                 label: 'name',
                 value: 'key',
-                expandTrigger: ExpandTrigger.HOVER,
+                expandTrigger: 'hover',
               }}
               placeholder="请选择绑定的响应数据"
               onChange={handleBindChange}

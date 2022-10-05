@@ -19,7 +19,6 @@ import {
   ElFormItem,
   ElTooltip,
   ElIcon,
-  ExpandTrigger,
 } from 'element-plus';
 import { cloneDeep } from 'lodash-es';
 import { Warning } from '@element-plus/icons-vue';
@@ -93,7 +92,7 @@ export const PropConfig = defineComponent({
               children: 'entitys',
               label: 'name',
               value: 'key',
-              expandTrigger: ExpandTrigger.HOVER,
+              expandTrigger: 'hover',
             }}
             placeholder="请选择绑定的请求数据"
             v-model={propObj[prop]}
