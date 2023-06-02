@@ -1,4 +1,4 @@
-# 基于 Vite2.x + Vue3.x + TypeScript H5 低代码平台
+# 基于 Vite4.x + Vue3.x + TypeScript H5 低代码平台
 
 [![license](https://img.shields.io/github/license/buqiyuan/vite-vue3-lowcode.svg)](LICENSE)
 
@@ -66,7 +66,7 @@ pnpm build
 ## 技术栈
 
 - 编程语言：[TypeScript 4.x](https://www.typescriptlang.org/zh/) + [JavaScript](https://www.javascript.com/)
-- 构建工具：[Vite 2.x](https://cn.vitejs.dev/)
+- 构建工具：[Vite 4.x](https://cn.vitejs.dev/)
 - 前端框架：[Vue 3.x](https://v3.cn.vuejs.org/)
 - 路由工具：[Vue Router 4.x](https://next.router.vuejs.org/zh/index.html)
 - 状态管理：[Vuex 4.x](https://next.vuex.vuejs.org/)
