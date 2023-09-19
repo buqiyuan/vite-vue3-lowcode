@@ -9,16 +9,16 @@
 <script setup lang="ts">
   import { provide } from 'vue';
   import zhCn from 'element-plus/lib/locale/lang/zh-cn';
-  import { initVisualData, injectKey, localKey } from '@/visual-editor/hooks/useVisualData';
+  import { initVisualData, injectKey } from '@/visual-editor/hooks/useVisualData';
 
   const visualData = initVisualData();
   // 注入可视化编辑器所有配置
   provide(injectKey, visualData);
 
-  const { jsonData } = visualData;
+  const { saveChanges } = visualData;
 
   window.addEventListener('beforeunload', () => {
-    sessionStorage.setItem(localKey, JSON.stringify(jsonData));
+    saveChanges();
   });
 </script>
 
