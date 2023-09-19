@@ -99,16 +99,26 @@ export const initVisualData = () => {
     (url) => setCurrentPage(url),
   );
 
+  watch(
+    () => state.jsonData,
+    () => {
+      state.currentPage = state.jsonData.pages[route.path];
+    },
+  );
+
   // 更新page
   const updatePage = ({ newPath = '', oldPath, page }) => {
-    console.log(state.jsonData.pages[oldPath], page);
+    // console.log(state.jsonData.pages[oldPath], page.pages['/']);
     if (newPath && newPath != oldPath) {
       page.path = newPath;
       // 如果传了新的路径，则认为是修改页面路由
-      state.jsonData.pages[getPrefixPath(newPath)] = { ...state.jsonData.pages[oldPath], ...page };
+      state.jsonData.pages[getPrefixPath(newPath)] = {
+        ...state.jsonData.pages[oldPath],
+        ...page.pages[newPath],
+      };
       deletePage(oldPath, getPrefixPath(newPath));
     } else {
-      Object.assign(state.jsonData.pages[oldPath], page);
+      Object.assign(state.jsonData.pages[oldPath], page.pages[oldPath]);
     }
   };
   // 添加page
@@ -220,6 +230,10 @@ export const initVisualData = () => {
     state.jsonData = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
   };
 
+  const saveChanges = () => {
+    sessionStorage.setItem(localKey, JSON.stringify(state.jsonData));
+  };
+
   return {
     visualConfig,
     jsonData: readonly(state.jsonData), // 保护JSONData避免直接修改
@@ -238,6 +252,7 @@ export const initVisualData = () => {
     incrementPage,
     deletePage,
     updatePageBlock,
+    saveChanges,
   };
 };
 
